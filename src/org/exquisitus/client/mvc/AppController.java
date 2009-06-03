@@ -11,6 +11,8 @@ import com.google.gwt.core.client.GWT;
 
 public class AppController extends Controller {
 	
+	public static final String GREETMOCKSERVICE = "GREET";
+	
 	private final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
 
 	private AppView app = null;
@@ -25,7 +27,7 @@ public class AppController extends Controller {
 	protected void initialize() {
 		super.initialize();
 	
-		Registry.register("GREET", greetingService);
+		Registry.register(AppController.GREETMOCKSERVICE, greetingService);
 	}
 	
 	@Override
@@ -33,5 +35,11 @@ public class AppController extends Controller {
 		if (event.getType() == ApplicationEvents.InitAppMenu)
 			forwardToView(app, event);
 	}
+	
+	private void onLogin() {}
+	private void onShowCase() {}
+	private void onContact() {}
+	private void onAbout() {}
+
 
 }

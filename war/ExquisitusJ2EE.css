@@ -32,3 +32,19 @@ h1 {
 #closeButton {
   margin: 15px 6px 6px;
 }
+
+.exec-icon {
+	background-image: url(resources/images/icons/exec.png);
+}
+
+.mouse-icon {
+	background-image: url(resources/images/icons/mouse.png);
+}
+
+.network-icon {
+	background-image: url(resources/images/icons/network.png);
+}
+
+.system-icon {
+	background-image: url(resources/images/icons/system.png);
+}

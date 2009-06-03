@@ -1,19 +1,25 @@
 package org.exquisitus.client.mvc;
 
 import org.exquisitus.client.ApplicationEvents;
-import org.exquisitus.client.GreetingService;
 import org.exquisitus.client.GreetingServiceAsync;
 
 import com.extjs.gxt.ui.client.Registry;
+import com.extjs.gxt.ui.client.Style.ButtonArrowAlign;
+import com.extjs.gxt.ui.client.Style.LayoutRegion;
 import com.extjs.gxt.ui.client.event.ButtonEvent;
 import com.extjs.gxt.ui.client.event.SelectionListener;
 import com.extjs.gxt.ui.client.mvc.AppEvent;
 import com.extjs.gxt.ui.client.mvc.Controller;
 import com.extjs.gxt.ui.client.mvc.View;
+import com.extjs.gxt.ui.client.util.Margins;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
+import com.extjs.gxt.ui.client.widget.HtmlContainer;
 import com.extjs.gxt.ui.client.widget.Viewport;
-import com.extjs.gxt.ui.client.widget.Window;
 import com.extjs.gxt.ui.client.widget.button.Button;
+import com.extjs.gxt.ui.client.widget.layout.BorderLayout;
+import com.extjs.gxt.ui.client.widget.layout.BorderLayoutData;
+import com.extjs.gxt.ui.client.widget.menu.Menu;
+import com.extjs.gxt.ui.client.widget.menu.MenuItem;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -26,10 +32,45 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 public class AppView extends View {
 	
-	private Button btn = new Button();
+	private final String PAGEHEADERTITLE = "ExquisitusJ2EE Explorer Showcase";
 
+	private BorderLayout  blayout = new BorderLayout();
+	private HtmlContainer northPanel   = null;
+	private ContentPanel  centrePanel  = new ContentPanel();
+	
+	private Button btnMainMenu = new Button();
+	
 	public AppView(Controller controller) {
 		super(controller);
+	}
+	
+	protected void createView() {
+		Viewport vp = new Viewport();
+		vp.setLayout(blayout);
+		
+		StringBuffer sb = new StringBuffer();
+        sb.append("<div id='exquisitus-north-panel'></div><div id=demo-title><h3>" + PAGEHEADERTITLE + "</h3></div>");
+		
+		northPanel = new HtmlContainer(sb.toString());
+		northPanel.setBorders(false);
+		//northPanel.setBodyBorder(false);
+		//northPanel.setHeaderVisible(false);
+	    northPanel.setEnableState(false);
+	    northPanel.setId("exquisitus-header");
+	    northPanel.addStyleName("x-small-editor");
+    
+		centrePanel.setBorders(false);
+		centrePanel.setBodyBorder(false);
+		centrePanel.setHeaderVisible(false);
+
+		BorderLayoutData northData = new BorderLayoutData(LayoutRegion.NORTH,33);
+		
+		BorderLayoutData centerData = new BorderLayoutData(LayoutRegion.CENTER);  
+		
+		vp.add(northPanel,northData);
+		vp.add(centrePanel,centerData);
+		centrePanel.add(btnMainMenu);
+		RootPanel.get().add(vp);
 	}
 
 	@Override
@@ -40,15 +81,32 @@ public class AppView extends View {
 		
 	}
 	
+	private Menu createMenu() {  
+		     Menu menu = new Menu();  
+		     menu.add(new MenuItem("Login"));  
+		     menu.add(new MenuItem("J2EE ShowCase"));  
+		     menu.add(new MenuItem("Contact"));  
+		     menu.add(new MenuItem("About"));
+		     return menu;  
+    }  
+	
 	@Override
 	protected void initialize() {
-		btn = new Button("Hello J2EE Experiment!");
+		btnMainMenu = new Button("Hello J2EE Experiment!");
+		
+		btnMainMenu.setMenu(createMenu());
+		btnMainMenu.setArrowAlign(ButtonArrowAlign.BOTTOM);
+		btnMainMenu.setIconStyle("exec"); // TODO FIXME not working yet
+		
+		btnMainMenu.setShim(true);
+		btnMainMenu.setShadow(true);
+		btnMainMenu.setPosition(40, 40);
+		
+		btnMainMenu.addSelectionListener(new SelectionListener<ButtonEvent>(){
 	
-		btn.addSelectionListener(new SelectionListener<ButtonEvent>(){
-
 			@Override
 			public void componentSelected(ButtonEvent ce) {
-				GreetingServiceAsync gs = (GreetingServiceAsync)Registry.get("GREET");
+				GreetingServiceAsync gs = (GreetingServiceAsync)Registry.get(AppController.GREETMOCKSERVICE);
 				gs.greetServer(RootPanel.get().getTitle(), new AsyncCallback<String>() {
 
 					@Override
@@ -69,30 +127,18 @@ public class AppView extends View {
 		});
 	}
 
-	protected void createView() {
-		Viewport vp = new Viewport();
-		vp.setAutoHeight(true);
-		vp.setAutoWidth(true);
-		ContentPanel cp = new ContentPanel();
-		cp.setWidth(400);
-		cp.setHeight(400);
-		
-		/*cp.sinkEvents(Event.ONMOUSEOVER);
-		
-		cp.addListener(new EventType(Event.ONMOUSEOVER), new Listener<ComponentEvent>() {
+	
+	
+	/*cp.sinkEvents(Event.ONMOUSEOVER);
+	
+	cp.addListener(new EventType(Event.ONMOUSEOVER), new Listener<ComponentEvent>() {
 
-			@Override
-			public void handleEvent(ComponentEvent be) {
-				GWT.log(be.getXY().x + " " + be.getXY().y, null);
-				
-			}
+		@Override
+		public void handleEvent(ComponentEvent be) {
+			GWT.log(be.getXY().x + " " + be.getXY().y, null);
 			
-		});*/
+		}
 		
-		cp.add(btn);
-		vp.add(cp);
-		RootPanel.get().add(vp);
-		GWT.log("bel messaggio del.. cavolo", null);
-	}
+	});*/
 
 }
