@@ -70,7 +70,7 @@ public class AppView extends View {
 		centrePanel = new LayoutContainer();
 		centrePanel.setBorders(false);
 		centrePanel.setStyleName("background-panel");
-				
+				 
 		BorderLayoutData northData = new BorderLayoutData(LayoutRegion.NORTH,33);
 
 		BorderLayoutData centerData = new BorderLayoutData(LayoutRegion.CENTER);
