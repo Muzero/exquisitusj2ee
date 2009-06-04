@@ -11,6 +11,7 @@ import com.extjs.gxt.ui.client.event.MenuEvent;
 import com.extjs.gxt.ui.client.event.SelectionListener;
 import com.extjs.gxt.ui.client.mvc.AppEvent;
 import com.extjs.gxt.ui.client.mvc.Controller;
+import com.extjs.gxt.ui.client.mvc.Dispatcher;
 import com.extjs.gxt.ui.client.mvc.View;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.HtmlContainer;
@@ -91,7 +92,7 @@ public class AppView extends View {
 
 			@Override
 			public void componentSelected(MenuEvent ce) {
-
+				Dispatcher.forwardEvent(ApplicationEvents.ShowLoginEvent);
 			}
 		});
 		menu.add(itemLogin);
@@ -141,12 +142,12 @@ public class AppView extends View {
 		btnMainMenu.setShadow(true);
 		btnMainMenu.setPosition(40, 40);
 
-		btnMainMenu.addSelectionListener(new SelectionListener<ButtonEvent>() {
+	/*	btnMainMenu.addSelectionListener(new SelectionListener<ButtonEvent>() {
 
 			@Override
 			public void componentSelected(ButtonEvent ce) {
-				GreetingServiceAsync gs = (GreetingServiceAsync) Registry
-						.get(AppController.GREETMOCKSERVICE);
+				GreetingServiceAsync gs = (GreetingServiceAsync) Registry.get(AppController.GREETMOCKSERVICE);
+				
 				gs.greetServer(RootPanel.get().getTitle(),
 						new AsyncCallback<String>() {
 
@@ -165,7 +166,7 @@ public class AppView extends View {
 
 			}
 
-		});
+		});*/
 	}
 
 	/*

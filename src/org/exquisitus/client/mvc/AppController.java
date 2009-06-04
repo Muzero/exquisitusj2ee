@@ -5,6 +5,7 @@ import org.exquisitus.client.services.GreetingService;
 import org.exquisitus.client.services.GreetingServiceAsync;
 
 import com.extjs.gxt.ui.client.Registry;
+import com.extjs.gxt.ui.client.event.EventType;
 import com.extjs.gxt.ui.client.mvc.AppEvent;
 import com.extjs.gxt.ui.client.mvc.Controller;
 import com.google.gwt.core.client.GWT;
@@ -21,6 +22,7 @@ public class AppController extends Controller {
 		app = new AppView(this);
 	
 		registerEventTypes(ApplicationEvents.InitAppMenu);
+		
 	}
 	
 	@Override
@@ -34,9 +36,9 @@ public class AppController extends Controller {
 	public void handleEvent(AppEvent event) {
 		if (event.getType() == ApplicationEvents.InitAppMenu)
 			forwardToView(app, event);
+		
 	}
 	
-	private void onLogin() {}
 	private void onShowCase() {}
 	private void onContact() {}
 	private void onAbout() {}
