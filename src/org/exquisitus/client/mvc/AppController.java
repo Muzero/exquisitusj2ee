@@ -1,8 +1,8 @@
 package org.exquisitus.client.mvc;
 
 import org.exquisitus.client.ApplicationEvents;
-import org.exquisitus.client.GreetingService;
-import org.exquisitus.client.GreetingServiceAsync;
+import org.exquisitus.client.services.GreetingService;
+import org.exquisitus.client.services.GreetingServiceAsync;
 
 import com.extjs.gxt.ui.client.Registry;
 import com.extjs.gxt.ui.client.mvc.AppEvent;

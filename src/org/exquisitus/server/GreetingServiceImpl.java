@@ -1,6 +1,7 @@
 package org.exquisitus.server;
 
-import org.exquisitus.client.GreetingService;
+import org.exquisitus.client.services.GreetingService;
+
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**

@@ -1,4 +1,4 @@
-package org.exquisitus.client;
+package org.exquisitus.client.services;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
