@@ -63,7 +63,7 @@ public class AppView extends View {
 		northPanel.setStyleAttribute("border", "0pt none");
 		
 		northPanel.setStyleAttribute("color", "white");
-		//northPanel.setStyleAttribute("font", "16px Arial, Helvetica, sans-serif");
+		//northPanel.setStyleAttribute("font", "18px Arial, Helvetica, sans-serif");
 		northPanel.setStyleAttribute("font", "16px tahoma, arial, sans-serif");
 		northPanel.setStyleAttribute("padding", "6 0 8 6px");
 
