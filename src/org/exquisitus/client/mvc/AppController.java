@@ -39,9 +39,7 @@ public class AppController extends Controller {
 		
 	}
 	
-	private void onShowCase() {}
-	private void onContact() {}
-	private void onAbout() {}
+	
 
 
 }

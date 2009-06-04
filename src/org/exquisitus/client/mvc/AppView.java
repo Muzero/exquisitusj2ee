@@ -15,6 +15,7 @@ import com.extjs.gxt.ui.client.mvc.Dispatcher;
 import com.extjs.gxt.ui.client.mvc.View;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.HtmlContainer;
+import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.Viewport;
 import com.extjs.gxt.ui.client.widget.button.Button;
 import com.extjs.gxt.ui.client.widget.layout.BorderLayout;
@@ -37,7 +38,7 @@ public class AppView extends View {
 
 	private BorderLayout blayout = new BorderLayout();
 	private HtmlContainer northPanel = null;
-	private ContentPanel centrePanel = new ContentPanel();
+	private LayoutContainer centrePanel = null;
 
 	private Button btnMainMenu = new Button();
 
@@ -56,24 +57,30 @@ public class AppView extends View {
 
 		northPanel = new HtmlContainer(sb.toString());
 		northPanel.setBorders(false);
-		// northPanel.setBodyBorder(false);
-		// northPanel.setHeaderVisible(false);
 		northPanel.setEnableState(false);
 		northPanel.setId("exquisitus-header");
-		northPanel.addStyleName("x-small-editor");
+		northPanel.setStyleAttribute("background", "#1E4176");
+		northPanel.setStyleAttribute("border", "0pt none");
+		
+		northPanel.setStyleAttribute("color", "white");
+		//northPanel.setStyleAttribute("font", "16px Arial, Helvetica, sans-serif");
+		northPanel.setStyleAttribute("font", "16px tahoma, arial, sans-serif");
+		northPanel.setStyleAttribute("padding", "6 0 8 6px");
 
+		centrePanel = new LayoutContainer();
 		centrePanel.setBorders(false);
-		centrePanel.setBodyBorder(false);
-		centrePanel.setHeaderVisible(false);
-
+		centrePanel.setStyleName("background-panel");
+				
 		BorderLayoutData northData = new BorderLayoutData(LayoutRegion.NORTH,33);
 
 		BorderLayoutData centerData = new BorderLayoutData(LayoutRegion.CENTER);
 
 		vp.add(northPanel, northData);
-		vp.add(centrePanel, centerData);
+		vp.add(centrePanel, centerData);		
+		
 		centrePanel.add(btnMainMenu);
 		RootPanel.get().add(vp);
+		
 	}
 
 	@Override
@@ -136,7 +143,7 @@ public class AppView extends View {
 
 		btnMainMenu.setMenu(createMenu());
 		btnMainMenu.setArrowAlign(ButtonArrowAlign.BOTTOM);
-		btnMainMenu.setIconStyle("exec"); // TODO FIXME not working yet
+		btnMainMenu.setIconStyle("exec"); // TODO FIXME not working yet damn
 
 		btnMainMenu.setShim(true);
 		btnMainMenu.setShadow(true);

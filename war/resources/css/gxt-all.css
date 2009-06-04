@@ -6642,6 +6642,10 @@ body.x-body-masked .x-window-plain .x-window-mc {
     background-image:url(../images/default/window/icon-error.gif);
 }
 
+.background-panel {
+    background:  #ffffff url(../images/icons/bg.gif) repeat-x;
+}
+
 .exec-icon {
 	background-image: url(../images/icons/exec.png);
 }
