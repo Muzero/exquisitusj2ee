@@ -24,9 +24,7 @@ public class ExquisitusJ2EE implements EntryPoint {
 
 	private Dispatcher dispatcher = null;
 
-	/**
-	 * This is the entry point method.
-	 */
+	/* This is the entry point method. */
 	public void onModuleLoad() {
 		 
 		try {
