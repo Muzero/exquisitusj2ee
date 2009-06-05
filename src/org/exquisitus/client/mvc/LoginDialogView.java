@@ -46,7 +46,7 @@ public class LoginDialogView extends View {
 
 		loginDialog = new Dialog();
 		loginDialog.setBodyBorder(true);
-		loginDialog.setHeading("Login Dialog");
+		loginDialog.setHeading("Exquisitus J2EE Login Dialog");
 		loginDialog.setWidth(640);
 		loginDialog.setHeight(280);
 		loginDialog.setButtons(Dialog.CANCEL);
@@ -78,13 +78,21 @@ public class LoginDialogView extends View {
 				String user = loginFirstName.getValue();
 				String password = loginPass.getValue();
 				
-				LoginServiceAsync login = Registry.get(LoginDialogController.LOGINMOCKSERVICE);
+			//	GreetingServiceAsync s = (GreetingServiceAsync) Registry.get(AppController.GREETMOCKSERVICE);
+			//	s.greetServer("CIAO", RemoteServiceFacade.getInstance().getMockAsyncCallback());
+
+				//LoginServiceAsync login = (LoginServiceAsync) Registry.get(LoginDialogController.LOGINMOCKSERVICE);
+				//login.login(user, password, RemoteServiceFacade.getInstance().getMockAsyncCallback());
+				
+				
+				
+				LoginServiceAsync login = (LoginServiceAsync) Registry.get(LoginDialogController.LOGINMOCKSERVICE);
 				login.login(user, password, new AsyncCallback<String>() {
 
 					@Override
 					public void onFailure(Throwable caught) {
 						MessageBox mb = new MessageBox();
-						mb.setMessage("Error... " + caught.getMessage());
+						mb.setMessage("Error... " + caught.getMessage() + "");
 						mb.setTitle("ERROR");
 						mb.setModal(true);
 						mb.setIcon(MessageBox.ERROR);
@@ -198,7 +206,6 @@ public class LoginDialogView extends View {
 	protected void handleEvent(AppEvent event) {
 
 		if (event.getType() == ApplicationEvents.ShowLoginEvent) {
-			GWT.log("YEAH", null);
 			loginDialog.show();
 		}
 	}

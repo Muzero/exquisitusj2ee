@@ -34,7 +34,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 public class AppView extends View {
 
-	private final String PAGEHEADERTITLE = "ExquisitusJ2EE Explorer Showcase";
+	private final String PAGEHEADERTITLE = "ExquisitusJ2EE Explorer Showcase 同法》规定：企业在制定、修改有关规章制度时，应当经职工代表大会或者全体职工";
 
 	private BorderLayout blayout = new BorderLayout();
 	private HtmlContainer northPanel = null;
@@ -109,7 +109,7 @@ public class AppView extends View {
 
 			@Override
 			public void componentSelected(MenuEvent ce) {
-
+				Dispatcher.forwardEvent(ApplicationEvents.InitShowCaseEvent);
 			}
 		});
 		menu.add(itemShowCase);
@@ -149,31 +149,6 @@ public class AppView extends View {
 		btnMainMenu.setShadow(true);
 		btnMainMenu.setPosition(40, 40);
 
-	/*	btnMainMenu.addSelectionListener(new SelectionListener<ButtonEvent>() {
-
-			@Override
-			public void componentSelected(ButtonEvent ce) {
-				GreetingServiceAsync gs = (GreetingServiceAsync) Registry.get(AppController.GREETMOCKSERVICE);
-				
-				gs.greetServer(RootPanel.get().getTitle(),
-						new AsyncCallback<String>() {
-
-							@Override
-							public void onFailure(Throwable caught) {
-								GWT.log("RPC Call error", null);
-							}
-
-							@Override
-							public void onSuccess(String result) {
-
-								GWT.log("SUCCESS! " + result, null);
-							}
-
-						});
-
-			}
-
-		});*/
 	}
 
 	/*

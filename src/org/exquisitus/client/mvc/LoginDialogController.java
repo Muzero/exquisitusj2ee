@@ -13,7 +13,7 @@ public class LoginDialogController extends Controller {
 	
 	public static final String LOGINMOCKSERVICE = "LOGIN";
 	
-	private final LoginServiceAsync loginService = GWT.create(LoginService.class);
+	private final LoginServiceAsync loginService = (LoginServiceAsync) GWT.create(LoginService.class);
 	
 	private LoginDialogView loginDialogView = null;
 

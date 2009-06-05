@@ -12,6 +12,7 @@ package org.exquisitus.client;
 
 import org.exquisitus.client.mvc.AppController;
 import org.exquisitus.client.mvc.LoginDialogController;
+import org.exquisitus.client.mvc.ShowCaseController;
 
 import com.extjs.gxt.ui.client.GXT;
 import com.extjs.gxt.ui.client.mvc.Dispatcher;
@@ -39,7 +40,7 @@ public class ExquisitusJ2EE implements EntryPoint {
 		dispatcher = Dispatcher.get();
 		dispatcher.addController(new AppController());
 		dispatcher.addController(new LoginDialogController()); 
-		//dispatcher.addController(new ShowCaseController()); TODO
+		dispatcher.addController(new ShowCaseController()); 
 		//dispatcher.addController(new MessageDialogController()); TODO
 		//dispatcher.addController(new AboutDialogController()); TODO
 		
@@ -51,3 +52,4 @@ public class ExquisitusJ2EE implements EntryPoint {
 		} catch (Exception e) { e.printStackTrace();}	
 	}
 }
+

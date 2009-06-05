@@ -17,8 +17,9 @@ public class ShowCaseController extends Controller {
 
 	@Override
 	public void handleEvent(AppEvent event) {
-		
-
+	
+		if (event.getType() == ApplicationEvents.InitShowCaseEvent)
+			forwardToView(showCaseView, event);
 	}
 
 }
