@@ -9,7 +9,13 @@ import com.extjs.gxt.ui.client.mvc.Dispatcher;
 public class ShowCaseController extends Controller {
 	
 	private ShowCaseView showCaseView = null;
-
+	// private LoadDialogView = null; TODO
+	
+	// services to implement
+	// Loader of showcase
+	// loader of ContentPanels view
+	// loader of source code!!!
+	
 	public ShowCaseController() {
 		showCaseView = new ShowCaseView(this);
 		

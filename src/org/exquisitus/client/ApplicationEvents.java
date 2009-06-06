@@ -26,5 +26,7 @@ public final class ApplicationEvents {
 	public static final EventType ShowAboutDialogEvent   = new EventType();
 
 	public static final EventType SelectSubViewEvent = new EventType();
+
+	public static final EventType CloseShowCaseEvent = new EventType();
 	
 }

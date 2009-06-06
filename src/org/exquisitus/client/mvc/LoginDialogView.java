@@ -51,6 +51,7 @@ public class LoginDialogView extends View {
 		loginDialog.setHeight(280);
 		loginDialog.setButtons(Dialog.CANCEL);
 		loginDialog.setHideOnButtonClick(true);
+		loginDialog.setShadow(true);
 
 		btnRegister = new Button("REGISTER");
 		btnLogin = new Button("LOGIN");

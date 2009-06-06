@@ -6642,8 +6642,19 @@ body.x-body-masked .x-window-plain .x-window-mc {
     background-image:url(../images/default/window/icon-error.gif);
 }
 
+/* HERE START THE EDITING (Muzero)*/
+/*
 .background-panel {
     background:  #ffffff url(../images/icons/bg.gif) repeat-x;
+}
+*/
+
+.background-panel {
+	background: #42afdc url(../images/icons/html-bg.gif) repeat-x;
+}
+
+.secondlayer-panel {
+	background: url(../images/icons/main-bg.jpg) no-repeat center top;
 }
 
 .exec-icon {

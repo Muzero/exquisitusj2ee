@@ -10,12 +10,14 @@ import com.extjs.gxt.ui.client.mvc.AppEvent;
 import com.extjs.gxt.ui.client.mvc.Controller;
 import com.extjs.gxt.ui.client.mvc.Dispatcher;
 import com.extjs.gxt.ui.client.mvc.View;
+import com.extjs.gxt.ui.client.widget.Html;
 import com.extjs.gxt.ui.client.widget.HtmlContainer;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.Viewport;
 import com.extjs.gxt.ui.client.widget.button.Button;
 import com.extjs.gxt.ui.client.widget.layout.BorderLayout;
 import com.extjs.gxt.ui.client.widget.layout.BorderLayoutData;
+import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.extjs.gxt.ui.client.widget.menu.Menu;
 import com.extjs.gxt.ui.client.widget.menu.MenuItem;
 import com.extjs.gxt.ui.client.widget.menu.SeparatorMenuItem;
@@ -29,7 +31,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 public class AppView extends View {
 
-	private final String PAGEHEADERTITLE = "ExquisitusJ2EE Explorer Showcase 同法》规定：企业在制定、修改有关规章制度时，应当经职工代表大会或者全体职工";
+	private final String PAGEHEADERTITLE = "ExquisitusJ2EE Explorer Showcase ";
 
 	private BorderLayout blayout = new BorderLayout();
 	private HtmlContainer northPanel = null;
@@ -46,8 +48,7 @@ public class AppView extends View {
 		vp.setLayout(blayout);
 
 		StringBuffer sb = new StringBuffer();
-		sb
-				.append("<div id='exquisitus-north-panel'></div><div id=demo-title><h3>"
+		sb.append("<div id='exquisitus-north-panel'></div><div id=demo-title><h3>"
 						+ PAGEHEADERTITLE + "</h3></div>");
 
 		northPanel = new HtmlContainer(sb.toString());
@@ -55,8 +56,7 @@ public class AppView extends View {
 		northPanel.setEnableState(false);
 		northPanel.setId("exquisitus-header");
 		northPanel.setStyleAttribute("background", "#1E4176");
-		northPanel.setStyleAttribute("border", "0pt none");
-		
+		northPanel.setStyleAttribute("border", "0pt none");		
 		northPanel.setStyleAttribute("color", "white");
 		//northPanel.setStyleAttribute("font", "18px Arial, Helvetica, sans-serif");
 		northPanel.setStyleAttribute("font", "16px tahoma, arial, sans-serif");
@@ -65,7 +65,12 @@ public class AppView extends View {
 		centrePanel = new LayoutContainer();
 		centrePanel.setBorders(false);
 		centrePanel.setStyleName("background-panel");
-				 
+		centrePanel.setLayout(new FitLayout());
+		
+		LayoutContainer secondlayerPanel = new LayoutContainer();
+		secondlayerPanel.setStyleName("secondlayer-panel");
+		centrePanel.add(secondlayerPanel);
+		
 		BorderLayoutData northData = new BorderLayoutData(LayoutRegion.NORTH,33);
 
 		BorderLayoutData centerData = new BorderLayoutData(LayoutRegion.CENTER);
@@ -73,7 +78,7 @@ public class AppView extends View {
 		vp.add(northPanel, northData);
 		vp.add(centrePanel, centerData);		
 		
-		centrePanel.add(btnMainMenu);
+		secondlayerPanel.add(btnMainMenu);
 		RootPanel.get().add(vp);
 		
 	}
@@ -95,6 +100,7 @@ public class AppView extends View {
 			@Override
 			public void componentSelected(MenuEvent ce) {
 				Dispatcher.forwardEvent(ApplicationEvents.ShowLoginEvent);
+			
 			}
 		});
 		menu.add(itemLogin);
