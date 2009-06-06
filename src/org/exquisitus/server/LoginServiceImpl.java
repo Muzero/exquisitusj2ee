@@ -1,8 +1,12 @@
 package org.exquisitus.server;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.exquisitus.client.model.User;
@@ -12,23 +16,52 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 @SuppressWarnings("serial")
 public class LoginServiceImpl extends RemoteServiceServlet implements LoginService {
 
+	private Logger log = Logger.getLogger(LoginServiceImpl.class.getName());
+
+	private static final String SESSIONUSER = "CURRENTUSER";
+	private static final String APPLICATIONUSERLIST = "APPLICATIONUSERLIST";
+	
 	private Map<String,String> mokmap = new HashMap<String,String>();
 	
+	private List<User> currentuserlist = null;
 	private HttpSession session = null;
 	
 	public LoginServiceImpl() {
-		session = this.getThreadLocalRequest().getSession();	
+			
+		ServletContext cxt = this.getServletContext();
+		
+		currentuserlist = (List<User>) cxt.getAttribute(APPLICATIONUSERLIST);
+		
+		if (currentuserlist == null)
+		{
+			cxt.setAttribute(APPLICATIONUSERLIST, new ArrayList<User>());
+			currentuserlist = (List<User>) cxt.getAttribute(APPLICATIONUSERLIST);	
+		}
 	}
 	
 	@Override
-	public String login(String user, String password) {  // TODO it's only a mock, replace with a REAL login system
+	public String login(String username, String password) {  // TODO it's only a mock, replace with a REAL login system
 		
-		User cuser = (User) session.getAttribute("cuser");
+		session = this.getThreadLocalRequest().getSession();
+			
+		log.info(session.getId());
 		
-		if (cuser == null)
-			session.setAttribute("cuser", new User());
+		User user = (User) session.getAttribute(SESSIONUSER);
 		
-		return password.equals(mokmap.get("user")) ? "FAILED" : "SUCCESS";
+		if (user == null)
+		{
+			user = new User();
+			user.setUsername(username);
+			user.setPassword(password);
+			
+			session.setAttribute(SESSIONUSER, user);
+		}
+		
+		currentuserlist.add(user);
+		
+		log.info("User connected " + currentuserlist.size());
+		
+		return user.getUsername() + " " + user.getPassword();
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import org.exquisitus.client.ApplicationEvents;
 
 import com.extjs.gxt.ui.client.mvc.AppEvent;
 import com.extjs.gxt.ui.client.mvc.Controller;
+import com.extjs.gxt.ui.client.mvc.Dispatcher;
 
 public class ShowCaseController extends Controller {
 	
@@ -13,12 +14,16 @@ public class ShowCaseController extends Controller {
 		showCaseView = new ShowCaseView(this);
 		
 		registerEventTypes(ApplicationEvents.InitShowCaseEvent);
+		registerEventTypes(ApplicationEvents.SelectSubViewEvent);
 	}
 
 	@Override
 	public void handleEvent(AppEvent event) {
 	
 		if (event.getType() == ApplicationEvents.InitShowCaseEvent)
+			forwardToView(showCaseView, event);
+	
+		if (event.getType() == ApplicationEvents.SelectSubViewEvent)
 			forwardToView(showCaseView, event);
 	}
 

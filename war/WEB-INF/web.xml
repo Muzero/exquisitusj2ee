@@ -15,10 +15,18 @@
     <servlet-name>greetServlet</servlet-name>
     <servlet-class>org.exquisitus.server.GreetingServiceImpl</servlet-class>
   </servlet>
-  
   <servlet-mapping>
     <servlet-name>greetServlet</servlet-name>
     <url-pattern>/exquisitusj2ee/greet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>loginServlet</servlet-name>
+    <servlet-class>org.exquisitus.server.LoginServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>loginServlet</servlet-name>
+    <url-pattern>/exquisitusj2ee/login</url-pattern>
   </servlet-mapping>
 
 </web-app>

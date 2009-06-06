@@ -78,12 +78,23 @@ public class LoginDialogView extends View {
 				String user = loginFirstName.getValue();
 				String password = loginPass.getValue();
 				
+				if (user == null || password == null)
+				{
+					MessageBox mb = new MessageBox();
+					mb.setMessage("Insert Username or Password!");
+					mb.setTitle("ERROR");
+					mb.setModal(true);
+					mb.setIcon(MessageBox.ERROR);
+					mb.show();	
+					
+					return;
+				}
+				
 			//	GreetingServiceAsync s = (GreetingServiceAsync) Registry.get(AppController.GREETMOCKSERVICE);
 			//	s.greetServer("CIAO", RemoteServiceFacade.getInstance().getMockAsyncCallback());
 
 				//LoginServiceAsync login = (LoginServiceAsync) Registry.get(LoginDialogController.LOGINMOCKSERVICE);
 				//login.login(user, password, RemoteServiceFacade.getInstance().getMockAsyncCallback());
-				
 				
 				
 				LoginServiceAsync login = (LoginServiceAsync) Registry.get(LoginDialogController.LOGINMOCKSERVICE);
