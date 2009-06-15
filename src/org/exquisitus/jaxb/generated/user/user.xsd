@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="userslist">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="user"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="user">
+    <xs:complexType>
+      <xs:attribute name="auth" use="required" type="xs:boolean"/>
+      <xs:attribute name="email" use="required"/>
+      <xs:attribute name="password" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="role" use="required" type="xs:NCName"/>
+      <xs:attribute name="username" use="required" type="xs:NMTOKEN"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

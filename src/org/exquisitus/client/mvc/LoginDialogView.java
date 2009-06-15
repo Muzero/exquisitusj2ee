@@ -33,8 +33,12 @@ public class LoginDialogView extends View {
 	private Button btnLogin = null;
 
 	private TextField<String> loginFirstName;
-
 	private TextField<String> loginPass;
+	
+	private TextField<String> firstNameReg;
+	private TextField<String> passReg;
+	private TextField<String> pass2Reg;
+	private TextField<String> emailReg;
 
 	public LoginDialogView(Controller controller) {
 		super(controller);
@@ -52,10 +56,11 @@ public class LoginDialogView extends View {
 		loginDialog.setButtons(Dialog.CANCEL);
 		loginDialog.setHideOnButtonClick(true);
 		loginDialog.setShadow(true);
+		loginDialog.setResizable(false);
 
 		btnRegister = new Button("REGISTER");
 		btnLogin = new Button("LOGIN");
-		
+
 		HorizontalPanel hp = new HorizontalPanel();
 
 		hp.add(createLoginFormPanel());
@@ -65,76 +70,130 @@ public class LoginDialogView extends View {
 		loginDialog.setButtonAlign(HorizontalAlignment.RIGHT);
 
 		setBtnListeners();
-		
+
 		loginDialog.hide();
 	}
 
 	private void setBtnListeners() {
-		
+
 		btnLogin.addSelectionListener(new SelectionListener<ButtonEvent>() {
 
 			@Override
 			public void componentSelected(ButtonEvent ce) {
-				
-				String user = loginFirstName.getValue();
-				String password = loginPass.getValue();
-				
-				if (user == null || password == null)
-				{
-					MessageBox mb = new MessageBox();
-					mb.setMessage("Insert Username or Password!");
-					mb.setTitle("ERROR");
-					mb.setModal(true);
-					mb.setIcon(MessageBox.ERROR);
-					mb.show();	
-					
+
+				final String user = loginFirstName.getValue();
+				final String password = loginPass.getValue();
+
+				if (user == null || password == null) {
+					LoginDialogView.dialogUtilShow("Insert Username or Password!", "LOGIN ERROR", true, true);
 					return;
 				}
-				
-			//	GreetingServiceAsync s = (GreetingServiceAsync) Registry.get(AppController.GREETMOCKSERVICE);
-			//	s.greetServer("CIAO", RemoteServiceFacade.getInstance().getMockAsyncCallback());
 
-				//LoginServiceAsync login = (LoginServiceAsync) Registry.get(LoginDialogController.LOGINMOCKSERVICE);
-				//login.login(user, password, RemoteServiceFacade.getInstance().getMockAsyncCallback());
-				
-				
-				LoginServiceAsync login = (LoginServiceAsync) Registry.get(LoginDialogController.LOGINMOCKSERVICE);
+				// GreetingServiceAsync s = (GreetingServiceAsync)
+				// Registry.get(AppController.GREETMOCKSERVICE);
+				// s.greetServer("CIAO",RemoteServiceFacade.getInstance().getMockAsyncCallback());
+
+				// LoginServiceAsync login = (LoginServiceAsync)
+				// Registry.get(LoginDialogController.LOGINMOCKSERVICE);
+				// login.login(user, password,RemoteServiceFacade.getInstance().getMockAsyncCallback());
+
+				LoginServiceAsync login = (LoginServiceAsync) Registry
+						.get(LoginDialogController.LOGINMOCKSERVICE);
 				login.login(user, password, new AsyncCallback<String>() {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						MessageBox mb = new MessageBox();
-						mb.setMessage("Error... " + caught.getMessage() + "");
-						mb.setTitle("ERROR");
-						mb.setModal(true);
-						mb.setIcon(MessageBox.ERROR);
-						mb.show();
+						LoginDialogView.dialogUtilShow("Error... " + caught.getMessage() + "", "LOGIN ERROR", true, true);
 					}
 
 					@Override
-					public void onSuccess(String result) {
-					
-						MessageBox mb = new MessageBox();
-						mb.setMessage("Autenticated!... " +  result);
-						mb.show();
-					}
-					
+					public void onSuccess(String username) {
+
+						if (username != null) {
+
+							loginDialog.hide();
+
+							AppView aView = Registry.get(AppView.MAINAPPVIEWPORT);
+							aView.setApplicationTitle(" - " + username);
+
+							LoginDialogView.dialogUtilShow("Welcome Back " + username, "LOGIN SUCCESFULL", true, false);
+						}
+						else
+							LoginDialogView.dialogUtilShow("Sorry, The user " + user + " doesn't exist", "LOGIN ERROR", true, true);						
+							}
+
 				});
 
 			}
-			
+
 		});
-		
+
 		btnRegister.addSelectionListener(new SelectionListener<ButtonEvent>() {
 
 			@Override
 			public void componentSelected(ButtonEvent ce) {
-				// TODO Auto-generated method stub
+
+				final String usernameRegistration = firstNameReg.getValue();
+				final String password = passReg.getValue();
+				final String password2 = pass2Reg.getValue();
+				final String email = emailReg.getValue();
 				
+				if (usernameRegistration == null || password == null || password2 == null || email == null) {
+					LoginDialogView.dialogUtilShow("Error, missing registration form values", "ERROR", true, true);	
+					return;
+				}
+				
+				if (!password.equals(password2))
+				{
+					LoginDialogView.dialogUtilShow("Passwords are not the same!", "PASSWORD ERROR", true, true);	
+					return;
+				}
+				
+				if (password.length() < 5) {
+					LoginDialogView.dialogUtilShow("Password too short: minimun 5 character", "PASSWORD ERROR", true, true);	
+					return;		
+				}
+				
+				if (!(email.contains("@") && email.contains("."))) { // ugly, use regexp
+					LoginDialogView.dialogUtilShow("Email format not correct", "EMAIL ERROR", true, true);	
+					return;		
+				}
+				
+				LoginServiceAsync login = (LoginServiceAsync) Registry
+				.get(LoginDialogController.LOGINMOCKSERVICE);
+				
+				login.register(usernameRegistration, password, email, new AsyncCallback<String>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						LoginDialogView.dialogUtilShow("Error... " + caught.getMessage() + "", "REGISTRATION ERROR", true, true);
+					}
+
+					@Override
+					public void onSuccess(String username) {
+
+							loginDialog.hide();
+
+							AppView aView = Registry.get(AppView.MAINAPPVIEWPORT);
+							aView.setApplicationTitle(" - " + username);
+
+							LoginDialogView.dialogUtilShow("Thanks for your registration, " + username + ". An email will be sent to you to confirm registration.", "REGISTRATION SUCCESFULL", true, false);
+					}
+
+				});
 			}
-			
+
 		});
-		
+
+	}
+	
+	public static void dialogUtilShow(String msg, String title, boolean isModal, boolean isError) {
+		MessageBox mb = new MessageBox();
+		mb.setMessage(msg);
+		mb.setTitle(title);
+		mb.setModal(isModal);
+		mb.setIcon(isError ? MessageBox.ERROR : MessageBox.INFO);
+		mb.show();
 	}
 
 	private Widget createLoginFormPanel() {
@@ -148,7 +207,7 @@ public class LoginDialogView extends View {
 		FieldSet fieldSet = new FieldSet();
 		fieldSet.setHeading("If you are already registered...");
 		fieldSet.setHeight(170);
-		
+
 		FormLayout formLayout = new FormLayout();
 		fieldSet.setLayout(formLayout);
 
@@ -162,14 +221,14 @@ public class LoginDialogView extends View {
 		loginPass.setPassword(true);
 		fieldSet.add(loginPass, formData);
 
-		fieldSet.add(btnLogin,formData);
-		//formPanel.addButton(btnLogin);
-		
+		fieldSet.add(btnLogin, formData);
+		// formPanel.addButton(btnLogin);
+
 		formPanel.add(fieldSet);
 		formPanel.setWidth(310);
 		return formPanel;
 	}
-	
+
 	private Widget createRegisterFormPanel() {
 
 		FormPanel formPanel = new FormPanel();
@@ -181,33 +240,33 @@ public class LoginDialogView extends View {
 		FieldSet fieldSet = new FieldSet();
 		fieldSet.setHeading("Otherwise If you want to register...");
 		fieldSet.setHeight(170);
-		
+
 		FormLayout formLayout = new FormLayout();
-		
+
 		fieldSet.setLayout(formLayout);
 
-		TextField<String> firstName = new TextField<String>();
-		firstName.setFieldLabel("Name");
-		//firstName.setAllowBlank(false);
+		firstNameReg = new TextField<String>();
+		firstNameReg.setFieldLabel("Name");
+		// firstName.setAllowBlank(false);
 
-		fieldSet.add(firstName, formData);
+		fieldSet.add(firstNameReg, formData);
 
-		TextField<String> pass = new TextField<String>();
-		pass.setFieldLabel("Password");
-		pass.setPassword(true);
-		fieldSet.add(pass, formData);
+		passReg = new TextField<String>();
+		passReg.setFieldLabel("Password");
+		passReg.setPassword(true);
+		fieldSet.add(passReg, formData);
 
-		TextField<String> pass2 = new TextField<String>();
-		pass2.setFieldLabel("Repeat Password");
-		pass2.setPassword(true);
-		fieldSet.add(pass2, formData);
-		
-		TextField<String> email = new TextField<String>();
-		email.setFieldLabel("email");
-		email.setPassword(true);
-		fieldSet.add(email, formData);
+		pass2Reg = new TextField<String>();
+		pass2Reg.setFieldLabel("Repeat Password");
+		pass2Reg.setPassword(true);
+		fieldSet.add(pass2Reg, formData);
 
-		fieldSet.add(btnRegister,formData);
+		emailReg = new TextField<String>();
+		emailReg.setFieldLabel("email");
+		emailReg.setPassword(false);
+		fieldSet.add(emailReg, formData);
+
+		fieldSet.add(btnRegister, formData);
 
 		formPanel.add(fieldSet);
 		formPanel.setWidth(310);

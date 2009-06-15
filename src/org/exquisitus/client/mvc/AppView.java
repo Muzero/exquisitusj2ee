@@ -2,6 +2,7 @@ package org.exquisitus.client.mvc;
 
 import org.exquisitus.client.ApplicationEvents;
 
+import com.extjs.gxt.ui.client.Registry;
 import com.extjs.gxt.ui.client.Style.ButtonArrowAlign;
 import com.extjs.gxt.ui.client.Style.LayoutRegion;
 import com.extjs.gxt.ui.client.event.MenuEvent;
@@ -10,7 +11,6 @@ import com.extjs.gxt.ui.client.mvc.AppEvent;
 import com.extjs.gxt.ui.client.mvc.Controller;
 import com.extjs.gxt.ui.client.mvc.Dispatcher;
 import com.extjs.gxt.ui.client.mvc.View;
-import com.extjs.gxt.ui.client.widget.Html;
 import com.extjs.gxt.ui.client.widget.HtmlContainer;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.Viewport;
@@ -31,8 +31,21 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 public class AppView extends View {
 
-	private final String PAGEHEADERTITLE = "ExquisitusJ2EE Explorer Showcase ";
-
+	private final static String PAGEHEADERTITLE = "ExquisitusJ2EE Explorer Showcase ";
+	
+	public final static String MAINAPPVIEWPORT = "MAINAPPVIEWPORT";
+	
+	public static String createUpperBoundPanelContent(String info) {
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append("<div id='exquisitus-north-panel'></div><div id=demo-title><h3>");
+		sb.append(PAGEHEADERTITLE);
+		sb.append(info);
+		sb.append("</h3></div>");
+		
+		return sb.toString();
+	}
+	
 	private BorderLayout blayout = new BorderLayout();
 	private HtmlContainer northPanel = null;
 	private LayoutContainer centrePanel = null;
@@ -42,16 +55,17 @@ public class AppView extends View {
 	public AppView(Controller controller) {
 		super(controller);
 	}
+	
+	public void setApplicationTitle(String additionalInfo) {
+		northPanel.setHtml(createUpperBoundPanelContent(additionalInfo));
+	}
 
 	protected void createView() {
 		Viewport vp = new Viewport();
 		vp.setLayout(blayout);
 
-		StringBuffer sb = new StringBuffer();
-		sb.append("<div id='exquisitus-north-panel'></div><div id=demo-title><h3>"
-						+ PAGEHEADERTITLE + "</h3></div>");
+		northPanel = new HtmlContainer(createUpperBoundPanelContent(" - Anonymous User"));
 
-		northPanel = new HtmlContainer(sb.toString());
 		northPanel.setBorders(false);
 		northPanel.setEnableState(false);
 		northPanel.setId("exquisitus-header");
@@ -80,7 +94,8 @@ public class AppView extends View {
 		
 		secondlayerPanel.add(btnMainMenu);
 		RootPanel.get().add(vp);
-		
+
+		Registry.register(MAINAPPVIEWPORT, this);
 	}
 
 	@Override

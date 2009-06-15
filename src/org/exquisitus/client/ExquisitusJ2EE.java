@@ -1,7 +1,6 @@
 package org.exquisitus.client;
 
-/**
- * 1 Jun 2009 London Gianluigi Davassi (Muzero)
+/** 1 Jun 2009 London Gianluigi Davassi (Muzero)
  * 
  * First snapshot of ExquisitusJ2EE , implementing mvc viewport root panel...
  * 
@@ -49,7 +48,7 @@ public class ExquisitusJ2EE implements EntryPoint {
 		
 		GWT.log(GXT.getUserAgent(),null);
 	
-		} catch (Exception e) { e.printStackTrace();}	
+		} catch (Exception e) { e.printStackTrace(); }	
 	}
 }
 
