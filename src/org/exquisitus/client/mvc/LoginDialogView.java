@@ -19,7 +19,6 @@ import com.extjs.gxt.ui.client.widget.form.FormPanel;
 import com.extjs.gxt.ui.client.widget.form.TextField;
 import com.extjs.gxt.ui.client.widget.layout.FormData;
 import com.extjs.gxt.ui.client.widget.layout.FormLayout;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -117,6 +116,7 @@ public class LoginDialogView extends View {
 							aView.setApplicationTitle(" - " + username);
 
 							LoginDialogView.dialogUtilShow("Welcome Back " + username, "LOGIN SUCCESFULL", true, false);
+							refresh();
 						}
 						else
 							LoginDialogView.dialogUtilShow("Sorry, The user " + user + " doesn't exist", "LOGIN ERROR", true, true);						
@@ -178,6 +178,7 @@ public class LoginDialogView extends View {
 							aView.setApplicationTitle(" - " + username);
 
 							LoginDialogView.dialogUtilShow("Thanks for your registration, " + username + ". An email will be sent to you to confirm registration.", "REGISTRATION SUCCESFULL", true, false);
+							refresh();
 					}
 
 				});
@@ -185,6 +186,13 @@ public class LoginDialogView extends View {
 
 		});
 
+	}
+	
+	private void refresh()  {
+		loginFirstName.setValue(""); loginPass.setValue("");
+		
+		firstNameReg.setValue(""); passReg.setValue("");
+		pass2Reg.setValue(""); emailReg.setValue("");
 	}
 	
 	public static void dialogUtilShow(String msg, String title, boolean isModal, boolean isError) {

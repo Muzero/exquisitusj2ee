@@ -9,6 +9,7 @@ package org.exquisitus.client;
  *
  */
 
+
 import org.exquisitus.client.mvc.AppController;
 import org.exquisitus.client.mvc.LoginDialogController;
 import org.exquisitus.client.mvc.ShowCaseController;
@@ -46,7 +47,7 @@ public class ExquisitusJ2EE implements EntryPoint {
 		
 		dispatcher.dispatch(ApplicationEvents.InitAppMenu);
 		
-		GWT.log(GXT.getUserAgent(),null);
+		GWT.log(this.getClass().getName() + " started at " + GXT.getUserAgent() + " on " + GXT.getVersion().getRelease(), null);
 	
 		} catch (Exception e) { e.printStackTrace(); }	
 	}

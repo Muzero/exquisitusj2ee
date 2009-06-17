@@ -2,8 +2,10 @@ package org.exquisitus.client.mvc;
 
 import org.exquisitus.client.ApplicationEvents;
 
+import com.extjs.gxt.ui.client.GXT;
 import com.extjs.gxt.ui.client.Registry;
 import com.extjs.gxt.ui.client.Style.ButtonArrowAlign;
+import com.extjs.gxt.ui.client.Style.IconAlign;
 import com.extjs.gxt.ui.client.Style.LayoutRegion;
 import com.extjs.gxt.ui.client.event.MenuEvent;
 import com.extjs.gxt.ui.client.event.SelectionListener;
@@ -11,6 +13,7 @@ import com.extjs.gxt.ui.client.mvc.AppEvent;
 import com.extjs.gxt.ui.client.mvc.Controller;
 import com.extjs.gxt.ui.client.mvc.Dispatcher;
 import com.extjs.gxt.ui.client.mvc.View;
+import com.extjs.gxt.ui.client.util.IconHelper;
 import com.extjs.gxt.ui.client.widget.HtmlContainer;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.Viewport;
@@ -21,6 +24,7 @@ import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.extjs.gxt.ui.client.widget.menu.Menu;
 import com.extjs.gxt.ui.client.widget.menu.MenuItem;
 import com.extjs.gxt.ui.client.widget.menu.SeparatorMenuItem;
+import com.extjs.gxt.ui.client.widget.tips.ToolTipConfig;
 import com.google.gwt.user.client.ui.RootPanel;
 
 /*
@@ -110,6 +114,7 @@ public class AppView extends View {
 		Menu menu = new Menu();
 
 		MenuItem itemLogin = new MenuItem("Login");
+		itemLogin.setIcon(GXT.IMAGES.editor_link());
 		itemLogin.addSelectionListener(new SelectionListener<MenuEvent>() {
 
 			@Override
@@ -121,6 +126,7 @@ public class AppView extends View {
 		menu.add(itemLogin);
 
 		MenuItem itemShowCase = new MenuItem("J2EE ShowCase");
+		itemShowCase.setIcon(GXT.IMAGES.editor_source());
 		itemShowCase.addSelectionListener(new SelectionListener<MenuEvent>() {
 
 			@Override
@@ -131,6 +137,7 @@ public class AppView extends View {
 		menu.add(itemShowCase);
 
 		MenuItem itemContact = new MenuItem("Contact");
+		itemContact.setIcon(GXT.IMAGES.checked());
 		itemContact.addSelectionListener(new SelectionListener<MenuEvent>() {
 
 			@Override
@@ -141,6 +148,7 @@ public class AppView extends View {
 		menu.add(itemContact);
 
 		MenuItem itemAbout = new MenuItem("About");
+		itemAbout.setIcon(GXT.IMAGES.field_invalid());
 		itemAbout.addSelectionListener(new SelectionListener<MenuEvent>() {
 
 			@Override
@@ -153,21 +161,34 @@ public class AppView extends View {
 		menu.add(new SeparatorMenuItem());
 
 		MenuItem itemUsers = new MenuItem("User Online");
+		itemUsers.setIcon(GXT.IMAGES.tree_folder());
 		menu.add(itemUsers);
 		return menu;
 	}
 
 	@Override
 	protected void initialize() {
-		btnMainMenu = new Button("Hello J2EE Experiment!");
+		btnMainMenu = new Button(/*"Hello J2EE Experiment!"*/);
 
 		btnMainMenu.setMenu(createMenu());
 		btnMainMenu.setArrowAlign(ButtonArrowAlign.BOTTOM);
-		btnMainMenu.setIconStyle("exec"); // TODO FIXME not working yet damn
-
+		//btnMainMenu.setIconStyle("exec"); // TODO FIXME not working yet damn
+		//btnMainMenu.setIcon(GXT.IMAGES.checked());
+		btnMainMenu.setIcon(IconHelper.create("/resources/images/icons/network.png",64,64));
+		btnMainMenu.setHeight(70);
+		btnMainMenu.setWidth(70);
+		btnMainMenu.setIconAlign(IconAlign.BOTTOM); 
+		
 		btnMainMenu.setShim(true);
 		btnMainMenu.setShadow(true);
 		btnMainMenu.setPosition(40, 40);
+		
+		ToolTipConfig ttc = new ToolTipConfig();
+		ttc.setShowDelay(500);
+		ttc.setTitle("Exquisitus J2EE Experiments");
+		ttc.setTrackMouse(true);
+		ttc.setText("Click on the button to discover the ExquisitusJ2EE Menu");
+		btnMainMenu.setToolTip(ttc);  
 
 	}
 

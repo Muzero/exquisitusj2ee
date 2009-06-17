@@ -1,11 +1,6 @@
 package org.exquisitus.server.persistence;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -41,7 +36,7 @@ public class UserPersistenceJAXB implements UserPersistence {
 	}
 	
 	@Override
-	public User autenticateUser(String username, String password) {
+	public User findUser(String username, String password) {
 		
 		// TODO improve autentication!
 		
@@ -59,7 +54,8 @@ public class UserPersistenceJAXB implements UserPersistence {
 		List<User> ulist = userslist.getUser();
 		
 		for (User user : ulist) {
-			if (user.getUsername().equals(username) && user.getPassword().equals(password))
+			if (user.getUsername().trim().toLowerCase().equals(username.trim().toLowerCase()) 
+					&& user.getPassword().trim().toLowerCase().equals(password.trim().toLowerCase()))
 					return user;
 		}
 		
@@ -72,31 +68,41 @@ public class UserPersistenceJAXB implements UserPersistence {
 		
 		Unmarshaller un = cxt.createUnmarshaller();		
 		
+		xmlfile = (new File("xml/users.xml"));
 		Userslist userslist = (Userslist) un.unmarshal(xmlfile);
 		
-		List<User> ulist = userslist.getUser();
+		User newUser = objFactory.createUser();
 		
-		User p = objFactory.createUser();
+		newUser.setUsername(user);
+		newUser.setPassword(password);
+		newUser.setEmail(email);
+		newUser.setRole("user");
+		newUser.setAuth(false);
 		
-		p.setUsername(user);
-		p.setPassword(password);
-		p.setEmail(email);
-		p.setRole("user");
-		
-		ulist.add(p);
+		userslist.getUser().add(newUser);
 		
 		Marshaller marshaller = cxt.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-		marshaller.marshal(ulist, xmlfile);
+		marshaller.marshal(userslist, xmlfile);
 		
-		log.info("User " + user + "[" + email + "] Registered at " + Calendar.getInstance().getTimeZone());
+		log.info("User " + user + "[" + email + "] Registered ");
 		
 	}
 
 	@Override
-	public List getUserList() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<? extends User> getUserList() {
+		Unmarshaller un = null;
+		Userslist userslist = null;
+		
+		try {
+			un = cxt.createUnmarshaller();
+			userslist = (Userslist) un.unmarshal(xmlfile);
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}		
+		
+		
+		return userslist.getUser();
 	}
 
 }

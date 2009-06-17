@@ -6,7 +6,7 @@ import org.exquisitus.jaxb.generated.user.User;
 
 public interface UserPersistence {
 
-	public User autenticateUser(String user, String password);
+	public User findUser(String user, String password);
 	
 	public void registerUser(String user, String password, String email) throws Exception;
 	

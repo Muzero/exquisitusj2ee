@@ -7,7 +7,7 @@ import org.exquisitus.jaxb.generated.user.User;
 public class UserPersistenceHibernate implements UserPersistence {
 
 	@Override
-	public User autenticateUser(String user, String password) {
+	public User findUser(String user, String password) {
 		// TODO
 		return null;
 	

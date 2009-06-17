@@ -60,7 +60,8 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 
 		log.info(session.getId());
 	
-		User user = userPersistence.autenticateUser(username, password);
+		User user = userPersistence.findUser(username, password);
+		// TODO: extract login logic here
 
 		if (user != null)
 		{
@@ -84,7 +85,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 
 		// session.removeAttribute(SESSIONUSER);
 
-		log.info(session.getId());
+		// log.info(session.getId());
 		
 		try {
 			userPersistence.registerUser(username, password, email);
@@ -94,9 +95,9 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 		}
 
 		// for now it's ok
-		userPersistence.autenticateUser(username, password);
+		userPersistence.findUser(username, password);
 
-		return "REGISTERED";
+		return username;
 	}
 
 }

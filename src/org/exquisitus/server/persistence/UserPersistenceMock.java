@@ -29,7 +29,7 @@ public class UserPersistenceMock implements UserPersistence {
 	}
 
 	@Override
-	public User autenticateUser(String username, String password) {
+	public User findUser(String username, String password) {
 		
 		User user = new User();
 		user.setUsername(username);
