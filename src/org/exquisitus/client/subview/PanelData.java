@@ -5,9 +5,9 @@ import com.extjs.gxt.ui.client.data.BaseModelData;
 @SuppressWarnings("serial")
 public class PanelData extends BaseModelData {
 
-	private static final String NAME = "NAME";
-	private static final String ICON = "ICON";
-	private static final String VIEW = "VIEW";
+	public static final String NAME = "name";
+	public static final String ICON = "icon";
+	public static final String VIEW = "view";
 	
 	public String getName() {
 		return get(NAME);

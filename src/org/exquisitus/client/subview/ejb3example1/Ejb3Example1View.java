@@ -6,7 +6,9 @@ import org.exquisitus.client.subview.SubView;
 
 import com.extjs.gxt.ui.client.widget.button.Button;
 
-@SubView(panelName="EJB3 Stateless Example 1")
+@SubView( panelName="EJB3 Stateless Example 1",
+		  category="EJB Example",
+		  subCategory="@Stateless" )
 public class Ejb3Example1View extends AbstractSubPanelTemplate implements ISubPanelInterface {
 
 	@Override

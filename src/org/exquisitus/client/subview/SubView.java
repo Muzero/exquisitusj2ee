@@ -6,4 +6,8 @@ public @interface SubView {
 	
 	String panelName();
 
+	String category();
+
+	String subCategory();
+
 }

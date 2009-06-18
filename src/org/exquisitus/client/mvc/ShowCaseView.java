@@ -12,7 +12,6 @@ import org.exquisitus.client.subview.ejb3example1.Ejb3Example1View;
 
 import com.extjs.gxt.ui.client.GXT;
 import com.extjs.gxt.ui.client.Style.LayoutRegion;
-import com.extjs.gxt.ui.client.data.BaseModelData;
 import com.extjs.gxt.ui.client.data.ModelData;
 import com.extjs.gxt.ui.client.event.SelectionChangedEvent;
 import com.extjs.gxt.ui.client.event.SelectionChangedListener;
@@ -145,12 +144,12 @@ public class ShowCaseView extends View {
 		cp.setHeading(categoryName);
 		cp.setLayout(new FitLayout());
 		
-		TreeStore<ModelData> store = new TreeStore<ModelData>();  
-		TreePanel<ModelData> tree = new TreePanel<ModelData>(store);
+		TreeStore<PanelData> store = new TreeStore<PanelData>();  
+		TreePanel<PanelData> tree = new TreePanel<PanelData>(store);
 		tree.getStyle().setLeafIcon(GXT.IMAGES.editor_link());
-		tree.setDisplayProperty("name");
+		tree.setDisplayProperty(PanelData.NAME);
 		
-		ModelData m = newItem("EJB3 @Stateless", null);  
+		PanelData m = newItem("EJB3 @Stateless", null);  
 		store.add(m, false);  
 		
 		store.add(m, newItem("Example 1", "icon1"), false);  
@@ -195,7 +194,7 @@ public class ShowCaseView extends View {
 		return panel;
 	}
 
-	private ContentPanel createMenuPanel() {
+	/*private ContentPanel createMenuPanel() {
 
 		ContentPanel panel = new ContentPanel();
 		panel.setFrame(false);
@@ -213,24 +212,16 @@ public class ShowCaseView extends View {
 		// create the Accordition
 		// create Portal!
 
-		TreeStore<ModelData> store = new TreeStore<ModelData>();
-		List<ModelData> modelist = new ArrayList<ModelData>();
+		TreeStore<PanelData> store = new TreeStore<PanelData>();
+		List<PanelData> pdl = new ArrayList<PanelData>();
 
-		BaseModelData bmd = new BaseModelData();
-		bmd.set("name", "EJB3 @Stateless Session BeanExample 1");
-		modelist.add(bmd);
+		pdl.add(new PanelData("name", "EJB3 @Stateless Session BeanExample 1","View1"));
+		pdl.add(new PanelData("name", "EJB3 @Stateless Session BeanExample 2","View2"));
+		pdl.add(new PanelData("name", "EJB3 @Stateless Session BeanExample 3","View3"));
+	
+		store.add(pdl, true);
 
-		bmd = new BaseModelData();
-		bmd.set("name", "EJB3 @Stateless SessionBean Example 2");
-		modelist.add(bmd);
-
-		bmd = new BaseModelData();
-		bmd.set("name", "EJB3 @Stateless SessionBean Example 3");
-		modelist.add(bmd);
-
-		store.add(modelist, true);
-
-		TreePanel<ModelData> tree = new TreePanel<ModelData>(store);
+		TreePanel<PanelData> tree = new TreePanel<PanelData>(store);
 		tree.setDisplayProperty("name");
 		tree.getStyle().setLeafIcon(GXT.IMAGES.editor_link());
 		tree.setWidth(250);
@@ -239,7 +230,7 @@ public class ShowCaseView extends View {
 
 		panel.add(tree);
 		return panel;
-	}
+	}*/
 
 	@Override
 	protected void handleEvent(AppEvent event) {
