@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<userslist>
+    <user username="muzero" role="manager" password="ronforonfo" email="davassi@yahoo.it" auth="true"/>
+    <user username="pippo" role="user" password="pluto" email="email@email.it" auth="false"/>
+    <user username="Carmelo" role="user" password="maria" email="carmelo@ciao.it" auth="false"/>
+    <user username="Topolino" role="user" password="paperino" email="pluto@clara.it" auth="false"/>
+    <user username="tizio" role="user" password="caio666" email="tizio@caio.it" auth="false"/>
+</userslist>

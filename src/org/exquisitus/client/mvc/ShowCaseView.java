@@ -1,35 +1,38 @@
 package org.exquisitus.client.mvc;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.exquisitus.client.ApplicationEvents;
 import org.exquisitus.client.subview.ISubPanelInterface;
+import org.exquisitus.client.subview.PanelData;
+import org.exquisitus.client.subview.ejb3example1.Ejb3Example1View;
 
 import com.extjs.gxt.ui.client.GXT;
 import com.extjs.gxt.ui.client.Style.LayoutRegion;
-import com.extjs.gxt.ui.client.Style.SelectionMode;
 import com.extjs.gxt.ui.client.data.BaseModelData;
 import com.extjs.gxt.ui.client.data.ModelData;
-import com.extjs.gxt.ui.client.event.EventType;
-import com.extjs.gxt.ui.client.event.Events;
-import com.extjs.gxt.ui.client.event.Listener;
+import com.extjs.gxt.ui.client.event.SelectionChangedEvent;
+import com.extjs.gxt.ui.client.event.SelectionChangedListener;
 import com.extjs.gxt.ui.client.mvc.AppEvent;
 import com.extjs.gxt.ui.client.mvc.Controller;
 import com.extjs.gxt.ui.client.mvc.Dispatcher;
 import com.extjs.gxt.ui.client.mvc.View;
 import com.extjs.gxt.ui.client.store.TreeStore;
+import com.extjs.gxt.ui.client.util.Margins;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.Window;
+import com.extjs.gxt.ui.client.widget.custom.Portlet;
+import com.extjs.gxt.ui.client.widget.layout.AccordionLayout;
 import com.extjs.gxt.ui.client.widget.layout.BorderLayout;
 import com.extjs.gxt.ui.client.widget.layout.BorderLayoutData;
 import com.extjs.gxt.ui.client.widget.layout.CenterLayout;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.extjs.gxt.ui.client.widget.treepanel.TreePanel;
 import com.extjs.gxt.ui.client.widget.treepanel.TreePanelSelectionModel;
+import com.google.gwt.user.client.ui.Widget;
 
 public class ShowCaseView extends View {
 
@@ -48,10 +51,12 @@ public class ShowCaseView extends View {
 	}
 
 	private void asyncLoadPanels() { // FIXME this is only a stub, the item must
-										// be loaded from server
-		cachepanelmap.put("EJB @Stateless Example 1", createMockPanel("A first Panel..."));
-		cachepanelmap.put("EJB @Stateless Example 2", createMockPanel("A second Panel..."));
-		cachepanelmap.put("EJB @Stateless Example 3", createMockPanel("A third Panel..."));
+		// be loaded from server
+		cachepanelmap.put("EJB @Stateless Example 1", new Ejb3Example1View());
+		cachepanelmap.put("EJB @Stateless Example 2",
+				createMockPanel("A second Panel..."));
+		cachepanelmap.put("EJB @Stateless Example 3",
+				createMockPanel("A third Panel..."));
 	}
 
 	private ContentPanel createMockPanel(String strdes) {
@@ -72,93 +77,164 @@ public class ShowCaseView extends View {
 
 		asyncLoadPanels();
 
-		//currentPanel = cachepanelmap.get("Item 0"); // replace with
-													// createPresentationPanel();
-
 		currentPanel = createPresentationPanel();
-		
+
 		mainwindow = new Window();
 		mainwindow.setSize(XWIN, YWIN);
 		mainwindow.setModal(false);
 		mainwindow.setHeading("ExquisitusJ2EE Showcase");
-		mainwindow.setLayout(new BorderLayout());
+		mainwindow.setLayout(new FitLayout());
 		mainwindow.hide();
+		mainwindow.setStyleAttribute("backgroundColor", "white");
+		
+		Portlet contentShowCase = new Portlet();
+		contentShowCase.setHeading("Example");
+		contentShowCase.setCollapsible(false);
+		contentShowCase.setAnimCollapse(false);
+		contentShowCase.setLayout(new FitLayout());
+		contentShowCase.add(new ContentPanel());
+		contentShowCase.setPinned(true);
 
-		ContentPanel west = createMenuPanel();
-
-		BorderLayoutData westData = new BorderLayoutData(LayoutRegion.WEST, 250);
+		ContentPanel c = new ContentPanel();
+		c.setBodyStyle("backgroundColor: white;");
+		
+		//c.setBodyStyle("background: #000000 image(../images/icons/gb.gif) repeat-x");
+		c.setLayout(new BorderLayout());
+		c.setHeaderVisible(false);
+		
+		BorderLayoutData westData = new BorderLayoutData(LayoutRegion.WEST, 200);
 		westData.setSplit(false);
 		westData.setCollapsible(false);
-
+		westData.setMargins(new Margins(10));
+		
 		centerData = new BorderLayoutData(LayoutRegion.CENTER);
-
-		mainwindow.add(west, westData);
-		mainwindow.add(currentPanel, centerData);
+		centerData.setMargins(new Margins(10));
+		
+		c.add(createMenuShowCase(),westData);
+		c.add(contentShowCase,centerData);
+			
+		mainwindow.add(c);
 	}
+
+	private Widget createMenuShowCase() {
+		
+		Portlet menuShowCase = new Portlet();
+		menuShowCase.setHeading("ShowCase Selection");
+		menuShowCase.setCollapsible(false);
+		menuShowCase.setAnimCollapse(false);
+		menuShowCase.setLayout(new AccordionLayout());
+		menuShowCase.setPinned(true);
+		
+		menuShowCase.setIcon(GXT.IMAGES.checked());
+		
+		menuShowCase.add(createSubCategory("EJB3 Examples"));
+		
+		ContentPanel cp = new ContentPanel();
+		cp.setHeading("Web Services Examples");
+		menuShowCase.add(cp);
+		
+		cp = new ContentPanel();
+		cp.setHeading("Spring Examples");
+		menuShowCase.add(cp);
+		
+		return menuShowCase;
+	}
+	
+	private ContentPanel createSubCategory(String categoryName) {
+		ContentPanel cp = new ContentPanel();
+		cp.setHeading(categoryName);
+		cp.setLayout(new FitLayout());
+		
+		TreeStore<ModelData> store = new TreeStore<ModelData>();  
+		TreePanel<ModelData> tree = new TreePanel<ModelData>(store);
+		tree.getStyle().setLeafIcon(GXT.IMAGES.editor_link());
+		tree.setDisplayProperty("name");
+		
+		ModelData m = newItem("EJB3 @Stateless", null);  
+		store.add(m, false);  
+		
+		store.add(m, newItem("Example 1", "icon1"), false);  
+		store.add(m, newItem("Example 2", "icon1"), false);  
+		store.add(m, newItem("Example 3", "icon1"), false);  
+		tree.setExpanded(m, true); 
+	
+		TreePanelSelectionModel<ModelData> ts = new TreePanelSelectionModel<ModelData>();
+		ts.bindTree(tree);
+		
+		ts.addSelectionChangedListener(new SelectionChangedListener<ModelData>() {
+
+			@Override
+			public void selectionChanged(SelectionChangedEvent<ModelData> se) {
+				
+				String selectedView = se.getSelectedItem().get("name");
+				
+				Dispatcher.forwardEvent(ApplicationEvents.SelectSubViewEvent, selectedView);
+			}
+		});
+		cp.add(tree);
+		return cp;
+	}
+	
+	private PanelData newItem(String name, String iconStyle) {  
+		
+		PanelData m = new PanelData();  
+	    m.setName(name);
+	    m.setIcon(iconStyle);
+	    m.setView("TODO");
+	 
+	    return m;  
+	}  
 
 	private ContentPanel createPresentationPanel() {
 		ContentPanel panel = new ContentPanel();
 		panel.setLayout(new FitLayout());
 		panel.setHeading("DEFAULT");
 		panel.addText("TODO");
+		panel.setStyleAttribute("margin", "10 20 20 20px");
 
 		return panel;
 	}
 
 	private ContentPanel createMenuPanel() {
+
 		ContentPanel panel = new ContentPanel();
 		panel.setFrame(false);
 		panel.setLayout(new FitLayout());
+		panel.setBorders(true);
+		panel.setHeaderVisible(true);
+		// panel.setStyleAttribute("margin", "10 10 10 10px");
+
+		// TODO 1) load panels using annotation reflection
+		// ---- && show in a loadbar dialog the status
+		// 2) create the basemodeldata for the TreeStore
+		// 3) create the TreePanel
+
+		// OR
+		// create the Accordition
+		// create Portal!
 
 		TreeStore<ModelData> store = new TreeStore<ModelData>();
 		List<ModelData> modelist = new ArrayList<ModelData>();
-		
+
 		BaseModelData bmd = new BaseModelData();
 		bmd.set("name", "EJB3 @Stateless Session BeanExample 1");
 		modelist.add(bmd);
-		
+
 		bmd = new BaseModelData();
 		bmd.set("name", "EJB3 @Stateless SessionBean Example 2");
 		modelist.add(bmd);
-		
+
 		bmd = new BaseModelData();
 		bmd.set("name", "EJB3 @Stateless SessionBean Example 3");
 		modelist.add(bmd);
-		
-		store.add(modelist,true);
-		
-		
+
+		store.add(modelist, true);
+
 		TreePanel<ModelData> tree = new TreePanel<ModelData>(store);
-		tree.setDisplayProperty("name");  
-		tree.getStyle().setLeafIcon(GXT.IMAGES.editor_link());  
+		tree.setDisplayProperty("name");
+		tree.getStyle().setLeafIcon(GXT.IMAGES.editor_link());
 		tree.setWidth(250);
-		
-		
-		// create the TREE from a service call that load the examples from
-		// server!!! :-) TODO FIXME
 
-		/*TreeItem item = new TreeItem("ShowCase");
-		item.setLeaf(false);
-		tree.getRootItem().add(item);
-
-		tree.addListener(Events.OnClick, new Listener<TreeEvent>() {
-
-			public void handleEvent(TreeEvent be) {
-
-				String viewSelected = be.getItem().getText();
-				Dispatcher.forwardEvent(ApplicationEvents.SelectSubViewEvent,
-						viewSelected);
-			}
-		});
-
-		for (int i = 0; i < 20; i++) {
-			TreeItem sub = new TreeItem("Item " + (i));
-			sub.setLeaf(true);
-
-			item.add(sub);
-		}
-
-		tree.setSelectionMode(SelectionMode.SINGLE); */
 		tree.expandAll();
 
 		panel.add(tree);
@@ -187,7 +263,7 @@ public class ShowCaseView extends View {
 		currentPanel = cachepanelmap.get(selectedPanel) == null ? getErrorPanel(selectedPanel)
 				: cachepanelmap.get(selectedPanel);
 
-		ISubPanelInterface subpanel = (ISubPanelInterface)currentPanel;
+		ISubPanelInterface subpanel = (ISubPanelInterface) currentPanel;
 		subpanel.refresh();
 
 		mainwindow.add(currentPanel, centerData);

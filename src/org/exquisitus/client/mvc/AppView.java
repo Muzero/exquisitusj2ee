@@ -137,6 +137,7 @@ public class AppView extends View {
 		menu.add(itemShowCase);
 
 		MenuItem itemContact = new MenuItem("Contact");
+		itemContact.setEnabled(false);
 		itemContact.setIcon(GXT.IMAGES.checked());
 		itemContact.addSelectionListener(new SelectionListener<MenuEvent>() {
 
@@ -148,6 +149,7 @@ public class AppView extends View {
 		menu.add(itemContact);
 
 		MenuItem itemAbout = new MenuItem("About");
+		itemAbout.setEnabled(false);
 		itemAbout.setIcon(GXT.IMAGES.field_invalid());
 		itemAbout.addSelectionListener(new SelectionListener<MenuEvent>() {
 
@@ -163,6 +165,7 @@ public class AppView extends View {
 		MenuItem itemUsers = new MenuItem("User Online");
 		itemUsers.setIcon(GXT.IMAGES.tree_folder());
 		menu.add(itemUsers);
+		itemUsers.setEnabled(false);
 		return menu;
 	}
 
@@ -172,8 +175,6 @@ public class AppView extends View {
 
 		btnMainMenu.setMenu(createMenu());
 		btnMainMenu.setArrowAlign(ButtonArrowAlign.BOTTOM);
-		//btnMainMenu.setIconStyle("exec"); // TODO FIXME not working yet damn
-		//btnMainMenu.setIcon(GXT.IMAGES.checked());
 		btnMainMenu.setIcon(IconHelper.create("/resources/images/icons/network.png",64,64));
 		btnMainMenu.setHeight(70);
 		btnMainMenu.setWidth(70);
