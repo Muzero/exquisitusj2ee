@@ -121,11 +121,8 @@ public class LoginDialogView extends View {
 						else
 							LoginDialogView.dialogUtilShow("Sorry, The user " + user + " doesn't exist", "LOGIN ERROR", true, true);						
 							}
-
 				});
-
 			}
-
 		});
 
 		btnRegister.addSelectionListener(new SelectionListener<ButtonEvent>() {
@@ -134,9 +131,9 @@ public class LoginDialogView extends View {
 			public void componentSelected(ButtonEvent ce) {
 
 				final String usernameRegistration = firstNameReg.getValue();
-				final String password = passReg.getValue();
-				final String password2 = pass2Reg.getValue();
-				final String email = emailReg.getValue();
+				final String password             = passReg.getValue();
+				final String password2            = pass2Reg.getValue();
+				final String email                = emailReg.getValue();
 				
 				if (usernameRegistration == null || password == null || password2 == null || email == null) {
 					LoginDialogView.dialogUtilShow("Error, missing registration form values", "ERROR", true, true);	

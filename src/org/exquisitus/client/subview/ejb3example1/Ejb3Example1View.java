@@ -5,6 +5,8 @@ import org.exquisitus.client.subview.ISubPanelInterface;
 import org.exquisitus.client.subview.SubView;
 
 import com.extjs.gxt.ui.client.widget.button.Button;
+import com.extjs.gxt.ui.client.widget.form.TextField;
+import com.extjs.gxt.ui.client.widget.layout.FormLayout;
 
 @SubView( panelName="EJB3 Stateless Example 1",
 		  category="EJB Example",
@@ -14,7 +16,12 @@ public class Ejb3Example1View extends AbstractSubPanelTemplate implements ISubPa
 	@Override
 	public void init() {
 		
-		add(new Button("CIAO"));
+		
+		setHeading(getViewName());
+		setLayout(new FormLayout());
+		
+		add(new TextField<String>());
+		add(new Button("Invoke"));
 	}
 	
 	@Override

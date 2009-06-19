@@ -1,11 +1,10 @@
 package org.exquisitus.client.mvc;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.exquisitus.client.ApplicationEvents;
+import org.exquisitus.client.subview.AbstractSubPanelTemplate;
 import org.exquisitus.client.subview.ISubPanelInterface;
 import org.exquisitus.client.subview.PanelData;
 import org.exquisitus.client.subview.ejb3example1.Ejb3Example1View;
@@ -31,6 +30,7 @@ import com.extjs.gxt.ui.client.widget.layout.CenterLayout;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.extjs.gxt.ui.client.widget.treepanel.TreePanel;
 import com.extjs.gxt.ui.client.widget.treepanel.TreePanelSelectionModel;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Widget;
 
 public class ShowCaseView extends View {
@@ -44,14 +44,17 @@ public class ShowCaseView extends View {
 
 	private Map<String, ContentPanel> cachepanelmap = null;
 	private BorderLayoutData centerData;
+	private Portlet contentShowCasePanel;
 
 	public ShowCaseView(Controller controller) {
 		super(controller);
 	}
 
+	private static final String PROVAVIEW = "EJB @Stateless Example 1";
+	
 	private void asyncLoadPanels() { // FIXME this is only a stub, the item must
 		// be loaded from server
-		cachepanelmap.put("EJB @Stateless Example 1", new Ejb3Example1View());
+		cachepanelmap.put(PROVAVIEW, new Ejb3Example1View());
 		cachepanelmap.put("EJB @Stateless Example 2",
 				createMockPanel("A second Panel..."));
 		cachepanelmap.put("EJB @Stateless Example 3",
@@ -83,23 +86,24 @@ public class ShowCaseView extends View {
 		mainwindow.setModal(false);
 		mainwindow.setHeading("ExquisitusJ2EE Showcase");
 		mainwindow.setLayout(new FitLayout());
-		mainwindow.hide();
 		mainwindow.setStyleAttribute("backgroundColor", "white");
+		mainwindow.setCollapsible(true);
+		mainwindow.setMaximizable(true);
+		mainwindow.hide();
 		
-		Portlet contentShowCase = new Portlet();
-		contentShowCase.setHeading("Example");
-		contentShowCase.setCollapsible(false);
-		contentShowCase.setAnimCollapse(false);
-		contentShowCase.setLayout(new FitLayout());
-		contentShowCase.add(new ContentPanel());
-		contentShowCase.setPinned(true);
+		contentShowCasePanel = new Portlet();
+		contentShowCasePanel.setHeading("Example");
+		contentShowCasePanel.setCollapsible(false);
+		contentShowCasePanel.setAnimCollapse(false);
+		contentShowCasePanel.setLayout(new FitLayout());
+		contentShowCasePanel.add(currentPanel);
+		contentShowCasePanel.setPinned(true);
 
-		ContentPanel c = new ContentPanel();
-		c.setBodyStyle("backgroundColor: white;");
-		
+		ContentPanel cp = new ContentPanel();
+		cp.setBodyStyle("backgroundColor: white;");
 		//c.setBodyStyle("background: #000000 image(../images/icons/gb.gif) repeat-x");
-		c.setLayout(new BorderLayout());
-		c.setHeaderVisible(false);
+		cp.setLayout(new BorderLayout());
+		cp.setHeaderVisible(false);
 		
 		BorderLayoutData westData = new BorderLayoutData(LayoutRegion.WEST, 200);
 		westData.setSplit(false);
@@ -109,10 +113,10 @@ public class ShowCaseView extends View {
 		centerData = new BorderLayoutData(LayoutRegion.CENTER);
 		centerData.setMargins(new Margins(10));
 		
-		c.add(createMenuShowCase(),westData);
-		c.add(contentShowCase,centerData);
+		cp.add(createMenuShowCase(),westData);
+		cp.add(contentShowCasePanel,centerData);
 			
-		mainwindow.add(c);
+		mainwindow.add(cp);
 	}
 
 	private Widget createMenuShowCase() {
@@ -152,7 +156,7 @@ public class ShowCaseView extends View {
 		PanelData m = newItem("EJB3 @Stateless", null);  
 		store.add(m, false);  
 		
-		store.add(m, newItem("Example 1", "icon1"), false);  
+		store.add(m, newItem("EJB @Stateless Example 1", "icon1"), false);  
 		store.add(m, newItem("Example 2", "icon1"), false);  
 		store.add(m, newItem("Example 3", "icon1"), false);  
 		tree.setExpanded(m, true); 
@@ -165,8 +169,8 @@ public class ShowCaseView extends View {
 			@Override
 			public void selectionChanged(SelectionChangedEvent<ModelData> se) {
 				
-				String selectedView = se.getSelectedItem().get("name");
-				
+				String selectedView = se.getSelectedItem().get(PanelData.NAME);
+	
 				Dispatcher.forwardEvent(ApplicationEvents.SelectSubViewEvent, selectedView);
 			}
 		});
@@ -189,48 +193,10 @@ public class ShowCaseView extends View {
 		panel.setLayout(new FitLayout());
 		panel.setHeading("DEFAULT");
 		panel.addText("TODO");
-		panel.setStyleAttribute("margin", "10 20 20 20px");
-
+		panel.setFrame(false);
+		panel.setHeaderVisible(false);
 		return panel;
 	}
-
-	/*private ContentPanel createMenuPanel() {
-
-		ContentPanel panel = new ContentPanel();
-		panel.setFrame(false);
-		panel.setLayout(new FitLayout());
-		panel.setBorders(true);
-		panel.setHeaderVisible(true);
-		// panel.setStyleAttribute("margin", "10 10 10 10px");
-
-		// TODO 1) load panels using annotation reflection
-		// ---- && show in a loadbar dialog the status
-		// 2) create the basemodeldata for the TreeStore
-		// 3) create the TreePanel
-
-		// OR
-		// create the Accordition
-		// create Portal!
-
-		TreeStore<PanelData> store = new TreeStore<PanelData>();
-		List<PanelData> pdl = new ArrayList<PanelData>();
-
-		pdl.add(new PanelData("name", "EJB3 @Stateless Session BeanExample 1","View1"));
-		pdl.add(new PanelData("name", "EJB3 @Stateless Session BeanExample 2","View2"));
-		pdl.add(new PanelData("name", "EJB3 @Stateless Session BeanExample 3","View3"));
-	
-		store.add(pdl, true);
-
-		TreePanel<PanelData> tree = new TreePanel<PanelData>(store);
-		tree.setDisplayProperty("name");
-		tree.getStyle().setLeafIcon(GXT.IMAGES.editor_link());
-		tree.setWidth(250);
-
-		tree.expandAll();
-
-		panel.add(tree);
-		return panel;
-	}*/
 
 	@Override
 	protected void handleEvent(AppEvent event) {
@@ -248,28 +214,55 @@ public class ShowCaseView extends View {
 
 	private void onSubViewSelection(AppEvent event) {
 
-		mainwindow.remove(currentPanel);
-
+		contentShowCasePanel.remove(currentPanel);
+		
 		String selectedPanel = event.getData().toString();
-		currentPanel = cachepanelmap.get(selectedPanel) == null ? getErrorPanel(selectedPanel)
-				: cachepanelmap.get(selectedPanel);
+		GWT.log(selectedPanel, null);
+		
+		currentPanel = !cachepanelmap.containsKey(selectedPanel) ? 
+					getErrorPanel(selectedPanel)
+				: 
+					cachepanelmap.get(selectedPanel);
 
-		ISubPanelInterface subpanel = (ISubPanelInterface) currentPanel;
-		subpanel.refresh();
+//		ISubPanelInterface subpanel = (ISubPanelInterface) currentPanel;
+//		subpanel.refresh();
 
-		mainwindow.add(currentPanel, centerData);
-		mainwindow.layout();
+		contentShowCasePanel.add(currentPanel);
+		contentShowCasePanel.layout();
 	}
 
 	private ContentPanel getErrorPanel(String selectedPanel) {
 
-		ContentPanel panel = new ContentPanel();
-		panel.setLayout(new CenterLayout());
-		panel.setFrame(true);
-		panel.setHeading("ERROR");
-		panel.addText("Panel " + selectedPanel + "does not exist!");
-
-		return panel;
+		ContentPanel cp = new ContentPanel();
+		cp.setHeading(selectedPanel);
+		return cp;
 	}
 
 }
+
+class ErrorSubViewPanel extends AbstractSubPanelTemplate implements ISubPanelInterface {
+
+	private String selectedPanel = null;
+	
+	public ErrorSubViewPanel(String selectedPanel) { this.selectedPanel = selectedPanel; }
+	
+	@Override
+	public void dispose() {}
+
+	@Override
+	public String getViewName() {
+		// TODO Auto-generated method stub
+		return "ERROR PANEL";
+	}
+
+	@Override
+	public void init() {
+		
+		setLayout(new CenterLayout());
+		addText("Panel " + selectedPanel + "does not exist!");
+	}
+
+	@Override
+	public void refresh() {}
+};
+

@@ -15,8 +15,7 @@ public abstract class AbstractSubPanelTemplate extends ContentPanel {
 		
 		setLayout(new FitLayout());
 		setFrame(false);
-		setHeading("${FIXME}");
 		setHeaderVisible(true);
-		setStyleAttribute("margin", "10 10 10 10px");
+		
 	}
 }
