@@ -21,16 +21,15 @@ import com.extjs.gxt.ui.client.mvc.View;
 import com.extjs.gxt.ui.client.store.TreeStore;
 import com.extjs.gxt.ui.client.util.Margins;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
+import com.extjs.gxt.ui.client.widget.Text;
 import com.extjs.gxt.ui.client.widget.Window;
 import com.extjs.gxt.ui.client.widget.custom.Portlet;
 import com.extjs.gxt.ui.client.widget.layout.AccordionLayout;
 import com.extjs.gxt.ui.client.widget.layout.BorderLayout;
 import com.extjs.gxt.ui.client.widget.layout.BorderLayoutData;
-import com.extjs.gxt.ui.client.widget.layout.CenterLayout;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.extjs.gxt.ui.client.widget.treepanel.TreePanel;
 import com.extjs.gxt.ui.client.widget.treepanel.TreePanelSelectionModel;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Widget;
 
 public class ShowCaseView extends View {
@@ -53,7 +52,8 @@ public class ShowCaseView extends View {
 	private static final String PROVAVIEW = "EJB @Stateless Example 1";
 	
 	private void asyncLoadPanels() { // FIXME this is only a stub, the item must
-		// be loaded from server
+		// be loaded with Annotation Reflection
+		
 		cachepanelmap.put(PROVAVIEW, new Ejb3Example1View());
 		cachepanelmap.put("EJB @Stateless Example 2",
 				createMockPanel("A second Panel..."));
@@ -156,7 +156,7 @@ public class ShowCaseView extends View {
 		PanelData m = newItem("EJB3 @Stateless", null);  
 		store.add(m, false);  
 		
-		store.add(m, newItem("EJB @Stateless Example 1", "icon1"), false);  
+		store.add(m, newItem(PROVAVIEW, "icon1"), false);  
 		store.add(m, newItem("Example 2", "icon1"), false);  
 		store.add(m, newItem("Example 3", "icon1"), false);  
 		tree.setExpanded(m, true); 
@@ -217,15 +217,14 @@ public class ShowCaseView extends View {
 		contentShowCasePanel.remove(currentPanel);
 		
 		String selectedPanel = event.getData().toString();
-		GWT.log(selectedPanel, null);
 		
 		currentPanel = !cachepanelmap.containsKey(selectedPanel) ? 
 					getErrorPanel(selectedPanel)
 				: 
 					cachepanelmap.get(selectedPanel);
 
-//		ISubPanelInterface subpanel = (ISubPanelInterface) currentPanel;
-//		subpanel.refresh();
+		ISubPanelInterface subpanel = (ISubPanelInterface) currentPanel;	
+		subpanel.refresh(); // view is LAZY initialized at first refresh() call.
 
 		contentShowCasePanel.add(currentPanel);
 		contentShowCasePanel.layout();
@@ -233,36 +232,33 @@ public class ShowCaseView extends View {
 
 	private ContentPanel getErrorPanel(String selectedPanel) {
 
-		ContentPanel cp = new ContentPanel();
-		cp.setHeading(selectedPanel);
-		return cp;
+		return new ErrorSubViewPanel(selectedPanel);
 	}
 
 }
 
 class ErrorSubViewPanel extends AbstractSubPanelTemplate implements ISubPanelInterface {
 
+	private static final String ERRORPANEL = "ERROR PANEL";
+	
 	private String selectedPanel = null;
 	
 	public ErrorSubViewPanel(String selectedPanel) { this.selectedPanel = selectedPanel; }
 	
 	@Override
-	public void dispose() {}
-
-	@Override
 	public String getViewName() {
-		// TODO Auto-generated method stub
-		return "ERROR PANEL";
+		return ERRORPANEL;
 	}
 
 	@Override
 	public void init() {
+	
+		setHeading(getViewName() + " " + selectedPanel);
+		setFrame(true);
+		Text val = new Text("ERROR: " + selectedPanel + " does not exist!");
+		setBodyStyle("fontSize: 18px;");
+		add(val);
 		
-		setLayout(new CenterLayout());
-		addText("Panel " + selectedPanel + "does not exist!");
 	}
-
-	@Override
-	public void refresh() {}
 };
 

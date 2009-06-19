@@ -88,10 +88,6 @@ public class LoginDialogView extends View {
 					return;
 				}
 
-				// GreetingServiceAsync s = (GreetingServiceAsync)
-				// Registry.get(AppController.GREETMOCKSERVICE);
-				// s.greetServer("CIAO",RemoteServiceFacade.getInstance().getMockAsyncCallback());
-
 				// LoginServiceAsync login = (LoginServiceAsync)
 				// Registry.get(LoginDialogController.LOGINMOCKSERVICE);
 				// login.login(user, password,RemoteServiceFacade.getInstance().getMockAsyncCallback());
