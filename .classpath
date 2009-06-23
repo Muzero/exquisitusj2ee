@@ -13,5 +13,6 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/httpunit-1.6.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/nekohtml-1.9.6.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gxt.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/ejb-api.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

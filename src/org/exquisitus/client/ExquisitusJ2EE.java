@@ -10,6 +10,7 @@ package org.exquisitus.client;
  */
 
 
+import org.exquisitus.client.mvc.AboutDialogController;
 import org.exquisitus.client.mvc.AppController;
 import org.exquisitus.client.mvc.LoginDialogController;
 import org.exquisitus.client.mvc.ShowCaseController;
@@ -41,14 +42,14 @@ public class ExquisitusJ2EE implements EntryPoint {
 		dispatcher.addController(new AppController());
 		dispatcher.addController(new LoginDialogController()); 
 		dispatcher.addController(new ShowCaseController()); 
+		dispatcher.addController(new AboutDialogController()); 
 		//dispatcher.addController(new MessageDialogController()); TODO
-		//dispatcher.addController(new AboutDialogController()); TODO
 		
 		
 		dispatcher.dispatch(ApplicationEvents.InitAppMenu);
 		
 		// REMOVE IT
-		Dispatcher.forwardEvent(ApplicationEvents.InitShowCaseEvent);
+		Dispatcher.forwardEvent(ApplicationEvents.ShowAboutDialogEvent);
 		
 		GWT.log(this.getClass().getName() + " started at " + GXT.getUserAgent() + " on " + GXT.getVersion().getRelease(), null);
 	
