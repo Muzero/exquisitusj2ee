@@ -34,6 +34,8 @@ import com.extjs.gxt.ui.client.widget.layout.BorderLayoutData;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.extjs.gxt.ui.client.widget.treepanel.TreePanel;
 import com.extjs.gxt.ui.client.widget.treepanel.TreePanelSelectionModel;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.user.client.ui.Widget;
 
 public class ShowCaseView extends View {
@@ -133,11 +135,17 @@ public class ShowCaseView extends View {
 		
 		demoPanelTab = new TabItem("Demo");
 		demoPanelTab.add(currentPanel);
+		demoPanelTab.setScrollMode(Scroll.AUTOY);
+		
 		folder.add(demoPanelTab);
 		
 		TabItem sourceTab = new TabItem("Source");
-		sourceTab.setScrollMode(Scroll.AUTO);
-		//sourceTab.setAutoLoad(new RequestBuilder(RequestBuilder.GET, GWT.getHostPageBaseURL() +"data/ajax1.html"));
+		sourceTab.setScrollMode(Scroll.AUTOY);
+		//exquisitusj2ee/depict?file=org.exquisitus.server.ServiceLocator
+		sourceTab.setAutoLoad(
+				new RequestBuilder(RequestBuilder.GET, 
+						GWT.getHostPageBaseURL() +
+						"exquisitusj2ee/depict?file=org.exquisitus.server.ServiceLocator"));
 		folder.add(sourceTab);
 		
 		contentShowCasePanel.add(folder);
