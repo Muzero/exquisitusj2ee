@@ -24,6 +24,9 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class LoginDialogView extends View {
 
+	private static final int YWINLOGIN = 280;
+	private static final int XWINLOGIN = 640;
+
 	private Dialog loginDialog = null;
 
 	private FormData formData = new FormData("-20");
@@ -50,8 +53,8 @@ public class LoginDialogView extends View {
 		loginDialog = new Dialog();
 		loginDialog.setBodyBorder(true);
 		loginDialog.setHeading("Exquisitus J2EE Login Dialog");
-		loginDialog.setWidth(640);
-		loginDialog.setHeight(280);
+		loginDialog.setWidth(XWINLOGIN);
+		loginDialog.setHeight(YWINLOGIN);
 		loginDialog.setButtons(Dialog.CANCEL);
 		loginDialog.setHideOnButtonClick(true);
 		loginDialog.setShadow(true);
@@ -167,7 +170,7 @@ public class LoginDialogView extends View {
 
 							loginDialog.hide();
 
-							AppView aView = Registry.get(AppView.MAINAPPVIEWPORT);
+							AppView aView = Registry.get(AppView.MAINAPPVIEWPORT); // TODO dispatch an Event to MainView instead of Registry
 							aView.setApplicationTitle(" - " + username);
 
 							LoginDialogView.dialogUtilShow("Thanks for your registration, " + username + ". An email will be sent to you to confirm registration.", "REGISTRATION SUCCESFULL", true, false);

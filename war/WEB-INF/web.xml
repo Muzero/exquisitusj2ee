@@ -28,5 +28,23 @@
     <servlet-name>loginServlet</servlet-name>
     <url-pattern>/exquisitusj2ee/login</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>eJB3ProxyServlet</servlet-name>
+  	<servlet-class>org.exquisitus.server.EJB3ProxyServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>eJB3ProxyServlet</servlet-name>
+  	<url-pattern>/exquisitusj2ee/ejb3proxy</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>depictCodeServlet</servlet-name>
+  	<servlet-class>org.exquisitus.server.depictCodeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>depictCodeServlet</servlet-name>
+  	<url-pattern>/exquisitusj2ee/depict</url-pattern>
+  </servlet-mapping>
 
 </web-app>

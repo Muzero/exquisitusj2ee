@@ -11,6 +11,7 @@ import org.exquisitus.client.subview.ejb3example1.Ejb3Example1View;
 
 import com.extjs.gxt.ui.client.GXT;
 import com.extjs.gxt.ui.client.Style.LayoutRegion;
+import com.extjs.gxt.ui.client.Style.Scroll;
 import com.extjs.gxt.ui.client.data.ModelData;
 import com.extjs.gxt.ui.client.event.SelectionChangedEvent;
 import com.extjs.gxt.ui.client.event.SelectionChangedListener;
@@ -21,8 +22,11 @@ import com.extjs.gxt.ui.client.mvc.View;
 import com.extjs.gxt.ui.client.store.TreeStore;
 import com.extjs.gxt.ui.client.util.Margins;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
+import com.extjs.gxt.ui.client.widget.TabItem;
+import com.extjs.gxt.ui.client.widget.TabPanel;
 import com.extjs.gxt.ui.client.widget.Text;
 import com.extjs.gxt.ui.client.widget.Window;
+import com.extjs.gxt.ui.client.widget.TabPanel.TabPosition;
 import com.extjs.gxt.ui.client.widget.custom.Portlet;
 import com.extjs.gxt.ui.client.widget.layout.AccordionLayout;
 import com.extjs.gxt.ui.client.widget.layout.BorderLayout;
@@ -43,13 +47,14 @@ public class ShowCaseView extends View {
 
 	private Map<String, ContentPanel> cachepanelmap = null;
 	private BorderLayoutData centerData;
-	private Portlet contentShowCasePanel;
+	//private Portlet contentShowCasePanel;
 
 	public ShowCaseView(Controller controller) {
 		super(controller);
 	}
 
 	private static final String PROVAVIEW = "EJB @Stateless Example 1";
+	private TabItem demoPanelTab;
 	
 	private void asyncLoadPanels() { // FIXME this is only a stub, the item must
 		// be loaded with Annotation Reflection
@@ -91,14 +96,18 @@ public class ShowCaseView extends View {
 		mainwindow.setMaximizable(true);
 		mainwindow.hide();
 		
-		contentShowCasePanel = new Portlet();
+		Portlet contentShowCasePanel = new Portlet();
 		contentShowCasePanel.setHeading("Example");
 		contentShowCasePanel.setCollapsible(false);
 		contentShowCasePanel.setAnimCollapse(false);
 		contentShowCasePanel.setLayout(new FitLayout());
-		contentShowCasePanel.add(currentPanel);
+		//contentShowCasePanel.add(currentPanel);
 		contentShowCasePanel.setPinned(true);
+	
+		contentShowCasePanel.setFrame(true);
 
+		contentShowCasePanel.setBodyStyle("backgroundColor: white;"); // padding: 10px; 
+		
 		ContentPanel cp = new ContentPanel();
 		cp.setBodyStyle("backgroundColor: white;");
 		//c.setBodyStyle("background: #000000 image(../images/icons/gb.gif) repeat-x");
@@ -115,7 +124,25 @@ public class ShowCaseView extends View {
 		
 		cp.add(createMenuShowCase(),westData);
 		cp.add(contentShowCasePanel,centerData);
-			
+		
+		//////////////////////////////////////
+		// add tabs to contentShowCasePanel
+		TabPanel folder = new TabPanel();  
+		folder.setAutoHeight(true);  
+		folder.setTabPosition(TabPosition.BOTTOM);
+		
+		demoPanelTab = new TabItem("Demo");
+		demoPanelTab.add(currentPanel);
+		folder.add(demoPanelTab);
+		
+		TabItem sourceTab = new TabItem("Source");
+		sourceTab.setScrollMode(Scroll.AUTO);
+		//sourceTab.setAutoLoad(new RequestBuilder(RequestBuilder.GET, GWT.getHostPageBaseURL() +"data/ajax1.html"));
+		folder.add(sourceTab);
+		
+		contentShowCasePanel.add(folder);
+		//////////////////////////////////////
+		
 		mainwindow.add(cp);
 	}
 
@@ -214,7 +241,7 @@ public class ShowCaseView extends View {
 
 	private void onSubViewSelection(AppEvent event) {
 
-		contentShowCasePanel.remove(currentPanel);
+		demoPanelTab.remove(currentPanel);
 		
 		String selectedPanel = event.getData().toString();
 		
@@ -226,8 +253,8 @@ public class ShowCaseView extends View {
 		ISubPanelInterface subpanel = (ISubPanelInterface) currentPanel;	
 		subpanel.refresh(); // view is LAZY initialized at first refresh() call.
 
-		contentShowCasePanel.add(currentPanel);
-		contentShowCasePanel.layout();
+		demoPanelTab.add(currentPanel);
+		demoPanelTab.layout();
 	}
 
 	private ContentPanel getErrorPanel(String selectedPanel) {

@@ -149,13 +149,13 @@ public class AppView extends View {
 		menu.add(itemContact);
 
 		MenuItem itemAbout = new MenuItem("About");
-		itemAbout.setEnabled(false);
+		itemAbout.setEnabled(true);
 		itemAbout.setIcon(GXT.IMAGES.field_invalid());
 		itemAbout.addSelectionListener(new SelectionListener<MenuEvent>() {
 
 			@Override
 			public void componentSelected(MenuEvent ce) {
-
+				Dispatcher.forwardEvent(ApplicationEvents.ShowAboutDialogEvent);
 			}
 		});
 		menu.add(itemAbout);

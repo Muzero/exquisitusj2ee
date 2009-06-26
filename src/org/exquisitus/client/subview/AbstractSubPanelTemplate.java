@@ -1,7 +1,8 @@
 package org.exquisitus.client.subview;
 
+import com.extjs.gxt.ui.client.Style.Scroll;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
-import com.extjs.gxt.ui.client.widget.layout.FitLayout;
+import com.extjs.gxt.ui.client.widget.layout.RowLayout;
 
 public abstract class AbstractSubPanelTemplate extends ContentPanel implements ISubPanelInterface {
 	
@@ -13,11 +14,12 @@ public abstract class AbstractSubPanelTemplate extends ContentPanel implements I
 
 	private void initialize() {
 		
-		setLayout(new FitLayout());
+		setHeaderVisible(false);
+		setBodyStyle("padding: 12px; fontSize: 16px;");
 		setFrame(false);
-		setHeaderVisible(true);
-		setBodyStyle("fontSize: 16px;");
-		
+		setHeading(getViewName());
+		setLayout(new RowLayout());
+		setScrollMode(Scroll.AUTOY);
 	}
 	
 	@Override
@@ -31,6 +33,6 @@ public abstract class AbstractSubPanelTemplate extends ContentPanel implements I
 	
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub	
+		// dispose?
 	}
 }
