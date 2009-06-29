@@ -22,6 +22,7 @@ public static final String LOGINMOCKSERVICE = "LOGIN";
 		
 		this.view = view;
 		
+		init();
 	}
 	
 	public void init() {

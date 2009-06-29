@@ -20,6 +20,7 @@ public abstract class AbstractSubPanelTemplate extends ContentPanel implements I
 		setHeading(getViewName());
 		setLayout(new RowLayout());
 		setScrollMode(Scroll.AUTOY);
+		
 	}
 	
 	@Override
@@ -34,5 +35,9 @@ public abstract class AbstractSubPanelTemplate extends ContentPanel implements I
 	@Override
 	public void dispose() {
 		// dispose?
+	}
+	
+	public String[] getSourceCodeClasses() {
+		return null;
 	}
 }

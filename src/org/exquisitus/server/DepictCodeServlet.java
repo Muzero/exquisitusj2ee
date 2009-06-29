@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.ext.typeinfo.HasAnnotations;
 
 /**
  * Servlet implementation class DepictCodeServlet
@@ -38,7 +42,7 @@ public class DepictCodeServlet extends HttpServlet {
 		reservedWord.add("import");
 		reservedWord.add("static");
 		reservedWord.add("final");
-	//	reservedWord.add("class");
+	//	reservedWord.add("class"); ARGH
 		reservedWord.add("interface");
 		reservedWord.add("int");
 		reservedWord.add("long");
@@ -62,7 +66,6 @@ public class DepictCodeServlet extends HttpServlet {
      */
     public DepictCodeServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -118,7 +121,7 @@ public class DepictCodeServlet extends HttpServlet {
 			return;
 		}
 		
-		//myfile = "org.exquisitus.server.EJB3ProxyServlet";
+		// EXAMPLE : myfile = "org.exquisitus.server.EJB3ProxyServlet";
 		myfile = myfile.replace('.', '/');
 		myfile += ".java";
 		
@@ -152,7 +155,7 @@ public class DepictCodeServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		process(request,response);
+		process(request,response);		
 	}
 
 }

@@ -32,6 +32,7 @@ import com.extjs.gxt.ui.client.widget.layout.AccordionLayout;
 import com.extjs.gxt.ui.client.widget.layout.BorderLayout;
 import com.extjs.gxt.ui.client.widget.layout.BorderLayoutData;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
+import com.extjs.gxt.ui.client.widget.layout.FlowLayout;
 import com.extjs.gxt.ui.client.widget.treepanel.TreePanel;
 import com.extjs.gxt.ui.client.widget.treepanel.TreePanelSelectionModel;
 import com.google.gwt.core.client.GWT;
@@ -48,34 +49,24 @@ public class ShowCaseView extends View {
 	private ContentPanel currentPanel = null;
 
 	private Map<String, ContentPanel> cachepanelmap = null;
+	private Map<String, TabPanel>    cachesourcemap = null;
+
 	private BorderLayoutData centerData;
-	//private Portlet contentShowCasePanel;
 
 	public ShowCaseView(Controller controller) {
 		super(controller);
 	}
 
 	private static final String PROVAVIEW = "EJB @Stateless Example 1";
+	
 	private TabItem demoPanelTab;
+	private TabItem sourcePanelTab;
+	private TabPanel mainTabPanel;
 	
 	private void asyncLoadPanels() { // FIXME this is only a stub, the item must
 		// be loaded with Annotation Reflection
 		
 		cachepanelmap.put(PROVAVIEW, new Ejb3Example1View());
-		cachepanelmap.put("EJB @Stateless Example 2",
-				createMockPanel("A second Panel..."));
-		cachepanelmap.put("EJB @Stateless Example 3",
-				createMockPanel("A third Panel..."));
-	}
-
-	private ContentPanel createMockPanel(String strdes) {
-		ContentPanel panel = new ContentPanel();
-		panel.setLayout(new FitLayout());
-		panel.setFrame(false);
-		panel.setHeading("Showing: " + strdes);
-		panel.addText("Panel " + strdes + " now showing!");
-
-		return panel;
 	}
 
 	@Override
@@ -83,7 +74,8 @@ public class ShowCaseView extends View {
 		super.initialize();
 
 		cachepanelmap = new HashMap<String, ContentPanel>();
-
+		cachesourcemap = new HashMap<String, TabPanel>();
+		
 		asyncLoadPanels();
 
 		currentPanel = createPresentationPanel();
@@ -127,31 +119,59 @@ public class ShowCaseView extends View {
 		cp.add(createMenuShowCase(),westData);
 		cp.add(contentShowCasePanel,centerData);
 		
-		//////////////////////////////////////
-		// add tabs to contentShowCasePanel
-		TabPanel folder = new TabPanel();  
-		folder.setAutoHeight(true);  
-		folder.setTabPosition(TabPosition.BOTTOM);
+		contentShowCasePanel.add( createTabFolder() );
+		
+		mainwindow.add(cp);
+	}
+
+	private TabPanel createTabFolder() { // add tabs to contentShowCasePanel
+		
+		mainTabPanel = new TabPanel();  
+		//folder.setAutoHeight(true);  
+		mainTabPanel.setAnimScroll(true);
+		mainTabPanel.setTabPosition(TabPosition.BOTTOM);
 		
 		demoPanelTab = new TabItem("Demo");
 		demoPanelTab.add(currentPanel);
 		demoPanelTab.setScrollMode(Scroll.AUTOY);
 		
-		folder.add(demoPanelTab);
+		mainTabPanel.add(demoPanelTab);
 		
-		TabItem sourceTab = new TabItem("Source");
-		sourceTab.setScrollMode(Scroll.AUTOY);
-		//exquisitusj2ee/depict?file=org.exquisitus.server.ServiceLocator
-		sourceTab.setAutoLoad(
-				new RequestBuilder(RequestBuilder.GET, 
-						GWT.getHostPageBaseURL() +
-						"exquisitusj2ee/depict?file=org.exquisitus.server.ServiceLocator"));
-		folder.add(sourceTab);
+		sourcePanelTab = new TabItem("Source");
+		sourcePanelTab.setScrollMode(Scroll.AUTOY);
 		
-		contentShowCasePanel.add(folder);
-		//////////////////////////////////////
+		/*sourcePanelTab.add(createSourceFolder(
+				new String[] {"org.exquisitus.server.ServiceLocator" ,"org.exquisitus.client.mvc.ShowCaseView"
+		}));*/
 		
-		mainwindow.add(cp);
+		mainTabPanel.add(sourcePanelTab);
+		
+		return mainTabPanel;
+	}
+	
+	private TabPanel createSourceFolder(String[] classes) {
+		
+		TabPanel folder = new TabPanel();
+		folder.setAnimScroll(true);
+		folder.setTabPosition(TabPosition.TOP);
+		folder.setTabScroll(true);
+		
+		for (String mclass : classes) {
+			
+			TabItem sourceTab = new TabItem(mclass);
+			sourceTab.setLayout(new FlowLayout());
+			sourceTab.setScrollMode(Scroll.ALWAYS);
+			sourceTab.setHeight(600); // TODO FIXME
+			sourceTab.setAutoWidth(true);
+			
+			sourceTab.setAutoLoad(
+					new RequestBuilder(RequestBuilder.GET, 
+					GWT.getHostPageBaseURL() + "exquisitusj2ee/depict?file=" + mclass));
+
+			folder.add(sourceTab);	
+		}
+		
+		return folder;
 	}
 
 	private Widget createMenuShowCase() {
@@ -249,9 +269,17 @@ public class ShowCaseView extends View {
 
 	private void onSubViewSelection(AppEvent event) {
 
-		demoPanelTab.remove(currentPanel);
-		
 		String selectedPanel = event.getData().toString();
+		
+		shiftPanelView(selectedPanel);
+		shiftPanelSource(selectedPanel);
+		
+		mainTabPanel.setSelection(demoPanelTab);
+	}
+	
+	private void shiftPanelView(String selectedPanel) {
+		
+		demoPanelTab.remove(currentPanel);
 		
 		currentPanel = !cachepanelmap.containsKey(selectedPanel) ? 
 					getErrorPanel(selectedPanel)
@@ -265,6 +293,27 @@ public class ShowCaseView extends View {
 		demoPanelTab.layout();
 	}
 
+	private void shiftPanelSource(String selectedPanel) {
+		
+		TabPanel tabsource = cachesourcemap.get(selectedPanel);
+		sourcePanelTab.setEnabled(true);
+		sourcePanelTab.removeAll();
+		if (tabsource == null)
+		{
+			String [] sp = ((AbstractSubPanelTemplate) currentPanel).getSourceCodeClasses();
+			
+			if (sp == null) {
+				sourcePanelTab.setEnabled(false);
+				return;
+			}
+			
+			tabsource = createSourceFolder(sp);
+			cachesourcemap.put(selectedPanel, tabsource);
+		}
+		
+		sourcePanelTab.add(tabsource);	
+	}
+	
 	private ContentPanel getErrorPanel(String selectedPanel) {
 
 		return new ErrorSubViewPanel(selectedPanel);

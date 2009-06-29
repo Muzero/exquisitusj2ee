@@ -11,6 +11,7 @@ import com.extjs.gxt.ui.client.widget.button.Button;
 import com.extjs.gxt.ui.client.widget.form.TextField;
 import com.extjs.gxt.ui.client.widget.layout.RowData;
 
+
 @SubView(panelName = "EJB3 Stateless Example 1", 
 		category = "EJB Example", 
 		subCategory = "@Stateless")
@@ -20,16 +21,16 @@ public class Ejb3Example1View extends AbstractSubPanelTemplate {
 	private TextField<String> inputStr = null;
 	private TextField<String> resultStr = null;
 
-	public Ejb3Example1View() {
+	public Ejb3Example1View() {		
 	}
 
 	@Override
 	public void init() {
-
+		
 		ContentPanel panel = new ContentPanel();  
 		panel.setHeading("RowLayout: Orientation set to vertical");  
 		//panel.setLayout(new RowLayout(Orientation.VERTICAL));  
-		panel.setSize(400, 300);  
+		panel.setSize(400, 250);  
 		panel.setFrame(true);  
 		panel.setCollapsible(true);
 
@@ -54,7 +55,8 @@ public class Ejb3Example1View extends AbstractSubPanelTemplate {
 		
 		add(panel);
 
-		new Ejb3Example1Controller(this).init();
+		new Ejb3Example1Controller(this);
+		
 	}
 
 	@Override
@@ -78,6 +80,17 @@ public class Ejb3Example1View extends AbstractSubPanelTemplate {
 	public TextField<String> getResultStr() {
 
 		return resultStr;
+	}
+
+	@Override
+	public String[] getSourceCodeClasses() {
+	
+		return new String[] {
+				"org.exquisitus.server.ServiceLocator"
+				,"org.exquisitus.client.mvc.ShowCaseView"
+				,"org.exquisitus.client.mvc.AppView"
+				,"org.exquisitus.client.mvc.LoginDialogController"
+		};
 	}
 
 }
