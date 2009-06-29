@@ -1,7 +1,5 @@
 package org.exquisitus.test;
 
-import static org.junit.Assert.*;
-
 import org.apache.cactus.ServletTestCase;
 import org.exquisitus.server.LoginServiceImpl;
 import org.junit.After;
@@ -12,6 +10,7 @@ public class LoginServiceImplServletTest extends ServletTestCase {
 
 	@Before
 	public void setUp() throws Exception {
+		// something
 	}
 
 	@After
