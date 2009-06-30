@@ -47,6 +47,7 @@ public class ServiceLocator {
 	};
 	
 	private ServiceLocator() throws NamingException {
+		
 		initLocalServiceLocator();
 		initRemoteServiceLocator(REMOTE_EJB_CONTAINER,"system","admin"); // TODO
 	}
