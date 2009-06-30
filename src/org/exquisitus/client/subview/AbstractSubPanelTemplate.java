@@ -40,4 +40,9 @@ public abstract class AbstractSubPanelTemplate extends ContentPanel implements I
 	public String[] getSourceCodeClasses() {
 		return null;
 	}
+	
+	// this functions MUST be replaced by Annotations
+	@Deprecated abstract public String getPanelName();
+	@Deprecated abstract public String getCategory();
+	@Deprecated abstract public String getSubCategory();
 }

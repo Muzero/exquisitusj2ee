@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 1.6.4//EN" "http://google-web-toolkit.googlecode.com/svn/tags/1.6.4/distro-source/core/src/gwt-module.dtd">
 <module rename-to='exquisitusj2ee'>
-  <!--  inherits name='com.google.gwt.user.User'/ -->
   <inherits name='com.extjs.gxt.ui.GXT'/>
-  <!-- inherits name='com.google.gwt.user.theme.standard.Standard'/ -->
+  
   <entry-point class='org.exquisitus.client.ExquisitusJ2EE'/>
+  
+  <servlet path="/login" class="org.exquisitus.server.LoginServiceImpl"/>
+  <servlet path="/ejb3proxy" class="org.exquisitus.server.EJB3ProxyServlet"/>
 </module>

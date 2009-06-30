@@ -55,8 +55,7 @@ public class Ejb3Example1View extends AbstractSubPanelTemplate {
 		
 		add(panel);
 
-		new Ejb3Example1Controller(this);
-		
+		new Ejb3Example1Controller(this);		
 	}
 
 	@Override
@@ -93,4 +92,18 @@ public class Ejb3Example1View extends AbstractSubPanelTemplate {
 		};
 	}
 
+	@Override @Deprecated
+	public String getCategory() {
+		return "EJB Example";
+	}
+
+	@Override @Deprecated
+	public String getSubCategory() {
+		return "EJB3 @Stateless";
+	}
+	
+	@Override @Deprecated
+	public String getPanelName() {
+		return "EJB3 Stateless Example 1";
+	}
 }

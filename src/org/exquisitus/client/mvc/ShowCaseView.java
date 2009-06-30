@@ -1,6 +1,8 @@
 package org.exquisitus.client.mvc;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.exquisitus.client.ApplicationEvents;
@@ -12,6 +14,7 @@ import org.exquisitus.client.subview.ejb3example1.Ejb3Example1View;
 import com.extjs.gxt.ui.client.GXT;
 import com.extjs.gxt.ui.client.Style.LayoutRegion;
 import com.extjs.gxt.ui.client.Style.Scroll;
+import com.extjs.gxt.ui.client.data.BaseModelData;
 import com.extjs.gxt.ui.client.data.ModelData;
 import com.extjs.gxt.ui.client.event.SelectionChangedEvent;
 import com.extjs.gxt.ui.client.event.SelectionChangedListener;
@@ -48,7 +51,7 @@ public class ShowCaseView extends View {
 
 	private ContentPanel currentPanel = null;
 
-	private Map<String, ContentPanel> cachepanelmap = null;
+	private Map<String, AbstractSubPanelTemplate> cachepanelmap = null;
 	private Map<String, TabPanel>    cachesourcemap = null;
 
 	private BorderLayoutData centerData;
@@ -63,18 +66,28 @@ public class ShowCaseView extends View {
 	private TabItem sourcePanelTab;
 	private TabPanel mainTabPanel;
 	
-	private void asyncLoadPanels() { // FIXME this is only a stub, the item must
+	private void asyncLoadPanels() { 
+		// FIXME this is only a stub, the item must
 		// be loaded with Annotation Reflection
+		// for now we shall use some deprecated method instead
 		
-		cachepanelmap.put(PROVAVIEW, new Ejb3Example1View());
+		AbstractSubPanelTemplate as = new Ejb3Example1View();
+		cachepanelmap.put(as.getPanelName(), as);
+		
+		
+	}
+	
+	private void putPanel(AbstractSubPanelTemplate as) {
+		
 	}
 
 	@Override
 	protected void initialize() {
 		super.initialize();
 
-		cachepanelmap = new HashMap<String, ContentPanel>();
+		cachepanelmap = new LinkedHashMap<String, AbstractSubPanelTemplate>();
 		cachesourcemap = new HashMap<String, TabPanel>();
+		
 		
 		asyncLoadPanels();
 
@@ -174,6 +187,7 @@ public class ShowCaseView extends View {
 		return folder;
 	}
 
+	// TODO 
 	private Widget createMenuShowCase() {
 		
 		Portlet menuShowCase = new Portlet();
@@ -182,38 +196,83 @@ public class ShowCaseView extends View {
 		menuShowCase.setAnimCollapse(false);
 		menuShowCase.setLayout(new AccordionLayout());
 		menuShowCase.setPinned(true);
-		
 		menuShowCase.setIcon(GXT.IMAGES.checked());
 		
-		menuShowCase.add(createSubCategory("EJB3 Examples"));
+		Collection<AbstractSubPanelTemplate> cas = cachepanelmap.values();
 		
-		ContentPanel cp = new ContentPanel();
+		for (AbstractSubPanelTemplate subPanel : cas)
+		{
+			createMenuCategory(menuShowCase, subPanel);
+		}
+		
+		// now let's create the showcase tree from panel informations
+		// retrived now from methods / annotation in future
+		
+		//menuShowCase.add(createSubCategory("EJB3 Examples"));
+		
+		/*ContentPanel cp = new ContentPanel();
 		cp.setHeading("Web Services Examples");
 		menuShowCase.add(cp);
 		
 		cp = new ContentPanel();
 		cp.setHeading("Spring Examples");
-		menuShowCase.add(cp);
+		menuShowCase.add(cp);*/
 		
 		return menuShowCase;
 	}
 	
-	private ContentPanel createSubCategory(String categoryName) {
-		ContentPanel cp = new ContentPanel();
-		cp.setHeading(categoryName);
-		cp.setLayout(new FitLayout());
+	
+	private Map<String, ContentPanel> cacheCategory = new HashMap<String, ContentPanel>();
+	private Map<String, TreePanel<PanelData>> cacheSubCategory = new HashMap<String, TreePanel<PanelData>>();
+	private Map<String, PanelData> cachePanelData = new HashMap<String, PanelData>();
+	
+	private void createMenuCategory(Portlet menuShowCase, AbstractSubPanelTemplate subPanel) {
+		
+		String categoryName = subPanel.getCategory();
+		String subCategoryName = subPanel.getSubCategory();
+		String panelName = subPanel.getPanelName();
+		
+		ContentPanel cp = cacheCategory.get(categoryName);
+		
+		if (cp == null) {
+			
+			cp = new ContentPanel();
+			cp.setHeading(categoryName);
+			cp.setLayout(new FitLayout());
+			
+			cacheCategory.put(categoryName, cp);
+			
+			menuShowCase.add(cp);
+		}
+	
+		TreePanel<PanelData> tree = cacheSubCategory.get(subCategoryName);
+		
+		if (tree == null) 
+		{ 
+			tree = createSubCategory(subPanel);
+			cacheSubCategory.put(subCategoryName, tree);
+			cp.add(tree);
+		}
+		
+		PanelData pd = cachePanelData.get(panelName);
+		tree.getStore().add(pd, newItem(panelName, "icon1"), false);
+	}
+	
+	private TreePanel<PanelData> createSubCategory(AbstractSubPanelTemplate subPanel) {
 		
 		TreeStore<PanelData> store = new TreeStore<PanelData>();  
 		TreePanel<PanelData> tree = new TreePanel<PanelData>(store);
 		tree.getStyle().setLeafIcon(GXT.IMAGES.editor_link());
 		tree.setDisplayProperty(PanelData.NAME);
 		
-		PanelData m = newItem("EJB3 @Stateless", null);  
+		PanelData m = newItem(subPanel.getSubCategory(), null);  
 		store.add(m, false);  
 		
-		store.add(m, newItem(PROVAVIEW, "icon1"), false);  
-		store.add(m, newItem("Example 2", "icon1"), false);  
-		store.add(m, newItem("Example 3", "icon1"), false);  
+		cachePanelData.put(subPanel.getPanelName(), m);
+		
+		//store.add(m, newItem(PROVAVIEW, "icon1"), false);  
+		//store.add(m, newItem("Example 2", "icon1"), false);  
+		//store.add(m, newItem("Example 3", "icon1"), false);  
 		tree.setExpanded(m, true); 
 	
 		TreePanelSelectionModel<ModelData> ts = new TreePanelSelectionModel<ModelData>();
@@ -229,8 +288,8 @@ public class ShowCaseView extends View {
 				Dispatcher.forwardEvent(ApplicationEvents.SelectSubViewEvent, selectedView);
 			}
 		});
-		cp.add(tree);
-		return cp;
+		
+		return tree;
 	}
 	
 	private PanelData newItem(String name, String iconStyle) {  
@@ -343,6 +402,24 @@ class ErrorSubViewPanel extends AbstractSubPanelTemplate implements ISubPanelInt
 		setBodyStyle("fontSize: 18px;");
 		add(val);
 		
+	}
+
+	@Override
+	public String getCategory() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getPanelName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getSubCategory() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 };
 
