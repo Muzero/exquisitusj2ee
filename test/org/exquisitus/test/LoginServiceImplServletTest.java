@@ -10,7 +10,7 @@ public class LoginServiceImplServletTest extends ServletTestCase {
 
 	@Before
 	public void setUp() throws Exception {
-		// something
+		// something this is an example
 	}
 
 	@After
