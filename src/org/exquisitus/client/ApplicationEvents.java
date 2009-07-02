@@ -23,7 +23,7 @@ public final class ApplicationEvents {
 	public static final EventType ShowLoginEvent         = new EventType();
 	public static final EventType InitShowCaseEvent      = new EventType();
 	public static final EventType ShowMessageDialogEvent = new EventType();
-	public static final EventType ShowAboutDialogEvent   = new EventType();
+	public static final EventType ShowAboutWindowEvent   = new EventType();
 
 	public static final EventType SelectSubViewEvent = new EventType();
 

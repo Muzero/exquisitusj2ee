@@ -10,7 +10,7 @@ package org.exquisitus.client;
  */
 
 
-import org.exquisitus.client.mvc.AboutDialogController;
+import org.exquisitus.client.mvc.AboutWindowController;
 import org.exquisitus.client.mvc.AppController;
 import org.exquisitus.client.mvc.LoginDialogController;
 import org.exquisitus.client.mvc.ShowCaseController;
@@ -42,7 +42,7 @@ public class ExquisitusJ2EE implements EntryPoint {
 		dispatcher.addController(new AppController());
 		dispatcher.addController(new LoginDialogController()); 
 		dispatcher.addController(new ShowCaseController()); 
-		dispatcher.addController(new AboutDialogController()); 
+		dispatcher.addController(new AboutWindowController()); 
 		//dispatcher.addController(new MessageDialogController()); TODO
 		
 		

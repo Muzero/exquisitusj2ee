@@ -155,7 +155,7 @@ public class AppView extends View {
 
 			@Override
 			public void componentSelected(MenuEvent ce) {
-				Dispatcher.forwardEvent(ApplicationEvents.ShowAboutDialogEvent);
+				Dispatcher.forwardEvent(ApplicationEvents.ShowAboutWindowEvent);
 			}
 		});
 		menu.add(itemAbout);

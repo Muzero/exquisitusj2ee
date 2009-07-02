@@ -4,10 +4,10 @@ package org.exquisitus.client.subview;
 
 public @interface SubView {
 	
-	String panelName();
+	public String panelName();
 
-	String category();
+	public String category();
 
-	String subCategory();
+	public String subCategory();
 
 }

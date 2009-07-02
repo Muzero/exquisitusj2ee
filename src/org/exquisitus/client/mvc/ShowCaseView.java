@@ -14,7 +14,6 @@ import org.exquisitus.client.subview.ejb3example1.Ejb3Example1View;
 import com.extjs.gxt.ui.client.GXT;
 import com.extjs.gxt.ui.client.Style.LayoutRegion;
 import com.extjs.gxt.ui.client.Style.Scroll;
-import com.extjs.gxt.ui.client.data.BaseModelData;
 import com.extjs.gxt.ui.client.data.ModelData;
 import com.extjs.gxt.ui.client.event.SelectionChangedEvent;
 import com.extjs.gxt.ui.client.event.SelectionChangedListener;
@@ -59,8 +58,6 @@ public class ShowCaseView extends View {
 	public ShowCaseView(Controller controller) {
 		super(controller);
 	}
-
-	private static final String PROVAVIEW = "EJB @Stateless Example 1";
 	
 	private TabItem demoPanelTab;
 	private TabItem sourcePanelTab;
@@ -71,14 +68,13 @@ public class ShowCaseView extends View {
 		// be loaded with Annotation Reflection
 		// for now we shall use some deprecated method instead
 		
-		AbstractSubPanelTemplate as = new Ejb3Example1View();
-		cachepanelmap.put(as.getPanelName(), as);
-		
+		// start bill
+		insertPanelIntoShowCase( new Ejb3Example1View() );		
 		
 	}
 	
-	private void putPanel(AbstractSubPanelTemplate as) {
-		
+	private void insertPanelIntoShowCase(AbstractSubPanelTemplate as) {
+		cachepanelmap.put(as.getPanelName(), as);
 	}
 
 	@Override
@@ -87,8 +83,7 @@ public class ShowCaseView extends View {
 
 		cachepanelmap = new LinkedHashMap<String, AbstractSubPanelTemplate>();
 		cachesourcemap = new HashMap<String, TabPanel>();
-		
-		
+			
 		asyncLoadPanels();
 
 		currentPanel = createPresentationPanel();
@@ -176,7 +171,8 @@ public class ShowCaseView extends View {
 			sourceTab.setScrollMode(Scroll.ALWAYS);
 			sourceTab.setHeight(600); // TODO FIXME
 			sourceTab.setAutoWidth(true);
-			
+		
+			// servlet source code loader from package name
 			sourceTab.setAutoLoad(
 					new RequestBuilder(RequestBuilder.GET, 
 					GWT.getHostPageBaseURL() + "exquisitusj2ee/depict?file=" + mclass));
@@ -205,19 +201,6 @@ public class ShowCaseView extends View {
 			createMenuCategory(menuShowCase, subPanel);
 		}
 		
-		// now let's create the showcase tree from panel informations
-		// retrived now from methods / annotation in future
-		
-		//menuShowCase.add(createSubCategory("EJB3 Examples"));
-		
-		/*ContentPanel cp = new ContentPanel();
-		cp.setHeading("Web Services Examples");
-		menuShowCase.add(cp);
-		
-		cp = new ContentPanel();
-		cp.setHeading("Spring Examples");
-		menuShowCase.add(cp);*/
-		
 		return menuShowCase;
 	}
 	
@@ -228,6 +211,7 @@ public class ShowCaseView extends View {
 	
 	private void createMenuCategory(Portlet menuShowCase, AbstractSubPanelTemplate subPanel) {
 		
+		// FIXME replace it with an annotation/reflection engine!
 		String categoryName = subPanel.getCategory();
 		String subCategoryName = subPanel.getSubCategory();
 		String panelName = subPanel.getPanelName();
@@ -255,7 +239,7 @@ public class ShowCaseView extends View {
 		}
 		
 		PanelData pd = cachePanelData.get(panelName);
-		tree.getStore().add(pd, newItem(panelName, "icon1"), false);
+		tree.getStore().add(pd, newItem(panelName, "icon1"), false); // FIXME use different icons!
 	}
 	
 	private TreePanel<PanelData> createSubCategory(AbstractSubPanelTemplate subPanel) {
@@ -270,9 +254,6 @@ public class ShowCaseView extends View {
 		
 		cachePanelData.put(subPanel.getPanelName(), m);
 		
-		//store.add(m, newItem(PROVAVIEW, "icon1"), false);  
-		//store.add(m, newItem("Example 2", "icon1"), false);  
-		//store.add(m, newItem("Example 3", "icon1"), false);  
 		tree.setExpanded(m, true); 
 	
 		TreePanelSelectionModel<ModelData> ts = new TreePanelSelectionModel<ModelData>();
@@ -297,7 +278,7 @@ public class ShowCaseView extends View {
 		PanelData m = new PanelData();  
 	    m.setName(name);
 	    m.setIcon(iconStyle);
-	    m.setView("TODO");
+	    // m.setView(cachepanelmap.get(name)); // not used now
 	 
 	    return m;  
 	}  
@@ -306,7 +287,7 @@ public class ShowCaseView extends View {
 		ContentPanel panel = new ContentPanel();
 		panel.setLayout(new FitLayout());
 		panel.setHeading("DEFAULT");
-		panel.addText("TODO");
+		panel.addText("This is the presentation panel (TODO)");
 		panel.setFrame(false);
 		panel.setHeaderVisible(false);
 		return panel;

@@ -21,17 +21,18 @@ public class PanelData extends BaseModelData {
 	public void setIcon(String icon) {
 		set(ICON, icon);
 	}
-	public String getView() {
+	public AbstractSubPanelTemplate getView() {
 		return get(VIEW);
 	}
-	public void setView(String view) {
-		set(VIEW, view);
+	
+	public void setView(AbstractSubPanelTemplate abstractSubPanelTemplate) {
+		set(VIEW, abstractSubPanelTemplate);
 	}
 	
 	public PanelData() {
 	}
 	
-	public PanelData(String name, String icon, String view) {
+	public PanelData(String name, String icon, AbstractSubPanelTemplate view) {
 		setName(name);
 		setIcon(name);
 		setView(view);

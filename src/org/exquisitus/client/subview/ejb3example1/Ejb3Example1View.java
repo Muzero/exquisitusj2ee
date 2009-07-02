@@ -28,7 +28,7 @@ public class Ejb3Example1View extends AbstractSubPanelTemplate {
 	public void init() {
 		
 		ContentPanel panel = new ContentPanel();  
-		panel.setHeading("RowLayout: Orientation set to vertical");  
+		panel.setHeading("Try yourself! Click to invoke a Stateless EJB");  
 		//panel.setLayout(new RowLayout(Orientation.VERTICAL));  
 		panel.setSize(400, 250);  
 		panel.setFrame(true);  
