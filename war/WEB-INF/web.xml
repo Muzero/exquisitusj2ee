@@ -46,5 +46,15 @@
   	<servlet-name>depictCodeServlet</servlet-name>
   	<url-pattern>/exquisitusj2ee/depict</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+	<servlet-name>exquisitusintro</servlet-name>
+    <jsp-file>/resources/intro.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>exquisitusintro</servlet-name>
+    <url-pattern>/intro</url-pattern>
+  </servlet-mapping>
+  
 
 </web-app>

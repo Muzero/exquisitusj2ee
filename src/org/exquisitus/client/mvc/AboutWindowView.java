@@ -12,6 +12,8 @@ import com.extjs.gxt.ui.client.widget.TabPanel;
 import com.extjs.gxt.ui.client.widget.Window;
 import com.extjs.gxt.ui.client.widget.TabPanel.TabPosition;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.http.client.RequestBuilder;
 
 public class AboutWindowView extends View {
 
@@ -27,7 +29,7 @@ public class AboutWindowView extends View {
 	@Override
 	protected void initialize() {
 		super.initialize();
-		
+			
 		aboutWindow = new Window();
 		aboutWindow.setBodyBorder(true);
 		aboutWindow.setHeading("Exquisitus J2EE About Dialog");
@@ -47,17 +49,31 @@ public class AboutWindowView extends View {
 		TabPanel folder = new TabPanel();  
 		folder.setTabPosition(TabPosition.BOTTOM);
 		
+		RequestBuilder rbIntro = new RequestBuilder(RequestBuilder.GET, GWT.getHostPageBaseURL() +"intro");
+		
 		TabItem introItem = new TabItem("Intro");  
 		introItem.addStyleName("pad-text");  
+		introItem.setAutoLoad(rbIntro);
 		folder.add(introItem);  
 		
+		//RequestBuilder rbDesign = new RequestBuilder(RequestBuilder.GET, "http://cloud.github.com/downloads/Muzero/exquisitusj2ee/ExquisitusJ2EE.jpg" ); //GWT.getHostPageBaseURL() +"design");
+		
 		TabItem designItem = new TabItem("Design");  
-		designItem.addStyleName("pad-text"); 
+		designItem.addStyleName("pad-text");
+		designItem.setLayout(new FitLayout());
+		designItem.setScrollMode(Scroll.AUTO);
+		designItem.add(new HtmlContainer("<a href='http://cloud.github.com/downloads/Muzero/exquisitusj2ee/ExquisitusJ2EE.jpg'>" +
+				"<img style='height: 100%; width: 100%;' src='http://cloud.github.com/downloads/Muzero/exquisitusj2ee/ExquisitusJ2EE.jpg' //><//a>"));
+		//designItem.setAutoLoad(rbDesign);
 		folder.add(designItem); 
+		
+		RequestBuilder rbAbout = new RequestBuilder(RequestBuilder.GET, GWT.getHostPageBaseURL() +"about");
 		
 		TabItem aboutItem = new TabItem("About");  
 		aboutItem.addStyleName("pad-text");
+		aboutItem.setAutoLoad(rbAbout);
 		aboutItem.setScrollMode(Scroll.AUTO);  
+		aboutItem.setEnabled(false);
 		folder.add(aboutItem); 
 		
 		
