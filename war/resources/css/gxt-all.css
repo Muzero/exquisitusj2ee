@@ -6647,6 +6647,7 @@ body.x-body-masked .x-window-plain .x-window-mc {
 .background-panel {
     background:  #ffffff url(../images/icons/bg.gif) repeat-x;
 }
+/resources/images/icons/hehe_48.png
 */
 
 .background-panel {
@@ -6658,7 +6659,11 @@ body.x-body-masked .x-window-plain .x-window-mc {
 }
 
 .exec-icon {
-	background-image: url(../images/icons/exec.png);
+	background-image: url(../images/icons/exec.png) no-repeat center;
+}
+
+.mainbtn-icon {
+	background-image: url(/resources/images/icons/hehe_64.png) no-repeat center top !important;
 }
 
 .exec-text-icon {

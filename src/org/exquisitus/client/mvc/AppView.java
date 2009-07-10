@@ -1,6 +1,7 @@
 package org.exquisitus.client.mvc;
 
 import org.exquisitus.client.ApplicationEvents;
+import org.exquisitus.client.ExquisitusJ2EE;
 
 import com.extjs.gxt.ui.client.GXT;
 import com.extjs.gxt.ui.client.Registry;
@@ -19,6 +20,7 @@ import com.extjs.gxt.ui.client.widget.HtmlContainer;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.Viewport;
 import com.extjs.gxt.ui.client.widget.button.Button;
+import com.extjs.gxt.ui.client.widget.button.SplitButton;
 import com.extjs.gxt.ui.client.widget.layout.BorderLayout;
 import com.extjs.gxt.ui.client.widget.layout.BorderLayoutData;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
@@ -171,7 +173,7 @@ public class AppView extends View {
 
 	@Override
 	protected void initialize() {
-		btnMainMenu = new Button(/*"Hello J2EE Experiment!"*/);
+		btnMainMenu = new SplitButton(/*"Hello J2EE Experiment!"*/);
 
 		/*btnMainMenu.setMenu(createMenu());
 		btnMainMenu.setArrowAlign(ButtonArrowAlign.BOTTOM);
@@ -186,14 +188,20 @@ public class AppView extends View {
 		btnMainMenu.setPosition(40, 40);*/
 		
 		btnMainMenu.setShadow(true);
+//		btnMainMenu.setText("Click for Menu");
 		btnMainMenu.setPosition(40, 40);
-		btnMainMenu.setMenu(createMenu());
-		btnMainMenu.setIcon(IconHelper.create("/resources/images/icons/network.png",64,64));
+		//btnMainMenu.set
+		btnMainMenu.setWidth(80);
+		btnMainMenu.setHeight(70);
+		
+		btnMainMenu.setIcon(ExquisitusJ2EE.EXQUISITUS_ICON_BUNDLE.add32());
 		btnMainMenu.setIconAlign(IconAlign.TOP);
 		btnMainMenu.setArrowAlign(ButtonArrowAlign.BOTTOM);
 		btnMainMenu.setScale(ButtonScale.LARGE);
-		btnMainMenu.setHeight(70);
-		btnMainMenu.setWidth(70);
+		btnMainMenu.setMenu(createMenu());
+		
+//		btnMainMenu.setHeight(70);
+//		btnMainMenu.setWidth(70);
 		
 		ToolTipConfig ttc = new ToolTipConfig();
 		ttc.setShowDelay(500);

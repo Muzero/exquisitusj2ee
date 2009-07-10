@@ -14,6 +14,7 @@ import org.exquisitus.client.mvc.AboutWindowController;
 import org.exquisitus.client.mvc.AppController;
 import org.exquisitus.client.mvc.LoginDialogController;
 import org.exquisitus.client.mvc.ShowCaseController;
+import org.exquisitus.client.icons.ExquisitusIconBundle;
 
 import com.extjs.gxt.ui.client.GXT;
 import com.extjs.gxt.ui.client.mvc.Dispatcher;
@@ -23,6 +24,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.GWT.UncaughtExceptionHandler;
 
 public class ExquisitusJ2EE implements EntryPoint {
+	
+	public static ExquisitusIconBundle EXQUISITUS_ICON_BUNDLE = GWT.create(ExquisitusIconBundle.class);
 
 	private Dispatcher dispatcher = null;
 
@@ -44,7 +47,6 @@ public class ExquisitusJ2EE implements EntryPoint {
 		dispatcher.addController(new ShowCaseController()); 
 		dispatcher.addController(new AboutWindowController()); 
 		//dispatcher.addController(new MessageDialogController()); TODO
-		
 		
 		dispatcher.dispatch(ApplicationEvents.InitAppMenu);
 		

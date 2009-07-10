@@ -33,12 +33,13 @@ public static final String LOGINMOCKSERVICE = "LOGIN";
 			public void componentSelected(ButtonEvent ce) {
 				Info.display("Ejb3","Ejb3 Invoke!");
 				
-				String strToReverse = view.getInputStr().getValue();
+				final String strToReverse = view.getInputStr().getValue();
 				
 				ejbProxyService.EJB3StringReverse(strToReverse, new SimpleCallBack(){
 
 					@Override
 					public void onSuccess(String result) {
+						Info.display("" + strToReverse,result);
 						view.getResultStr().setValue(result);						
 					}
 				});

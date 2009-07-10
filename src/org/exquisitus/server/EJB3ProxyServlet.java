@@ -8,8 +8,6 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 @SuppressWarnings("serial")
 public class EJB3ProxyServlet extends RemoteServiceServlet implements EJB3ProxyService {
-
-	
 	
 	@Override
 	public String EJB3StringReverse(String str) {
@@ -18,9 +16,6 @@ public class EJB3ProxyServlet extends RemoteServiceServlet implements EJB3ProxyS
 		SimpleEjbLocal ejb = businessDelegate.getLocalSimpleEJB();
 
 		// Thanks business delegate! ;-)
-		ejb.reverseString(str);
-
-		return null;
+		return ejb.reverseString(str);
 	}
-
 }
