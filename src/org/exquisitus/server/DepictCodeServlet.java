@@ -5,7 +5,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +14,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.ext.typeinfo.HasAnnotations;
 
 /**
  * Servlet implementation class DepictCodeServlet
@@ -86,9 +82,13 @@ public class DepictCodeServlet extends HttpServlet {
 		sb.append("<html><head><style type=\"text/css\">" +
 		INLINECSS +	"</style></head><body>");
 		
-		while (( line = input.readLine()) != null) {
+		int i = 0;
+		
+		String stile = "style='font-family: arial,sans-serif; padding: 2px;'";
+		
+		while (( line = input.readLine()) != null) {	
 			
-			sb.append("<span class=\"special\">" + colorReservedWords(line) + "</span>");
+			sb.append("<span " + stile + " >" + colorReservedWords(line) + "</span>");
 		    sb.append("<br/>");
 		}
 		

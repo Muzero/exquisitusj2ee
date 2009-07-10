@@ -5,6 +5,7 @@ import org.exquisitus.client.ApplicationEvents;
 import com.extjs.gxt.ui.client.GXT;
 import com.extjs.gxt.ui.client.Registry;
 import com.extjs.gxt.ui.client.Style.ButtonArrowAlign;
+import com.extjs.gxt.ui.client.Style.ButtonScale;
 import com.extjs.gxt.ui.client.Style.IconAlign;
 import com.extjs.gxt.ui.client.Style.LayoutRegion;
 import com.extjs.gxt.ui.client.event.MenuEvent;
@@ -71,7 +72,6 @@ public class AppView extends View {
 		northPanel = new HtmlContainer(createUpperBoundPanelContent(" - Anonymous User"));
 
 		northPanel.setBorders(false);
-		northPanel.setEnableState(false);
 		northPanel.setId("exquisitus-header");
 		northPanel.setStyleAttribute("background", "#1E4176");
 		northPanel.setStyleAttribute("border", "0pt none");		
@@ -173,16 +173,27 @@ public class AppView extends View {
 	protected void initialize() {
 		btnMainMenu = new Button(/*"Hello J2EE Experiment!"*/);
 
-		btnMainMenu.setMenu(createMenu());
+		/*btnMainMenu.setMenu(createMenu());
 		btnMainMenu.setArrowAlign(ButtonArrowAlign.BOTTOM);
 		btnMainMenu.setIcon(IconHelper.create("/resources/images/icons/network.png",64,64));
 		btnMainMenu.setHeight(70);
 		btnMainMenu.setWidth(70);
 		btnMainMenu.setIconAlign(IconAlign.BOTTOM); 
+		btnMainMenu.setScale(ButtonScale.LARGE);
 		
 		btnMainMenu.setShim(true);
 		btnMainMenu.setShadow(true);
+		btnMainMenu.setPosition(40, 40);*/
+		
+		btnMainMenu.setShadow(true);
 		btnMainMenu.setPosition(40, 40);
+		btnMainMenu.setMenu(createMenu());
+		btnMainMenu.setIcon(IconHelper.create("/resources/images/icons/network.png",64,64));
+		btnMainMenu.setIconAlign(IconAlign.TOP);
+		btnMainMenu.setArrowAlign(ButtonArrowAlign.BOTTOM);
+		btnMainMenu.setScale(ButtonScale.LARGE);
+		btnMainMenu.setHeight(70);
+		btnMainMenu.setWidth(70);
 		
 		ToolTipConfig ttc = new ToolTipConfig();
 		ttc.setShowDelay(500);

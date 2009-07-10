@@ -3,23 +3,23 @@ package org.exquisitus.server.persistence;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.exquisitus.jaxb.generated.user.User;
+import org.exquisitus.client.model.UserVO;
 
 public class UserPersistenceMock implements UserPersistence {
 
-	private static List<User> mockusers = new ArrayList<User>();
+	private static List<UserVO> mockusers = new ArrayList<UserVO>();
 
 	public UserPersistenceMock() {
 
 		if (mockusers.isEmpty()) {
-			User u1 = new User();
+			UserVO u1 = new UserVO();
 			u1.setUsername("Hey");
 			u1.setEmail("email@email.it");
 			u1.setPassword("nicepass");
 			u1.setRole("");
 			mockusers.add(u1);
 
-			User u2 = new User();
+			UserVO u2 = new UserVO();
 			u2.setUsername("Pippo");
 			u2.setEmail("topolino@toto.it");
 			u2.setPassword("uffa");
@@ -29,9 +29,9 @@ public class UserPersistenceMock implements UserPersistence {
 	}
 
 	@Override
-	public User findUser(String username, String password) {
+	public UserVO findUser(String username, String password) {
 		
-		User user = new User();
+		UserVO user = new UserVO();
 		user.setUsername(username);
 		user.setPassword(password);
 		user.setEmail("mock@mock.it");
@@ -39,7 +39,7 @@ public class UserPersistenceMock implements UserPersistence {
 	}
 
 	@Override
-	public List<?> getUserList() {
+	public List<UserVO> getUserList() {
 
 		return mockusers;
 	}
@@ -47,10 +47,12 @@ public class UserPersistenceMock implements UserPersistence {
 	@Override
 	public void registerUser(String username, String password, String email) {
 
-		User user = new User();
+		UserVO user = new UserVO();
 		user.setUsername(username);
 		user.setPassword(password);
 		user.setEmail(email);
+		user.setAuth(false);
+		user.setRole("");
 
 		mockusers.add(user);
 	}

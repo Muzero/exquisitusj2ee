@@ -2,12 +2,12 @@ package org.exquisitus.server.persistence;
 
 import java.util.List;
 
-import org.exquisitus.jaxb.generated.user.User;
+import org.exquisitus.client.model.UserVO;
 
 public class UserPersistenceHibernate implements UserPersistence {
 
 	@Override
-	public User findUser(String user, String password) {
+	public UserVO findUser(String user, String password) {
 		// TODO
 		return null;
 	

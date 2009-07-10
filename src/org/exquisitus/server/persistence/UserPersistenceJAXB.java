@@ -1,6 +1,7 @@
 package org.exquisitus.server.persistence;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -9,6 +10,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import org.exquisitus.client.model.UserVO;
 import org.exquisitus.jaxb.generated.user.ObjectFactory;
 import org.exquisitus.jaxb.generated.user.User;
 import org.exquisitus.jaxb.generated.user.Userslist;
@@ -36,7 +38,7 @@ public class UserPersistenceJAXB implements UserPersistence {
 	}
 	
 	@Override
-	public User findUser(String username, String password) {
+	public UserVO findUser(String username, String password) {
 		
 		// TODO improve autentication!
 		
@@ -56,7 +58,7 @@ public class UserPersistenceJAXB implements UserPersistence {
 		for (User user : ulist) {
 			if (user.getUsername().trim().toLowerCase().equals(username.trim().toLowerCase()) 
 					&& user.getPassword().trim().toLowerCase().equals(password.trim().toLowerCase()))
-					return user;
+					return convert2VO(user);
 		}
 		
 		// otherwise...
@@ -90,7 +92,7 @@ public class UserPersistenceJAXB implements UserPersistence {
 	}
 
 	@Override
-	public List<? extends User> getUserList() {
+	public List<UserVO> getUserList() {
 		Unmarshaller un = null;
 		Userslist userslist = null;
 		
@@ -101,8 +103,27 @@ public class UserPersistenceJAXB implements UserPersistence {
 			e.printStackTrace();
 		}		
 		
+		List<User> xmllist = userslist.getUser();
 		
-		return userslist.getUser();
+		List<UserVO> uservolist = new ArrayList<UserVO>();
+		
+		for (User u : xmllist)
+			uservolist.add(convert2VO(u));
+		
+		return uservolist;
+	}
+
+	
+	private static UserVO convert2VO(User xmluser)  {
+		UserVO us = new UserVO();
+		
+		us.setUsername(xmluser.getUsername());
+		us.setEmail(xmluser.getEmail());
+		us.setPassword(xmluser.getPassword());
+		us.setRole(xmluser.getRole());
+		us.setAuth(xmluser.isAuth());
+		
+		return us;
 	}
 
 }

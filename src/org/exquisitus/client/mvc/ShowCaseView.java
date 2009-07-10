@@ -10,6 +10,7 @@ import org.exquisitus.client.subview.AbstractSubPanelTemplate;
 import org.exquisitus.client.subview.ISubPanelInterface;
 import org.exquisitus.client.subview.PanelData;
 import org.exquisitus.client.subview.ejb3example1.Ejb3Example1View;
+import org.exquisitus.client.subview.spring.aop.SpringAopSimpleExampleView;
 
 import com.extjs.gxt.ui.client.GXT;
 import com.extjs.gxt.ui.client.Style.LayoutRegion;
@@ -70,6 +71,7 @@ public class ShowCaseView extends View {
 		
 		// start bill
 		insertPanelIntoShowCase( new Ejb3Example1View() );		
+		insertPanelIntoShowCase( new SpringAopSimpleExampleView() );		
 		
 	}
 	

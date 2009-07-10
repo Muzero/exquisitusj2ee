@@ -17,15 +17,15 @@
 </div>
 <div style="text-align: justify; padding: 12px; font-family: sans-serif; font-size: 120%; font-weight: bold;">
 ExquisitusJ2EE is a collection of J2EE examples depicted in a eye-candy showcase developed with Ext-Gwt library.
-The aim of this web application is to show examples and source code of some J2EE examples and share knowlegdge. 
+The aim of the webapp is to show examples and source code of some J2EE technologies and to share knowlegdge. 
 </div>
 <div id="iddeveloped" style="text-align: center; font-family: sans-serif; font-size: 160%; font-weight: bolder; height: 40%;">
-ExquisitusJ2EE is developed by:
+ExquisitusJ2EE is developed by:<br/>
 <ul>
-<li>Gianluigi Davassi (<a href="mailto:davassi@yahoo.it">davassi@yahoo.it</a>)</li>
-<li>Erek Erevan (<a href="mailto:davassi@yahoo.it">@.it</a>)</li>
-<li>Abhijit Chanda (<a href="mailto:davassi@yahoo.it">@.it</a>)</li>
-<li>Leonardo Almeida (<a href="mailto:davassi@yahoo.it">@y.it</a>)</li>
+<li><a href="mailto:davassi@yahoo.it">Gianluigi Davassi</a></li>
+<li><a href="mailto:erenaykin@gmail.com">Eren Aykin</a></li>
+<li><a href="mailto:abhijit.chanda@gmail.com">Abhijit Chanda</a></li>
+<li><a href="mailto:leonardo.fig.almeida@gmail.com">Leonardo Almeida</a></li>
 </ul>
 </div>
 </body>

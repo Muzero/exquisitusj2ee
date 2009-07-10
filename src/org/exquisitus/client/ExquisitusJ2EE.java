@@ -49,7 +49,7 @@ public class ExquisitusJ2EE implements EntryPoint {
 		dispatcher.dispatch(ApplicationEvents.InitAppMenu);
 		
 		// REMOVE IT
-		Dispatcher.forwardEvent(ApplicationEvents.InitShowCaseEvent);
+		Dispatcher.forwardEvent(ApplicationEvents.ShowAboutWindowEvent);
 		
 		GWT.log(this.getClass().getName() + " started at " + GXT.getUserAgent() + " on " + GXT.getVersion().getRelease(), null);
 	

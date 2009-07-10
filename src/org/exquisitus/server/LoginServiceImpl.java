@@ -8,6 +8,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 
+import org.exquisitus.client.model.UserVO;
 import org.exquisitus.client.services.LoginService;
 import org.exquisitus.jaxb.generated.user.User;
 import org.exquisitus.server.persistence.UserPersistence;
@@ -25,7 +26,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 	private static final String SESSIONUSER = "CURRENTUSER";
 	private static final String APPLICATIONUSERLIST = "APPLICATIONUSERLIST";
 
-	private List<User> currentuserlist = null;
+	private List<UserVO> currentuserlist = null;
 	private HttpSession session = null;
 
 	private UserPersistence userPersistence = null;
@@ -39,12 +40,12 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 
 		ServletContext cxt = this.getServletContext();
 
-		currentuserlist = (List<User>) cxt.getAttribute(APPLICATIONUSERLIST);
+		currentuserlist = (List<UserVO>) cxt.getAttribute(APPLICATIONUSERLIST);
 
 		if (currentuserlist == null) {
 			cxt.setAttribute(APPLICATIONUSERLIST, new ArrayList<User>());
 			
-			currentuserlist = (List<User>) cxt.getAttribute(APPLICATIONUSERLIST);
+			currentuserlist = (List<UserVO>) cxt.getAttribute(APPLICATIONUSERLIST);
 		}
 
 		userPersistence = new UserPersistenceJAXB(); // use an
@@ -60,7 +61,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 
 		log.info(session.getId());
 	
-		User user = userPersistence.findUser(username, password);
+		UserVO user = userPersistence.findUser(username, password);
 		// TODO: extract login logic here
 
 		if (user != null)
