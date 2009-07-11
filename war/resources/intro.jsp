@@ -22,8 +22,8 @@ The aim of the webapp is to show examples and source code of some J2EE technolog
 <div id="iddeveloped" style="text-align: center; font-family: sans-serif; font-size: 160%; font-weight: bolder; height: 40%;">
 ExquisitusJ2EE is developed by:<br/>
 <ul>
-<li><a href="mailto:davassi@yahoo.it">Gianluigi Davassi</a></li>
-<li><a href="mailto:erenaykin@gmail.com">Eren Aykin</a></li>
+Lead Developer: <li><a href="mailto:davassi@yahoo.it">Gianluigi Davassi</a></li></br>
+Developers Commiters: <li><a href="mailto:erenaykin@gmail.com">Eren Aykin</a></li>
 <li><a href="mailto:abhijit.chanda@gmail.com">Abhijit Chanda</a></li>
 <li><a href="mailto:leonardo.fig.almeida@gmail.com">Leonardo Almeida</a></li>
 </ul>

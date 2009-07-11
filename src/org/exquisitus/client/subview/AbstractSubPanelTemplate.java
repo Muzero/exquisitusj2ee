@@ -42,8 +42,7 @@ public abstract class AbstractSubPanelTemplate extends ContentPanel implements I
 		return null;
 	}
 	
-	// this functions MUST be replaced by Annotations
-	// TODO find a way to use Reflection on GWT client side
+	// this functions MUST be replaced by Annotations using Referred Binding
 	@Deprecated abstract public String getPanelName();
 	@Deprecated abstract public String getCategory();
 	@Deprecated abstract public String getSubCategory();
