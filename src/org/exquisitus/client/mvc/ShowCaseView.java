@@ -9,6 +9,7 @@ import org.exquisitus.client.ApplicationEvents;
 import org.exquisitus.client.subview.AbstractSubPanelTemplate;
 import org.exquisitus.client.subview.ISubPanelInterface;
 import org.exquisitus.client.subview.PanelData;
+import org.exquisitus.client.subview.SubView;
 import org.exquisitus.client.subview.ejb3example1.Ejb3Example1View;
 import org.exquisitus.client.subview.spring.aop.SpringAopSimpleExampleView;
 
@@ -212,6 +213,12 @@ public class ShowCaseView extends View {
 	private Map<String, PanelData> cachePanelData = new HashMap<String, PanelData>();
 	
 	private void createMenuCategory(Portlet menuShowCase, AbstractSubPanelTemplate subPanel) {
+		
+		/*SubView annotations = subPanel.getClass().getAnnotation(SubView.class);
+		
+		String categoryName = annotations.category();
+		String subCategoryName = annotations.subCategory();
+		String panelName = annotations.panelName();*/
 		
 		// FIXME replace it with an annotation/reflection engine!
 		String categoryName = subPanel.getCategory();

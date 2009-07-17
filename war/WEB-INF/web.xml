@@ -56,5 +56,20 @@
     <url-pattern>/intro</url-pattern>
   </servlet-mapping>
   
+  <!-- servlet>
+    <description>servlet to handle incoming request</description>
+    <display-name>RequestStrategyHandler</display-name>
+    <servlet-name>RequestStrategyHandler</servlet-name>
+    <servlet-class>org.exquisitus.server.strategy.RequestStrategyHandler</servlet-class>
+    <init-param>
+      <description>pooling request value</description>
+      <param-name>pool</param-name>
+      <param-value>0</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RequestStrategyHandler</servlet-name>
+    <url-pattern>/RequestStrategyHandler</url-pattern>
+  </servlet-mapping> -->
 
 </web-app>
