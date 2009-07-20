@@ -56,6 +56,15 @@
     <url-pattern>/intro</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+	<servlet-name>exquisitusabout</servlet-name>
+    <jsp-file>/resources/about.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>exquisitusabout</servlet-name>
+    <url-pattern>/about</url-pattern>
+  </servlet-mapping>
+  
   <!-- servlet>
     <description>servlet to handle incoming request</description>
     <display-name>RequestStrategyHandler</display-name>

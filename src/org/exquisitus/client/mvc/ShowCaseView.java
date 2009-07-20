@@ -220,7 +220,7 @@ public class ShowCaseView extends View {
 		String subCategoryName = annotations.subCategory();
 		String panelName = annotations.panelName();*/
 		
-		// FIXME replace it with an annotation/reflection engine!
+		// FIXME replace it with an annotation/reflection engine from server!
 		String categoryName = subPanel.getCategory();
 		String subCategoryName = subPanel.getSubCategory();
 		String panelName = subPanel.getPanelName();
@@ -258,7 +258,7 @@ public class ShowCaseView extends View {
 		tree.getStyle().setLeafIcon(GXT.IMAGES.editor_link());
 		tree.setDisplayProperty(PanelData.NAME);
 		
-		PanelData m = newItem(subPanel.getSubCategory(), null);  
+		PanelData m = newItem(subPanel.getSubCategory(), null);
 		store.add(m, false);  
 		
 		cachePanelData.put(subPanel.getPanelName(), m);
@@ -274,7 +274,7 @@ public class ShowCaseView extends View {
 			public void selectionChanged(SelectionChangedEvent<ModelData> se) {
 				
 				String selectedView = se.getSelectedItem().get(PanelData.NAME);
-	
+				
 				Dispatcher.forwardEvent(ApplicationEvents.SelectSubViewEvent, selectedView);
 			}
 		});
@@ -331,7 +331,7 @@ public class ShowCaseView extends View {
 		demoPanelTab.remove(currentPanel);
 		
 		currentPanel = !cachepanelmap.containsKey(selectedPanel) ? 
-					getErrorPanel(selectedPanel)
+					currentPanel // getErrorPanel(selectedPanel)
 				: 
 					cachepanelmap.get(selectedPanel);
 

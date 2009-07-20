@@ -73,7 +73,6 @@ public class AboutWindowView extends View {
 		aboutItem.addStyleName("pad-text");
 		aboutItem.setAutoLoad(rbAbout);
 		aboutItem.setScrollMode(Scroll.AUTO);  
-		aboutItem.setEnabled(false);
 		folder.add(aboutItem); 
 		
 		
