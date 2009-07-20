@@ -9,7 +9,6 @@ import org.exquisitus.client.ApplicationEvents;
 import org.exquisitus.client.subview.AbstractSubPanelTemplate;
 import org.exquisitus.client.subview.ISubPanelInterface;
 import org.exquisitus.client.subview.PanelData;
-import org.exquisitus.client.subview.SubView;
 import org.exquisitus.client.subview.ejb3example1.Ejb3Example1View;
 import org.exquisitus.client.subview.spring.aop.SpringAopSimpleExampleView;
 
@@ -28,7 +27,6 @@ import com.extjs.gxt.ui.client.util.Margins;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.TabItem;
 import com.extjs.gxt.ui.client.widget.TabPanel;
-import com.extjs.gxt.ui.client.widget.Text;
 import com.extjs.gxt.ui.client.widget.Window;
 import com.extjs.gxt.ui.client.widget.TabPanel.TabPosition;
 import com.extjs.gxt.ui.client.widget.custom.Portlet;
@@ -89,7 +87,7 @@ public class ShowCaseView extends View {
 			
 		asyncLoadPanels();
 
-		currentPanel = createPresentationPanel();
+		currentPanel = createIntroPanel();
 
 		mainwindow = new Window();
 		mainwindow.setSize(XWIN, YWIN);
@@ -106,7 +104,6 @@ public class ShowCaseView extends View {
 		contentShowCasePanel.setCollapsible(false);
 		contentShowCasePanel.setAnimCollapse(false);
 		contentShowCasePanel.setLayout(new FitLayout());
-		//contentShowCasePanel.add(currentPanel);
 		contentShowCasePanel.setPinned(true);
 	
 		contentShowCasePanel.setFrame(true);
@@ -220,7 +217,7 @@ public class ShowCaseView extends View {
 		String subCategoryName = annotations.subCategory();
 		String panelName = annotations.panelName();*/
 		
-		// FIXME replace it with an annotation/reflection engine from server!
+		// FIXME replace it with an annotation/reflection engine!
 		String categoryName = subPanel.getCategory();
 		String subCategoryName = subPanel.getSubCategory();
 		String panelName = subPanel.getPanelName();
@@ -258,7 +255,7 @@ public class ShowCaseView extends View {
 		tree.getStyle().setLeafIcon(GXT.IMAGES.editor_link());
 		tree.setDisplayProperty(PanelData.NAME);
 		
-		PanelData m = newItem(subPanel.getSubCategory(), null);
+		PanelData m = newItem(subPanel.getSubCategory(), null);  
 		store.add(m, false);  
 		
 		cachePanelData.put(subPanel.getPanelName(), m);
@@ -274,7 +271,7 @@ public class ShowCaseView extends View {
 			public void selectionChanged(SelectionChangedEvent<ModelData> se) {
 				
 				String selectedView = se.getSelectedItem().get(PanelData.NAME);
-				
+	
 				Dispatcher.forwardEvent(ApplicationEvents.SelectSubViewEvent, selectedView);
 			}
 		});
@@ -291,16 +288,6 @@ public class ShowCaseView extends View {
 	 
 	    return m;  
 	}  
-
-	private ContentPanel createPresentationPanel() {
-		ContentPanel panel = new ContentPanel();
-		panel.setLayout(new FitLayout());
-		panel.setHeading("DEFAULT");
-		panel.addText("This is the presentation panel (TODO)");
-		panel.setFrame(false);
-		panel.setHeaderVisible(false);
-		return panel;
-	}
 
 	@Override
 	protected void handleEvent(AppEvent event) {
@@ -362,14 +349,19 @@ public class ShowCaseView extends View {
 		
 		sourcePanelTab.add(tabsource);	
 	}
-	
-	private ContentPanel getErrorPanel(String selectedPanel) {
 
-		return new ErrorSubViewPanel(selectedPanel);
+	private AbstractSubPanelTemplate createIntroPanel() {
+		
+		return new IntroSubViewPanel("IntroPanel");
 	}
 
+	/*private ContentPanel getErrorPanel(String selectedPanel) {
+
+		return new ErrorSubViewPanel(selectedPanel);
+	}*/
 }
 
+/*
 class ErrorSubViewPanel extends AbstractSubPanelTemplate implements ISubPanelInterface {
 
 	private static final String ERRORPANEL = "ERROR PANEL";
@@ -411,5 +403,44 @@ class ErrorSubViewPanel extends AbstractSubPanelTemplate implements ISubPanelInt
 		// TODO Auto-generated method stub
 		return null;
 	}
-};
+};*/
+
+class IntroSubViewPanel extends AbstractSubPanelTemplate implements ISubPanelInterface {
+
+	private static final String INTROPANEL = "INTRO PANEL";
+	
+	private String selectedPanel = null;
+	
+	public IntroSubViewPanel(String selectedPanel) { this.selectedPanel = selectedPanel; refresh(); }
+	
+	@Override
+	public String getViewName() {
+		return INTROPANEL;
+	}
+
+	@Override
+	public void init() {
+	
+		setHeading(getViewName() + " " + selectedPanel);
+		setBodyStyle("fontSize: 18px;");
+		addText("This is the presentation panel (TODO)");
+		setFrame(false);
+		setHeaderVisible(false);
+	}
+
+	@Override
+	public String getCategory() {
+		return null;
+	}
+
+	@Override
+	public String getPanelName() {
+		return null;
+	}
+
+	@Override
+	public String getSubCategory() {
+		return null;
+	}
+}
 
