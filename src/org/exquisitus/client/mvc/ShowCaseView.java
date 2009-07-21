@@ -355,55 +355,7 @@ public class ShowCaseView extends View {
 		return new IntroSubViewPanel("IntroPanel");
 	}
 
-	/*private ContentPanel getErrorPanel(String selectedPanel) {
-
-		return new ErrorSubViewPanel(selectedPanel);
-	}*/
 }
-
-/*
-class ErrorSubViewPanel extends AbstractSubPanelTemplate implements ISubPanelInterface {
-
-	private static final String ERRORPANEL = "ERROR PANEL";
-	
-	private String selectedPanel = null;
-	
-	public ErrorSubViewPanel(String selectedPanel) { this.selectedPanel = selectedPanel; }
-	
-	@Override
-	public String getViewName() {
-		return ERRORPANEL;
-	}
-
-	@Override
-	public void init() {
-	
-		setHeading(getViewName() + " " + selectedPanel);
-		setFrame(true);
-		Text val = new Text("ERROR: " + selectedPanel + " does not exist!");
-		setBodyStyle("fontSize: 18px;");
-		add(val);
-		
-	}
-
-	@Override
-	public String getCategory() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getPanelName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getSubCategory() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-};*/
 
 class IntroSubViewPanel extends AbstractSubPanelTemplate implements ISubPanelInterface {
 
