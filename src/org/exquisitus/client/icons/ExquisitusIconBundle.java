@@ -1,5 +1,13 @@
 package org.exquisitus.client.icons;
 
+/**
+ * ExquisitusIconBundle store the icon and image collection that will be
+ * processed by ImageBundle and GWT generators to be taken from server with only
+ * one request altogether
+ * 
+ * @author muzero
+ */
+
 import com.google.gwt.user.client.ui.AbstractImagePrototype;
 import com.google.gwt.user.client.ui.ImageBundle;
 

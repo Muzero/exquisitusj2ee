@@ -1,11 +1,17 @@
 package org.exquisitus.client.mvc;
 
+/**
+ * The Main application Controller 
+ * 
+ * @author muzero
+ * 
+ * */
+
 import org.exquisitus.client.ApplicationEvents;
 import org.exquisitus.client.services.GreetingService;
 import org.exquisitus.client.services.GreetingServiceAsync;
 
 import com.extjs.gxt.ui.client.Registry;
-import com.extjs.gxt.ui.client.event.EventType;
 import com.extjs.gxt.ui.client.mvc.AppEvent;
 import com.extjs.gxt.ui.client.mvc.Controller;
 import com.google.gwt.core.client.GWT;
@@ -21,8 +27,7 @@ public class AppController extends Controller {
 	public AppController() {
 		app = new AppView(this);
 	
-		registerEventTypes(ApplicationEvents.InitAppMenu);
-		
+		registerEventTypes(ApplicationEvents.InitAppMenu);		
 	}
 	
 	@Override

@@ -1,5 +1,12 @@
 package org.exquisitus.client.mvc;
 
+/**
+ * The Login Dialog Controller
+ * 
+ * @author muzero
+ * 
+ * */
+
 import org.exquisitus.client.ApplicationEvents;
 import org.exquisitus.client.services.LoginService;
 import org.exquisitus.client.services.LoginServiceAsync;

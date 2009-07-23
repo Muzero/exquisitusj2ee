@@ -1,14 +1,14 @@
 package org.exquisitus.client;
 
-/** 1 Jun 2009 London Gianluigi Davassi (Muzero)
+/** 1 Jun 2009 London Gianluigi Davassi 
  * 
  * First snapshot of ExquisitusJ2EE , implementing mvc viewport root panel...
  * 
  * ExquisitusJ2EE is a collection of J2EE examples depicted in a eye-candy showcase developed with Ext-Gwt library.
  * The aim of this web application is to show examples and source code of some J2EE examples and share knowlegdge. 
  *
+ * @author muzero
  */
-
 
 import org.exquisitus.client.mvc.AboutWindowController;
 import org.exquisitus.client.mvc.AppController;

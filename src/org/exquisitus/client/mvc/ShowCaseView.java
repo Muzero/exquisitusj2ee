@@ -10,6 +10,7 @@ import org.exquisitus.client.subview.AbstractSubPanelTemplate;
 import org.exquisitus.client.subview.ISubPanelInterface;
 import org.exquisitus.client.subview.PanelData;
 import org.exquisitus.client.subview.ejb3example1.Ejb3Example1View;
+import org.exquisitus.client.subview.ejb3stateful.Ejb3ShoppingCartView;
 import org.exquisitus.client.subview.spring.aop.SpringAopSimpleExampleView;
 
 import com.extjs.gxt.ui.client.GXT;
@@ -65,12 +66,13 @@ public class ShowCaseView extends View {
 	
 	private void asyncLoadPanels() { 
 		// FIXME this is only a stub, the item must
-		// be loaded with Annotation Reflection
+		// be loaded with Annotation Reflection from server
 		// for now we shall use some deprecated method instead
 		
 		// start bill
 		insertPanelIntoShowCase( new Ejb3Example1View() );		
 		insertPanelIntoShowCase( new SpringAopSimpleExampleView() );		
+		insertPanelIntoShowCase( new Ejb3ShoppingCartView() );		
 		
 	}
 	

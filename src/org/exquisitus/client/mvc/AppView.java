@@ -1,5 +1,16 @@
 package org.exquisitus.client.mvc;
 
+/**
+ * The main application view Panel 
+ * 
+ * @author muzero
+ * 
+ * “If builders built buildings the way programmers write programs, 
+ * then the first woodpecker that came along would destroy civilization.”
+ * Weinberg’s Second Law (born: 1933 age: 76)
+ * 
+ * */
+
 import org.exquisitus.client.ApplicationEvents;
 import org.exquisitus.client.ExquisitusJ2EE;
 
@@ -15,7 +26,6 @@ import com.extjs.gxt.ui.client.mvc.AppEvent;
 import com.extjs.gxt.ui.client.mvc.Controller;
 import com.extjs.gxt.ui.client.mvc.Dispatcher;
 import com.extjs.gxt.ui.client.mvc.View;
-import com.extjs.gxt.ui.client.util.IconHelper;
 import com.extjs.gxt.ui.client.widget.HtmlContainer;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.Viewport;
@@ -30,11 +40,6 @@ import com.extjs.gxt.ui.client.widget.menu.SeparatorMenuItem;
 import com.extjs.gxt.ui.client.widget.tips.ToolTipConfig;
 import com.google.gwt.user.client.ui.RootPanel;
 
-/*
- * “If builders built buildings the way programmers write programs, 
- * then the first woodpecker that came along would destroy civilization.”
- * Weinberg’s Second Law (born: 1933 age: 76)
- * */
 
 public class AppView extends View {
 

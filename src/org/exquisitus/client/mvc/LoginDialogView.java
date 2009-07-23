@@ -1,5 +1,13 @@
 package org.exquisitus.client.mvc;
 
+/**
+ * The Login Dialog view Panel allow the user to register or to login into the 
+ * ExquisitusJ2EE application
+ * 
+ * @author muzero
+ * 
+ * */
+
 import org.exquisitus.client.ApplicationEvents;
 import org.exquisitus.client.services.LoginServiceAsync;
 
