@@ -10,6 +10,9 @@ package org.exquisitus.client;
  * @author muzero
  */
 
+import net.customware.gwt.dispatch.client.DefaultDispatchAsync;
+import net.customware.gwt.dispatch.client.DispatchAsync;
+
 import org.exquisitus.client.mvc.AboutWindowController;
 import org.exquisitus.client.mvc.AppController;
 import org.exquisitus.client.mvc.LoginDialogController;
@@ -17,6 +20,7 @@ import org.exquisitus.client.mvc.ShowCaseController;
 import org.exquisitus.client.icons.ExquisitusIconBundle;
 
 import com.extjs.gxt.ui.client.GXT;
+import com.extjs.gxt.ui.client.Registry;
 import com.extjs.gxt.ui.client.mvc.Dispatcher;
 import com.extjs.gxt.ui.client.util.Theme;
 import com.google.gwt.core.client.EntryPoint;
@@ -25,10 +29,12 @@ import com.google.gwt.core.client.GWT.UncaughtExceptionHandler;
 
 public class ExquisitusJ2EE implements EntryPoint {
 	
+	public static final String ACTIONDISPATCHER = "ACTIONDISPATCHER";
+
 	public static ExquisitusIconBundle EXQUISITUS_ICON_BUNDLE = GWT.create(ExquisitusIconBundle.class);
 
 	private Dispatcher dispatcher = null;
-
+	
 	/* This is the entry point method. */
 	public void onModuleLoad() {
 		 
@@ -41,6 +47,10 @@ public class ExquisitusJ2EE implements EntryPoint {
 		
 		GXT.setDefaultTheme(Theme.BLUE, true);
 		
+		// register the DispatchEvent Handler
+		Registry.register(ExquisitusJ2EE.ACTIONDISPATCHER, new DefaultDispatchAsync());
+		
+		// configure the mvc dispatcher 
 		dispatcher = Dispatcher.get();
 		dispatcher.addController(new AppController());
 		dispatcher.addController(new LoginDialogController()); 
@@ -50,7 +60,7 @@ public class ExquisitusJ2EE implements EntryPoint {
 		
 		dispatcher.dispatch(ApplicationEvents.InitAppMenu);
 		
-		// REMOVE IT
+		// show the 'splash screen?
 		Dispatcher.forwardEvent(ApplicationEvents.ShowAboutWindowEvent);
 		
 		GWT.log(this.getClass().getName() + " started at " + GXT.getUserAgent() + " on " + GXT.getVersion().getRelease(), null);

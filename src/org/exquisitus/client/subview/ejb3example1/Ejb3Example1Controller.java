@@ -1,21 +1,21 @@
 package org.exquisitus.client.subview.ejb3example1;
 
-import org.exquisitus.client.services.EJB3ProxyService;
-import org.exquisitus.client.services.EJB3ProxyServiceAsync;
+import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import org.exquisitus.client.ExquisitusJ2EE;
+
+import com.extjs.gxt.ui.client.Registry;
 import com.extjs.gxt.ui.client.event.ButtonEvent;
 import com.extjs.gxt.ui.client.event.SelectionListener;
 import com.extjs.gxt.ui.client.widget.Info;
 import com.extjs.gxt.ui.client.widget.MessageBox;
-import com.google.gwt.core.client.GWT;
+
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class Ejb3Example1Controller {
-	
-public static final String LOGINMOCKSERVICE = "LOGIN";
-	
-	private final EJB3ProxyServiceAsync ejbProxyService = (EJB3ProxyServiceAsync) GWT.create(EJB3ProxyService.class);
-	
+		
+	private final DispatchAsync dispatchAsync = Registry.get(ExquisitusJ2EE.ACTIONDISPATCHER);
+
 	private Ejb3Example1View view = null;
 	
 	public Ejb3Example1Controller(Ejb3Example1View view) { 
@@ -26,7 +26,7 @@ public static final String LOGINMOCKSERVICE = "LOGIN";
 	}
 	
 	public void init() {
-		
+
 		view.getBtnReverse().addSelectionListener(new SelectionListener<ButtonEvent>() {
 
 			@Override
@@ -35,13 +35,17 @@ public static final String LOGINMOCKSERVICE = "LOGIN";
 				
 				final String strToReverse = view.getInputStr().getValue();
 				
-				ejbProxyService.EJB3StringReverse(strToReverse, new SimpleCallBack(){
+				Ejb3InvokeAction action = new Ejb3InvokeAction();
+				action.setStrParam(strToReverse);
+				
+				dispatchAsync.execute(new Ejb3InvokeAction(), new SimpleAsyncCallBack<Ejb3InvokeResult>() {
 
 					@Override
-					public void onSuccess(String result) {
-						Info.display("" + strToReverse,result);
-						view.getResultStr().setValue(result);						
-					}
+					public void onSuccess(Ejb3InvokeResult result) {
+						Info.display("" + strToReverse,result.getResult());
+						view.getResultStr().setValue(result.getResult());		
+					}			 
+					
 				});
 				
 				view.layout();
@@ -51,12 +55,11 @@ public static final String LOGINMOCKSERVICE = "LOGIN";
 		});
 
 		
-		
 	}
 
 }
 
-abstract class SimpleCallBack implements AsyncCallback<String> {
+abstract class SimpleAsyncCallBack<T> implements AsyncCallback<T> {
 
 	@Override
 	public void onFailure(Throwable caught) {
