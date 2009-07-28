@@ -1,9 +1,10 @@
 
-package org.exquisitus.client.model;
+package org.exquisitus.client.model.valueobjects;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
+import net.customware.gwt.dispatch.shared.Result;
 
-public class UserVO implements IsSerializable{
+@SuppressWarnings("serial")
+public class UserVO implements Result {
 
 	private boolean auth;
 	private String email;
@@ -11,7 +12,7 @@ public class UserVO implements IsSerializable{
 	private String role;
 	private String username;
 
-	public UserVO() {}
+	public UserVO() {} // necessary to avoid compiler error, even private
 
 	public boolean isAuth() {
 		return auth;

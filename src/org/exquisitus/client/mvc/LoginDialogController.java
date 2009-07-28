@@ -1,26 +1,24 @@
 package org.exquisitus.client.mvc;
 
 /**
- * The Login Dialog Controller
+ * The Login Dialog Controller, perform login with LoginAction
  * 
  * @author muzero
  * 
  * */
 
+import net.customware.gwt.dispatch.client.DispatchAsync;
+
 import org.exquisitus.client.ApplicationEvents;
-import org.exquisitus.client.services.LoginService;
-import org.exquisitus.client.services.LoginServiceAsync;
+import org.exquisitus.client.ExquisitusJ2EE;
 
 import com.extjs.gxt.ui.client.Registry;
 import com.extjs.gxt.ui.client.mvc.AppEvent;
 import com.extjs.gxt.ui.client.mvc.Controller;
-import com.google.gwt.core.client.GWT;
 
 public class LoginDialogController extends Controller {
 	
-	public static final String LOGINMOCKSERVICE = "LOGIN";
-	
-	private final LoginServiceAsync loginService = (LoginServiceAsync) GWT.create(LoginService.class);
+	private DispatchAsync dispatchAsync = null;
 	
 	private LoginDialogView loginDialogView = null;
 
@@ -34,7 +32,7 @@ public class LoginDialogController extends Controller {
 	protected void initialize() {
 		super.initialize();
 		
-		Registry.register(LOGINMOCKSERVICE, loginService);
+		dispatchAsync = Registry.get(ExquisitusJ2EE.ACTIONDISPATCHER);
 	}
 
 	@Override

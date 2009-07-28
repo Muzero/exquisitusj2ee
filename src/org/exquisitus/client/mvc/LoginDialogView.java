@@ -8,8 +8,13 @@ package org.exquisitus.client.mvc;
  * 
  * */
 
+import net.customware.gwt.dispatch.client.DispatchAsync;
+
 import org.exquisitus.client.ApplicationEvents;
-import org.exquisitus.client.services.LoginServiceAsync;
+import org.exquisitus.client.ExquisitusJ2EE;
+import org.exquisitus.client.model.valueobjects.UserVO;
+import org.exquisitus.client.services.LoginAction;
+import org.exquisitus.client.services.RegisterAction;
 
 import com.extjs.gxt.ui.client.Registry;
 import com.extjs.gxt.ui.client.Style.HorizontalAlignment;
@@ -49,6 +54,8 @@ public class LoginDialogView extends View {
 	private TextField<String> passReg;
 	private TextField<String> pass2Reg;
 	private TextField<String> emailReg;
+	
+	private DispatchAsync dispatchAsync = null;
 
 	public LoginDialogView(Controller controller) {
 		super(controller);
@@ -57,6 +64,8 @@ public class LoginDialogView extends View {
 	@Override
 	protected void initialize() {
 		super.initialize();
+		
+		dispatchAsync = Registry.get(ExquisitusJ2EE.ACTIONDISPATCHER);
 
 		loginDialog = new Dialog();
 		loginDialog.setBodyBorder(true);
@@ -99,13 +108,8 @@ public class LoginDialogView extends View {
 					return;
 				}
 
-				// LoginServiceAsync login = (LoginServiceAsync)
-				// Registry.get(LoginDialogController.LOGINMOCKSERVICE);
-				// login.login(user, password,RemoteServiceFacade.getInstance().getMockAsyncCallback());
-
-				LoginServiceAsync login = (LoginServiceAsync) Registry
-						.get(LoginDialogController.LOGINMOCKSERVICE);
-				login.login(user, password, new AsyncCallback<String>() {
+				
+				dispatchAsync.execute(new LoginAction(user,password), new AsyncCallback<UserVO>() {
 
 					@Override
 					public void onFailure(Throwable caught) {
@@ -113,8 +117,10 @@ public class LoginDialogView extends View {
 					}
 
 					@Override
-					public void onSuccess(String username) {
+					public void onSuccess(UserVO user) {
 
+						String username = user.getUsername();
+						
 						if (username != null) {
 
 							loginDialog.hide();
@@ -127,7 +133,7 @@ public class LoginDialogView extends View {
 						}
 						else
 							LoginDialogView.dialogUtilShow("Sorry, The user " + user + " doesn't exist", "LOGIN ERROR", true, true);						
-							}
+						}
 				});
 			}
 		});
@@ -163,10 +169,7 @@ public class LoginDialogView extends View {
 					return;		
 				}
 				
-				LoginServiceAsync login = (LoginServiceAsync) Registry
-				.get(LoginDialogController.LOGINMOCKSERVICE);
-				
-				login.register(usernameRegistration, password, email, new AsyncCallback<String>() {
+				dispatchAsync.execute(new RegisterAction(usernameRegistration, password, email), new AsyncCallback<UserVO>() {
 
 					@Override
 					public void onFailure(Throwable caught) {
@@ -174,8 +177,10 @@ public class LoginDialogView extends View {
 					}
 
 					@Override
-					public void onSuccess(String username) {
+					public void onSuccess(UserVO user) {
 
+						String username = user.getUsername();
+							
 							loginDialog.hide();
 
 							AppView aView = Registry.get(AppView.MAINAPPVIEWPORT); // TODO dispatch an Event to MainView instead of Registry
@@ -184,12 +189,9 @@ public class LoginDialogView extends View {
 							LoginDialogView.dialogUtilShow("Thanks for your registration, " + username + ". An email will be sent to you to confirm registration.", "REGISTRATION SUCCESFULL", true, false);
 							refresh();
 					}
-
 				});
 			}
-
 		});
-
 	}
 	
 	private void refresh()  {

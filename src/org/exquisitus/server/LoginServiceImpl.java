@@ -8,18 +8,15 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 
-import org.exquisitus.client.model.UserVO;
-import org.exquisitus.client.services.LoginService;
+import org.exquisitus.client.model.valueobjects.UserVO;
 import org.exquisitus.jaxb.generated.user.User;
 import org.exquisitus.server.persistence.UserPersistence;
 import org.exquisitus.server.persistence.UserPersistenceJAXB;
-import org.exquisitus.server.persistence.UserPersistenceMock;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-@SuppressWarnings("serial")
-public class LoginServiceImpl extends RemoteServiceServlet implements
-		LoginService {
+@Deprecated
+public class LoginServiceImpl extends RemoteServiceServlet {
 
 	private Logger log = Logger.getLogger(LoginServiceImpl.class.getName());
 
@@ -52,7 +49,6 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 													 // AbstractFactory!!!!
 	}
 
-	@Override
 	public String login(String username, String password) { // TODO it's only a
 															// mock, replace
 															// with a REAL login
@@ -79,7 +75,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 		return user != null ? user.getUsername() : null;
 	}
 
-	@Override
+	
 	public String register(String username, String password, String email) {
 
 		session = this.getThreadLocalRequest().getSession();

@@ -1,6 +1,5 @@
 package org.exquisitus.client.subview.ejb3example1;
 
-import net.customware.gwt.dispatch.client.DefaultDispatchAsync;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import org.exquisitus.client.ExquisitusJ2EE;

@@ -2,7 +2,7 @@ package org.exquisitus.server.persistence;
 
 import java.util.List;
 
-import org.exquisitus.client.model.UserVO;
+import org.exquisitus.client.model.valueobjects.UserVO;
 
 public interface UserPersistence {
 

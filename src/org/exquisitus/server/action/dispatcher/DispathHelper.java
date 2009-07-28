@@ -1,6 +1,8 @@
 package org.exquisitus.server.action.dispatcher;
 
 import org.exquisitus.server.action.Ejb3InvokeHandler;
+import org.exquisitus.server.action.LoginServiceHandler;
+import org.exquisitus.server.action.RegisterServiceHandler;
 
 import net.customware.gwt.dispatch.server.ActionHandlerRegistry;
 import net.customware.gwt.dispatch.server.DefaultActionHandlerRegistry;
@@ -16,6 +18,8 @@ public class DispathHelper {
 	static {
 		
 		registry.addHandler(new Ejb3InvokeHandler());
+		registry.addHandler(new LoginServiceHandler());
+		registry.addHandler(new RegisterServiceHandler());
 	}
 
 	public static ActionHandlerRegistry getActionHandlerRegistry() {

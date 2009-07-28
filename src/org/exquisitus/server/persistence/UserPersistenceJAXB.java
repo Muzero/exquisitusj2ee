@@ -10,7 +10,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import org.exquisitus.client.model.UserVO;
+import org.exquisitus.client.model.valueobjects.UserVO;
 import org.exquisitus.jaxb.generated.user.ObjectFactory;
 import org.exquisitus.jaxb.generated.user.User;
 import org.exquisitus.jaxb.generated.user.Userslist;
