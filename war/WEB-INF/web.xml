@@ -38,14 +38,14 @@
     <url-pattern>/exquisitusj2ee/login</url-pattern>
   </servlet-mapping>
   
-  <servlet>
+  <!-- servlet>
   	<servlet-name>eJB3ProxyServlet</servlet-name>
   	<servlet-class>org.exquisitus.server.EJB3ProxyServlet</servlet-class>
   </servlet>
   <servlet-mapping>
   	<servlet-name>eJB3ProxyServlet</servlet-name>
   	<url-pattern>/exquisitusj2ee/ejb3proxy</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping>  -->
   
   <servlet>
   	<servlet-name>depictCodeServlet</servlet-name>
@@ -74,20 +74,5 @@
     <url-pattern>/about</url-pattern>
   </servlet-mapping>
   
-  <!-- servlet>
-    <description>servlet to handle incoming request</description>
-    <display-name>RequestStrategyHandler</display-name>
-    <servlet-name>RequestStrategyHandler</servlet-name>
-    <servlet-class>org.exquisitus.server.strategy.RequestStrategyHandler</servlet-class>
-    <init-param>
-      <description>pooling request value</description>
-      <param-name>pool</param-name>
-      <param-value>0</param-value>
-    </init-param>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>RequestStrategyHandler</servlet-name>
-    <url-pattern>/RequestStrategyHandler</url-pattern>
-  </servlet-mapping> -->
 
 </web-app>

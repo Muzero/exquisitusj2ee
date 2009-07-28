@@ -7,6 +7,10 @@ public class Ejb3InvokeResult implements Result {
 
 	private String result;
 	
+	private Ejb3InvokeResult() {
+		// now the compiler is happy
+	}
+	
 	public Ejb3InvokeResult(String str) {
 		this.result = str;
 	}

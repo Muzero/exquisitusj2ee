@@ -1,5 +1,7 @@
 package org.exquisitus.server.action;
 
+import java.util.logging.Logger;
+
 import org.exquisitus.client.subview.ejb3example1.Ejb3InvokeAction;
 import org.exquisitus.client.subview.ejb3example1.Ejb3InvokeResult;
 import org.exquisitus.server.BusinessDelegate;
@@ -12,9 +14,9 @@ import net.customware.gwt.dispatch.shared.ActionException;
 
 public class Ejb3InvokeHandler implements ActionHandler<Ejb3InvokeAction, Ejb3InvokeResult> {
 	
-	public Ejb3InvokeHandler() {
-
-	}
+	private static Logger log = Logger.getLogger(Ejb3InvokeHandler.class.getName());
+	
+	public Ejb3InvokeHandler() {}
 
 	@Override
 	public Ejb3InvokeResult execute(Ejb3InvokeAction action, ExecutionContext arg1)
@@ -22,10 +24,14 @@ public class Ejb3InvokeHandler implements ActionHandler<Ejb3InvokeAction, Ejb3In
 		
 		String str = action.getStrParam();
 		
+		if (str == null) throw new ActionException("Null Input Error");
+		
 		BusinessDelegate businessDelegate = BusinessDelegateFactory.getBusinessDelegate();
 		SimpleEjbLocal ejb = businessDelegate.getLocalSimpleEJB();
 
 		String result = ejb.reverseString(str);
+		
+		log.info("inforesult: " + result);
 		
 		// Thanks business delegate! ;-)
 		return new Ejb3InvokeResult( result );

@@ -1,5 +1,6 @@
 package org.exquisitus.client.subview.ejb3example1;
 
+import net.customware.gwt.dispatch.client.DefaultDispatchAsync;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import org.exquisitus.client.ExquisitusJ2EE;
@@ -14,7 +15,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class Ejb3Example1Controller {
 		
-	private final DispatchAsync dispatchAsync = Registry.get(ExquisitusJ2EE.ACTIONDISPATCHER);
+	private DispatchAsync dispatchAsync = null;
 
 	private Ejb3Example1View view = null;
 	
@@ -23,6 +24,7 @@ public class Ejb3Example1Controller {
 		this.view = view;
 		
 		init();
+		dispatchAsync = Registry.get(ExquisitusJ2EE.ACTIONDISPATCHER);
 	}
 	
 	public void init() {
@@ -37,8 +39,8 @@ public class Ejb3Example1Controller {
 				
 				Ejb3InvokeAction action = new Ejb3InvokeAction();
 				action.setStrParam(strToReverse);
-				
-				dispatchAsync.execute(new Ejb3InvokeAction(), new SimpleAsyncCallBack<Ejb3InvokeResult>() {
+		
+				dispatchAsync.execute(action, new SimpleAsyncCallBack<Ejb3InvokeResult>() {
 
 					@Override
 					public void onSuccess(Ejb3InvokeResult result) {

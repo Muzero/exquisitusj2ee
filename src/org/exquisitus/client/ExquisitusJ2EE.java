@@ -11,7 +11,6 @@ package org.exquisitus.client;
  */
 
 import net.customware.gwt.dispatch.client.DefaultDispatchAsync;
-import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import org.exquisitus.client.mvc.AboutWindowController;
 import org.exquisitus.client.mvc.AppController;
@@ -37,17 +36,17 @@ public class ExquisitusJ2EE implements EntryPoint {
 	
 	/* This is the entry point method. */
 	public void onModuleLoad() {
-		 
-		try {
+			 
+		/*try {
 		      GWT.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
 		        public void onUncaughtException(Throwable e) {
 		          e.printStackTrace();
 		        }
 		      });
-		
+		*/
 		GXT.setDefaultTheme(Theme.BLUE, true);
 		
-		// register the DispatchEvent Handler
+		// register the action dispatcher
 		Registry.register(ExquisitusJ2EE.ACTIONDISPATCHER, new DefaultDispatchAsync());
 		
 		// configure the mvc dispatcher 
@@ -64,8 +63,8 @@ public class ExquisitusJ2EE implements EntryPoint {
 		Dispatcher.forwardEvent(ApplicationEvents.ShowAboutWindowEvent);
 		
 		GWT.log(this.getClass().getName() + " started at " + GXT.getUserAgent() + " on " + GXT.getVersion().getRelease(), null);
-	
-		} catch (Exception e) { e.printStackTrace(); }	
+		
+		//} catch (Exception e) { e.printStackTrace(); }	
 	}
 }
 
