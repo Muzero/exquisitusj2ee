@@ -20,17 +20,17 @@ public class LoginServiceHandler implements ActionHandler<LoginAction, UserVO>{
 	
 	private UserPersistence userPersistence = null;
 	
-	private List<UserVO> currentuserlist = null;
+	//private List<UserVO> currentuserlist = null;
 
 	public LoginServiceHandler() {
 
 		userPersistence = new UserPersistenceJAXB(); // use an AbstractFactory!!!!
 		
-		currentuserlist = takenFromServletContext();
+		//currentuserlist = takenFromServletContext();
 		
 	}
 
-	private List<UserVO> takenFromServletContext() {
+/*	private List<UserVO> takenFromServletContext() {
 		
 		ExquisitusDispatchServiceServlet.servletContext.setAttribute(
 				ExquisitusDispatchServiceServlet.APPLICATIONUSERLIST, new ArrayList<UserVO>());
@@ -39,7 +39,7 @@ public class LoginServiceHandler implements ActionHandler<LoginAction, UserVO>{
 			ExquisitusDispatchServiceServlet.servletContext.getAttribute(
 					ExquisitusDispatchServiceServlet.APPLICATIONUSERLIST
 			);
-	}
+	}*/
 	
 	@Override
 	public UserVO execute(LoginAction action, ExecutionContext cxt)
@@ -50,13 +50,16 @@ public class LoginServiceHandler implements ActionHandler<LoginAction, UserVO>{
 		
 		UserVO user = userPersistence.findUser(username, password);
 		
+		if (user == null)
+			throw new ActionException("User does not exist");
+		
 		if (user != null)
 		{
-			synchronized (currentuserlist) {
+	//		synchronized (currentuserlist) {
 		
-				currentuserlist.add(user);
-				log.info("User connected " + currentuserlist.size());			
-			}
+	//			currentuserlist.add(user);
+				log.info("User connected " );//+ currentuserlist.size());			
+	//		}
 		}
 		
 		return user;
