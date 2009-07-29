@@ -1,7 +1,7 @@
 package org.exquisitus.test;
 
 import org.apache.cactus.ServletTestCase;
-import org.exquisitus.server.LoginServiceImpl;
+import org.exquisitus.server.action.LoginServiceHandler;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,8 +19,7 @@ public class LoginServiceImplServletTest extends ServletTestCase {
 
 	@Test
 	public void testLogin() {
-		LoginServiceImpl loginService = new LoginServiceImpl();
-		loginService.login("USER", "PASSWORD");
+		LoginServiceHandler loginService = new LoginServiceHandler();
 	}
 
 	@Test

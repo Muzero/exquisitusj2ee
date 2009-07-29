@@ -19,34 +19,7 @@
     <url-pattern>/exquisitusj2ee/dispatch</url-pattern>
   </servlet-mapping>
   
-  <!-- Servlets -->
-  <servlet>
-    <servlet-name>greetServlet</servlet-name>
-    <servlet-class>org.exquisitus.server.GreetingServiceImpl</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>greetServlet</servlet-name>
-    <url-pattern>/exquisitusj2ee/greet</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
-    <servlet-name>loginServlet</servlet-name>
-    <servlet-class>org.exquisitus.server.LoginServiceImpl</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>loginServlet</servlet-name>
-    <url-pattern>/exquisitusj2ee/login</url-pattern>
-  </servlet-mapping>
-  
-  <!-- servlet>
-  	<servlet-name>eJB3ProxyServlet</servlet-name>
-  	<servlet-class>org.exquisitus.server.EJB3ProxyServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>eJB3ProxyServlet</servlet-name>
-  	<url-pattern>/exquisitusj2ee/ejb3proxy</url-pattern>
-  </servlet-mapping>  -->
-  
+  <!-- Servlets  --> 
   <servlet>
   	<servlet-name>depictCodeServlet</servlet-name>
   	<servlet-class>org.exquisitus.server.DepictCodeServlet</servlet-class>

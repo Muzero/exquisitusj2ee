@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 
 import org.exquisitus.client.model.valueobjects.UserVO;
 import org.exquisitus.client.services.LoginAction;
-import org.exquisitus.server.action.dispatcher.ExquisitusDispatchServiceServlet;
 import org.exquisitus.server.persistence.UserPersistence;
 import org.exquisitus.server.persistence.UserPersistenceJAXB;
 
@@ -20,26 +19,21 @@ public class LoginServiceHandler implements ActionHandler<LoginAction, UserVO>{
 	
 	private UserPersistence userPersistence = null;
 	
-	//private List<UserVO> currentuserlist = null;
+	private static List<UserVO> userlist = null;
 
 	public LoginServiceHandler() {
 
 		userPersistence = new UserPersistenceJAXB(); // use an AbstractFactory!!!!
+	
+		//ServletContext cxt = GreetingServiceImpl.getSc();
+		//cxt.setAttribute("usrlst", new ArrayList<UserVO>());
 		
-		//currentuserlist = takenFromServletContext();
-		
+		userlist = new ArrayList<UserVO>();
 	}
 
-/*	private List<UserVO> takenFromServletContext() {
-		
-		ExquisitusDispatchServiceServlet.servletContext.setAttribute(
-				ExquisitusDispatchServiceServlet.APPLICATIONUSERLIST, new ArrayList<UserVO>());
-		
-		return (List<UserVO>) 
-			ExquisitusDispatchServiceServlet.servletContext.getAttribute(
-					ExquisitusDispatchServiceServlet.APPLICATIONUSERLIST
-			);
-	}*/
+	public static List<UserVO> getUserlist() {
+		return userlist;
+	}
 	
 	@Override
 	public UserVO execute(LoginAction action, ExecutionContext cxt)
@@ -51,15 +45,15 @@ public class LoginServiceHandler implements ActionHandler<LoginAction, UserVO>{
 		UserVO user = userPersistence.findUser(username, password);
 		
 		if (user == null)
-			throw new ActionException("User does not exist");
+			throw new ActionException("User does not exist or Bad Password");
 		
 		if (user != null)
 		{
-	//		synchronized (currentuserlist) {
-		
-	//			currentuserlist.add(user);
-				log.info("User connected " );//+ currentuserlist.size());			
-	//		}
+			synchronized (userlist) {
+
+				userlist.add(user);
+				log.info("User connected " + userlist.size());			
+			}
 		}
 		
 		return user;

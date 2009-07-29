@@ -8,20 +8,12 @@ package org.exquisitus.client.mvc;
  * */
 
 import org.exquisitus.client.ApplicationEvents;
-import org.exquisitus.client.services.GreetingService;
-import org.exquisitus.client.services.GreetingServiceAsync;
 
-import com.extjs.gxt.ui.client.Registry;
 import com.extjs.gxt.ui.client.mvc.AppEvent;
 import com.extjs.gxt.ui.client.mvc.Controller;
-import com.google.gwt.core.client.GWT;
 
 public class AppController extends Controller {
-	
-	public static final String GREETMOCKSERVICE = "GREET";
-	
-	private final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
-
+		
 	private AppView app = null;
 	
 	public AppController() {
@@ -32,9 +24,7 @@ public class AppController extends Controller {
 	
 	@Override
 	protected void initialize() {
-		super.initialize();
-	
-		Registry.register(AppController.GREETMOCKSERVICE, greetingService);
+		super.initialize();	
 	}
 	
 	@Override
@@ -43,8 +33,4 @@ public class AppController extends Controller {
 			forwardToView(app, event);
 		
 	}
-	
-	
-
-
 }
