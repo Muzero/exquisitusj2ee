@@ -5,4 +5,5 @@
     <user username="Carmelo" role="user" password="maria" email="carmelo@ciao.it" auth="false"/>
     <user username="Topolino" role="user" password="paperino" email="pluto@clara.it" auth="false"/>
     <user username="tizio" role="user" password="caio666" email="tizio@caio.it" auth="false"/>
+    <user username="ExecutionContext" role="user" password="ExecutionContext" email="Executi@onContext.it" auth="false"/>
 </userslist>

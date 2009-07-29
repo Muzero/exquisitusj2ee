@@ -2,8 +2,6 @@ package org.exquisitus.client.services;
 
 import org.exquisitus.client.model.valueobjects.UserVO;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
-
 import net.customware.gwt.dispatch.shared.Action;
 
 @SuppressWarnings("serial")

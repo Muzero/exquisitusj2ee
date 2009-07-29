@@ -181,13 +181,13 @@ public class LoginDialogView extends View {
 
 						String username = user.getUsername();
 							
-							loginDialog.hide();
+						loginDialog.hide();
 
-							AppView aView = Registry.get(AppView.MAINAPPVIEWPORT); // TODO dispatch an Event to MainView instead of Registry
-							aView.setApplicationTitle(" - " + username);
+						AppView aView = Registry.get(AppView.MAINAPPVIEWPORT); // TODO dispatch an Event to MainView instead of Registry
+						aView.setApplicationTitle(" - " + username);
 
-							LoginDialogView.dialogUtilShow("Thanks for your registration, " + username + ". An email will be sent to you to confirm registration.", "REGISTRATION SUCCESFULL", true, false);
-							refresh();
+						LoginDialogView.dialogUtilShow("Thanks for your registration, " + username + ". An email will be sent to you to confirm registration.", "REGISTRATION SUCCESFULL", true, false);
+						refresh();
 					}
 				});
 			}
