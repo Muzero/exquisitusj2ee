@@ -16,7 +16,8 @@ public final class ExquisitusDispatchServiceServlet extends DispatchServiceServl
 		if (registry.findHandler(action) == null)
 	
 			 try {
-				 	Class<ActionHandler<?, ?>> t = (Class<ActionHandler<?, ?>>) Class.forName("");
+				 	Class<ActionHandler<?, ?>> t = (Class<ActionHandler<?, ?>>) 
+				 		Class.forName("");
 					registry.addHandler(t.newInstance());
 					    
 			    } catch (ClassNotFoundException e) {

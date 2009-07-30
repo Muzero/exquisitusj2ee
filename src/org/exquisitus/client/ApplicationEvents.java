@@ -16,7 +16,7 @@ public final class ApplicationEvents {
 	// disallow Constructor
 	private ApplicationEvents() {}
 
-	enum EnumEvents {  // TODO put the event bill into the eventmap and create EnumEvent with Spring
+	enum EnumEvents {  // TODO put the event bill into the eventmap and create EnumEvent with Guice
 		INITAPPMENU, 
 		ANOTHEREVENT,
 		SHOWLOGINEVENT // ...
