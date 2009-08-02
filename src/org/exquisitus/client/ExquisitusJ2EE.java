@@ -37,14 +37,13 @@ public class ExquisitusJ2EE implements EntryPoint {
 	
 	/* This is the entry point method. */
 	public void onModuleLoad() {
-			 
-		/*try {
-		      GWT.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
-		        public void onUncaughtException(Throwable e) {
-		          e.printStackTrace();
-		        }
-		      });
-		*/
+			 		      
+		GWT.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
+			public void onUncaughtException(Throwable e) {
+				e.printStackTrace();
+		    }
+		});
+		
 		GXT.setDefaultTheme(Theme.BLUE, true);
 		
 		// register the action dispatcher
@@ -62,10 +61,8 @@ public class ExquisitusJ2EE implements EntryPoint {
 		
 		// show the 'splash screen?
 		Dispatcher.forwardEvent(ApplicationEvents.ShowAboutWindowEvent);
-		
+	
 		GWT.log(this.getClass().getName() + " started at " + GXT.getUserAgent() + " on " + GXT.getVersion().getRelease(), null);
-		
-		//} catch (Exception e) { e.printStackTrace(); }	
 	}
 }
 
