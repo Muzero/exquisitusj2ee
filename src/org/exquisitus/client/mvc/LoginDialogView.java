@@ -203,6 +203,7 @@ public class LoginDialogView extends View {
 	
 	public static void dialogUtilShow(String msg, String title, boolean isModal, boolean isError) {
 		MessageBox mb = new MessageBox();
+		mb.setMinWidth(400);
 		mb.setMessage(msg);
 		mb.setTitle(title);
 		mb.setModal(isModal);
