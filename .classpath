@@ -27,5 +27,6 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/log4j-1.2.15.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/common-annotations.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/persistence.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/mail.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

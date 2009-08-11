@@ -34,8 +34,10 @@ public class MessageDialogController extends Controller {
 	
 	@Override
 	public void handleEvent(AppEvent event) {
+		
 		if (event.getType() == ApplicationEvents.ShowMessageDialogEvent)
 			forwardToView(msgDialogView, event);
+	
 		if (event.getType() == ApplicationEvents.HideMessageDialogEvent)
 			forwardToView(msgDialogView, event);
 	}
