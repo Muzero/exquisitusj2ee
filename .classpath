@@ -29,5 +29,6 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/mail.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-dev-linux.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-user.jar"/>
+	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
