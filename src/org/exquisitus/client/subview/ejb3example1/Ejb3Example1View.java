@@ -20,6 +20,7 @@ public class Ejb3Example1View extends AbstractSubPanelTemplate {
 	private Button btnReverse = null;
 	private TextField<String> inputStr = null;
 	private TextField<String> resultStr = null;
+	private Text resultText = new Text("");
 
 	public Ejb3Example1View() {		
 	}
@@ -28,16 +29,16 @@ public class Ejb3Example1View extends AbstractSubPanelTemplate {
 	public void init() {
 		
 		ContentPanel panel = new ContentPanel();  
-		panel.setHeading("Try yourself! Click to invoke a Stateless EJB");  
+		panel.setHeading("Try yourself at home! Click to invoke a Stateless EJB");  
 		//panel.setLayout(new RowLayout(Orientation.VERTICAL));  
-		panel.setSize(400, 250);  
+		panel.setSize(500, 250);  
 		panel.setFrame(true);  
 		panel.setCollapsible(true);
 
 		VerticalPanel vp = new VerticalPanel();
 
 		inputStr = new TextField<String>();
-		inputStr.setValue("Example...");
+		inputStr.setValue("String Example...");
 		inputStr.setFieldLabel("String to Reverse");
 
 		resultStr = new TextField<String>();
@@ -53,8 +54,14 @@ public class Ejb3Example1View extends AbstractSubPanelTemplate {
 		Text title = new Text("EJB3 Stateless Session Bean Invocation 1");
 		add(title,new RowData(1, -1, new Margins(4)));
 		
+		Text des = new Text("This Example invoke an ejb3 service trought an rpc ajax call.");
+		add(des,new RowData(1, -1, new Margins(4)));
+		
 		add(panel);
 
+		add(resultText,new RowData(1, -1, new Margins(4)));
+		resultText.setVisible(false);
+		
 		new Ejb3Example1Controller(this);		
 	}
 
@@ -79,6 +86,10 @@ public class Ejb3Example1View extends AbstractSubPanelTemplate {
 	public TextField<String> getResultStr() {
 
 		return resultStr;
+	}
+	
+	public Text getResultText() {
+		return resultText;
 	}
 
 	@Override

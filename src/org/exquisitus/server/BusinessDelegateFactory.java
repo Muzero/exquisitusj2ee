@@ -7,7 +7,7 @@ public class BusinessDelegateFactory {
 	private static final Logger log = Logger.getLogger(BusinessDelegateFactory.class.getName());
 	
 	// uses spring and iniect the right ServiceLocator vendor-specific instance!
-	private static ServiceLocator serviceLocator = ServiceLocator.getInstance();
+	private static ServiceLocator serviceLocator = ServiceLocatorJBOSS.getInstance();
 
 	// return an instance of Business Delegate with serviceLocator constructor-iniected
 	public static BusinessDelegate getBusinessDelegate() {

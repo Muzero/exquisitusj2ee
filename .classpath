@@ -3,7 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-servlet.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/cactus.core.framework.uberjar.javaEE.14-1.8.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/aspectjrt-1.5.3.jar"/>
@@ -27,8 +26,6 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/common-annotations.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/persistence.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/mail.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-dev-linux.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-user.jar"/>
-	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER/GWT"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

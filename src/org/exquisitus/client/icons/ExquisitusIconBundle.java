@@ -21,4 +21,7 @@ public interface ExquisitusIconBundle extends ImageBundle {
 
 	@Resource("add32.gif")
 	AbstractImagePrototype add32();
+	
+	@Resource("softgradient.png")
+	AbstractImagePrototype softgradient();
 }

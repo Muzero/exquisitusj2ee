@@ -1,11 +1,19 @@
 package org.exquisitus.client.mvc;
 
+/**
+ * This is the View Layer of ShowCaseView Dialog
+ * 
+ * @author muzero
+ */
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.exquisitus.client.ApplicationEvents;
+import org.exquisitus.client.ExquisitusJ2EE;
+import org.exquisitus.client.icons.ExquisitusIconBundle;
 import org.exquisitus.client.subview.AbstractSubPanelTemplate;
 import org.exquisitus.client.subview.ISubPanelInterface;
 import org.exquisitus.client.subview.PanelData;
@@ -26,6 +34,7 @@ import com.extjs.gxt.ui.client.mvc.View;
 import com.extjs.gxt.ui.client.store.TreeStore;
 import com.extjs.gxt.ui.client.util.Margins;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
+import com.extjs.gxt.ui.client.widget.Html;
 import com.extjs.gxt.ui.client.widget.TabItem;
 import com.extjs.gxt.ui.client.widget.TabPanel;
 import com.extjs.gxt.ui.client.widget.Window;
@@ -376,8 +385,14 @@ class IntroSubViewPanel extends AbstractSubPanelTemplate implements ISubPanelInt
 	public void init() {
 	
 		setHeading(getViewName() + " " + selectedPanel);
-		setBodyStyle("fontSize: 18px;");
-		addText("This is the presentation panel (TODO)");
+		//setBodyStyle("fontSize: 18px; color: blue; background-color: #bbeeff; text-align:center; ");
+		
+		setBodyStyle("fontSize: 18px; color: blue; background-image:url('" + ExquisitusJ2EE.EXQUISITUS_ICON_BUNDLE.softgradient().getHTML() + "'); background-repeat:repeat-x; text-align:center; ");
+		
+		String content = "<div style='width: 100%; height: 100%;'>Select an item on the tree menu on the left to show the example!</div>";
+		GWT.log(ExquisitusJ2EE.EXQUISITUS_ICON_BUNDLE.softgradient().getHTML(), null);
+		Html html = new Html(content);
+		add(html);
 		setFrame(false);
 		setHeaderVisible(false);
 	}

@@ -15,10 +15,8 @@ import org.exquisitus.server.ejb3.SimpleEjbRemote;
 
 public class BusinessDelegate {
 	
-	private static final String SIMPLEEJBLOCAL = "SimpleEjbBeanLocal";
-	private static final String SIMPLEEJBREMOTE = "SimpleEjbBeanRemote";
-	
-	private static final String MAILEJBLOCAL = "MailEjbBeanLocal";
+	private static final String SIMPLEEJB = "SimpleEjbBean";
+	private static final String MAILEJB = "MailEjbBean";
 	
 	private static Logger log = Logger.getLogger(BusinessDelegate.class.getName());
 
@@ -29,16 +27,16 @@ public class BusinessDelegate {
 	}
 	
 	public SimpleEjbLocal getLocalSimpleEJB() {
-		return sl.lookupResource(SIMPLEEJBLOCAL, ServiceLocatorContext.LOCAL);
+		return sl.lookupResource(SIMPLEEJB, ServiceLocatorContext.LOCAL);
 	}
 
 	public SimpleEjbRemote getRemoteSimpleEJB() {
-		return sl.lookupResource(SIMPLEEJBREMOTE, ServiceLocatorContext.REMOTE);
+		return sl.lookupResource(SIMPLEEJB, ServiceLocatorContext.REMOTE);
 	}
 
 	public MailEjbLocal getLocalMailEJB3() {
 		
-		return sl.lookupResource(MAILEJBLOCAL, ServiceLocatorContext.LOCAL);
+		return sl.lookupResource(MAILEJB, ServiceLocatorContext.LOCAL);
 	}
 	
 

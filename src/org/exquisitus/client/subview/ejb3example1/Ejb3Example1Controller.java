@@ -33,6 +33,8 @@ public class Ejb3Example1Controller {
 			@Override
 			public void componentSelected(ButtonEvent ce) {
 				Info.display("Ejb3","Ejb3 Invoke!");
+
+				final long init = System.currentTimeMillis();
 				
 				final String strToReverse = view.getInputStr().getValue();
 				
@@ -43,14 +45,26 @@ public class Ejb3Example1Controller {
 
 					@Override
 					public void onSuccess(Ejb3InvokeResult result) {
-						Info.display("" + strToReverse,result.getResult());
+						
+						long stop = System.currentTimeMillis();
+						
 						view.getResultStr().setValue(result.getResult());		
+						Info.display("" + strToReverse,result.getResult());
+						
+						StringBuffer sb = new StringBuffer()
+							.append("RPC call takes ")
+							.append(stop-init)
+							.append(" milliseconds");
+						
+						view.getResultText().setText(sb.toString());
+						
+						view.getResultText().setVisible(true);
 					}			 
 					
 				});
 				
 				view.layout();
-				
+				action = null;
 			}
 			
 		});

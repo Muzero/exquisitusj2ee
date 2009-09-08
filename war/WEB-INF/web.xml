@@ -1,51 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE web-app
-    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
-    "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
-<web-app>
-
-  <!-- Default page to serve -->
-  <welcome-file-list>
-    <welcome-file>ExquisitusJ2EE.html</welcome-file>
-  </welcome-file-list>
-  
   <servlet>
     <servlet-name>gwtdispatch</servlet-name>
     <servlet-class>org.exquisitus.server.action.dispatcher.ExquisitusDispatchServiceServlet</servlet-class>
   </servlet>
-  <servlet-mapping>
-    <servlet-name>gwtdispatch</servlet-name>
-    <url-pattern>/exquisitusj2ee/dispatch</url-pattern>
-  </servlet-mapping>
-  
-  <!-- Servlets  --> 
   <servlet>
   	<servlet-name>depictCodeServlet</servlet-name>
   	<servlet-class>org.exquisitus.server.DepictCodeServlet</servlet-class>
   </servlet>
-  <servlet-mapping>
-  	<servlet-name>depictCodeServlet</servlet-name>
-  	<url-pattern>/exquisitusj2ee/depict</url-pattern>
-  </servlet-mapping>
-  
   <servlet>
 	<servlet-name>exquisitusintro</servlet-name>
     <jsp-file>/resources/intro.jsp</jsp-file>
   </servlet>
-  <servlet-mapping>
-  	<servlet-name>exquisitusintro</servlet-name>
-    <url-pattern>/intro</url-pattern>
-  </servlet-mapping>
-  
   <servlet>
 	<servlet-name>exquisitusabout</servlet-name>
     <jsp-file>/resources/about.jsp</jsp-file>
   </servlet>
+
+  <servlet-mapping>
+    <servlet-name>gwtdispatch</servlet-name>
+    <url-pattern>/exquisitusj2ee/dispatch</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>depictCodeServlet</servlet-name>
+  	<url-pattern>/exquisitusj2ee/depict</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>exquisitusabout</servlet-name>
     <url-pattern>/about</url-pattern>
   </servlet-mapping>
-  
+  <servlet-mapping>
+  	<servlet-name>exquisitusintro</servlet-name>
+    <url-pattern>/intro</url-pattern>
+  </servlet-mapping>
+
+  <welcome-file-list>
+    <welcome-file>ExquisitusJ2EE.html</welcome-file>
+  </welcome-file-list>
 
 </web-app>
